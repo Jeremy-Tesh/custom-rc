@@ -34,6 +34,7 @@ Meteor.methods({
 			groupable: Match.Optional(Boolean),
 			msg: Match.Optional(String),
 			tmid: Match.Optional(String),
+			mid: Match.Optional(String),
 		});
 
 		await Uploads.updateFileComplete(file._id, user._id, _.omit(file, '_id'));
@@ -125,6 +126,7 @@ Meteor.methods({
 		}
 
 		const msg = Meteor.call('sendMessage', {
+			_id: msgData.mid ? msgData.mid : Random.id(),
 			rid: roomId,
 			ts: new Date(),
 			file: files[0],

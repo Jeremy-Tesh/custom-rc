@@ -37,7 +37,7 @@ export class AppServerOrchestrator {
 			return;
 		}
 
-		this._rocketchatLogger = new Logger('Rocket.Chat Apps');
+		this._rocketchatLogger = new Logger('collab Apps');
 
 		if (typeof process.env.OVERWRITE_INTERNAL_MARKETPLACE_URL === 'string' && process.env.OVERWRITE_INTERNAL_MARKETPLACE_URL !== '') {
 			this._marketplaceUrl = process.env.OVERWRITE_INTERNAL_MARKETPLACE_URL;

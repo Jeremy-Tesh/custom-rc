@@ -4,7 +4,7 @@ import { Settings } from '@rocket.chat/models';
 
 import { hasPermission, hasAtLeastOnePermission } from '../../../app/authorization/server';
 import { getSettingPermissionId } from '../../../app/authorization/lib';
-import { SettingsEvents } from '../../../app/settings/server';
+import { SettingsEvents, settings } from '../../../app/settings/server';
 
 Meteor.methods({
 	async 'public-settings/get'(updatedAt) {
@@ -37,6 +37,67 @@ Meteor.methods({
 
 		return publicSettings;
 	},
+	async 'mobile-settings/get'(updatedAt) {
+		if (updatedAt instanceof Date) {
+			const records = await Settings.findNotHiddenPublicUpdatedAfter(updatedAt).toArray();
+			return {
+				update: records,
+				remove: await Settings.trashFindDeletedAfter(
+					updatedAt,
+					{
+						hidden: {
+							$ne: true,
+						},
+						public: true,
+					},
+					{
+						projection: {
+							_id: 1,
+							_deletedAt: 1,
+						},
+					},
+				).toArray(),
+			};
+		}
+		const keys = [
+			'uniqueID',
+			'Team_Group_Name',
+			'Client_Group_Name',
+			'Accounts_',
+			'Enabled_',
+			'user_',
+			'MGBoard_',
+			'Message_',
+			'Site_',
+			'Mongrov_',
+			'MGVC_',
+			'bigbluebutton_enable',
+			'FileUpload_',
+			'Board_',
+			'Hide_',
+			'RetentionPolicy_',
+			'WebRTC_',
+			'Threads_',
+			'Language',
+			'Discussion_',
+			'SMS_',
+			'Image_Proxy_',
+			'vertiv_',
+		];
+		const mobilesettings: ISetting[] = [];
+		const publicSettings = (await Settings.findNotHiddenPublic().toArray()) as ISetting[];
+		publicSettings.forEach((setting) => {
+			const index = keys.findIndex(function (element) {
+				return setting._id.startsWith(element.toString());
+			});
+			if (index) {
+				mobilesettings.push(setting);
+			}
+		});
+		return mobilesettings;
+		// return settings.findNotHiddenPublic(keys).fetch();
+	},
+
 	async 'private-settings/get'(updatedAfter) {
 		const uid = Meteor.userId();
 

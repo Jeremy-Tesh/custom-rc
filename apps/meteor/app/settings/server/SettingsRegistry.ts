@@ -14,6 +14,7 @@ import type { ICachedSettings } from './CachedSettings';
 export const blockedSettings = new Set<string>();
 export const hiddenSettings = new Set<string>();
 export const wizardRequiredSettings = new Set<string>();
+export const secretSettings = new Set<string>();
 
 if (process.env.SETTINGS_BLOCKED) {
 	process.env.SETTINGS_BLOCKED.split(',').forEach((settingId) => blockedSettings.add(settingId.trim()));
@@ -25,6 +26,9 @@ if (process.env.SETTINGS_HIDDEN) {
 
 if (process.env.SETTINGS_REQUIRED_ON_WIZARD) {
 	process.env.SETTINGS_REQUIRED_ON_WIZARD.split(',').forEach((settingId) => wizardRequiredSettings.add(settingId.trim()));
+}
+if (process.env.SETTINGS_SECRET) {
+	process.env.SETTINGS_SECRET.split(',').forEach((settingId) => secretSettings.add(settingId.trim()));
 }
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'development';
@@ -129,6 +133,7 @@ export class SettingsRegistry {
 			blockedSettings,
 			hiddenSettings,
 			wizardRequiredSettings,
+			secretSettings,
 		);
 
 		if (isSettingEnterprise(settingFromCode) && !('invalidValue' in settingFromCode)) {
