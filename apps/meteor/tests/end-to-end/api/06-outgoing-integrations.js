@@ -42,7 +42,7 @@ describe('[Outgoing Integrations]', function () {
 						type: 'webhook-outgoing',
 						name: 'Guggy',
 						enabled: true,
-						username: 'rocket.cat',
+						username: 'mona',
 						urls: ['http://text2gif.guggy.com/guggify'],
 						scriptEnabled: false,
 						channel: '#general',
@@ -71,7 +71,7 @@ describe('[Outgoing Integrations]', function () {
 						type: 'webhook-outgoing',
 						name: 'Guggy',
 						enabled: true,
-						username: 'rocket.cat',
+						username: 'mona',
 						urls: ['http://text2gif.guggy.com/guggify'],
 						scriptEnabled: false,
 						channel: '#general',
@@ -99,7 +99,7 @@ describe('[Outgoing Integrations]', function () {
 					type: 'webhook-outgoing-invalid',
 					name: 'Guggy',
 					enabled: true,
-					username: 'rocket.cat',
+					username: 'mona',
 					urls: ['http://text2gif.guggy.com/guggify'],
 					scriptEnabled: false,
 					channel: '#general',
@@ -128,7 +128,7 @@ describe('[Outgoing Integrations]', function () {
 						type: 'webhook-outgoing',
 						name: 'Guggy',
 						enabled: true,
-						username: 'rocket.cat',
+						username: 'mona',
 						urls: ['http://text2gif.guggy.com/guggify'],
 						scriptEnabled: false,
 						channel: '#general',
@@ -159,7 +159,7 @@ describe('[Outgoing Integrations]', function () {
 							type: 'webhook-outgoing',
 							name: 'Guggy',
 							enabled: true,
-							username: 'rocket.cat',
+							username: 'mona',
 							urls: ['http://text2gif.guggy.com/guggify'],
 							scriptEnabled: false,
 							channel: '#general',
@@ -189,7 +189,7 @@ describe('[Outgoing Integrations]', function () {
 					type: 'webhook-outgoing',
 					name: 'Guggy',
 					enabled: true,
-					username: 'rocket.cat',
+					username: 'mona',
 					urls: ['http://text2gif.guggy.com/guggify'],
 					scriptEnabled: false,
 					channel: '#general',
@@ -207,7 +207,7 @@ describe('[Outgoing Integrations]', function () {
 					expect(res.body).to.have.nested.property('integration.name', 'Guggy');
 					expect(res.body).to.have.nested.property('integration.type', 'webhook-outgoing');
 					expect(res.body).to.have.nested.property('integration.enabled', true);
-					expect(res.body).to.have.nested.property('integration.username', 'rocket.cat');
+					expect(res.body).to.have.nested.property('integration.username', 'mona');
 					expect(res.body).to.have.nested.property('integration.event', 'sendMessage');
 				})
 				.end(done);
@@ -226,7 +226,7 @@ describe('[Outgoing Integrations]', function () {
 								type: 'webhook-outgoing',
 								name: 'Guggy',
 								enabled: true,
-								username: 'rocket.cat',
+								username: 'mona',
 								urls: ['http://text2gif.guggy.com/guggify'],
 								scriptEnabled: false,
 								channel: '#general',

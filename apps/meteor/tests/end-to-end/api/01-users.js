@@ -975,8 +975,8 @@ describe('[Users]', function () {
 				.post(api('users.update'))
 				.set(credentials)
 				.send({
-					userId: 'rocket.cat',
-					data: { email: 'nouser@rocket.cat' },
+					userId: 'mona',
+					data: { email: 'nouser@commure.com' },
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
@@ -1601,7 +1601,7 @@ describe('[Users]', function () {
 	describe('[/users.setPreferences]', () => {
 		it('should return an error when the user try to update info of another user and does not have the necessary permission', (done) => {
 			const userPreferences = {
-				userId: 'rocket.cat',
+				userId: 'mona',
 				data: {
 					...preferences.data,
 				},
@@ -1648,7 +1648,7 @@ describe('[Users]', function () {
 		});
 		it('should set some preferences of another user successfully', (done) => {
 			const userPreferences = {
-				userId: 'rocket.cat',
+				userId: 'mona',
 				data: {
 					...preferences.data,
 				},
@@ -1663,7 +1663,7 @@ describe('[Users]', function () {
 					.expect((res) => {
 						expect(res.body.user).to.have.property('settings');
 						expect(res.body.user.settings).to.have.property('preferences');
-						expect(res.body.user._id).to.be.equal('rocket.cat');
+						expect(res.body.user._id).to.be.equal('mona');
 						expect(res.body).to.have.property('success', true);
 					})
 					.end(done);
@@ -3150,14 +3150,14 @@ describe('[Users]', function () {
 		});
 		it('should return other user status', (done) => {
 			request
-				.get(api('users.getStatus?userId=rocket.cat'))
+				.get(api('users.getStatus?userId=mona'))
 				.set(credentials)
 				.expect('Content-Type', 'application/json')
 				.expect(200)
 				.expect((res) => {
 					expect(res.body).to.have.property('success', true);
 					expect(res.body).to.have.property('status');
-					expect(res.body._id).to.be.equal('rocket.cat');
+					expect(res.body._id).to.be.equal('mona');
 				})
 				.end(done);
 		});

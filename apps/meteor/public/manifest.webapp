@@ -1,5 +1,5 @@
 {
-    "name": "RocketChat",
+    "name": "Commure",
     "description": "The Ultimate Open Source WebChat Platform",
     "launch_path": "/",
     "icons": {
@@ -7,8 +7,8 @@
         "512": "/assets/favicon_512.png"
     },
     "developer": {
-        "name": "Rocket.Chat",
-        "url": "https://rocket.chat/"
+        "name": "Commure Chat",
+        "url": "https://mongrov.com/"
     },
     "fullscreen": "true",
     "chrome": {

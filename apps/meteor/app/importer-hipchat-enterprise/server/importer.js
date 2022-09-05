@@ -204,7 +204,7 @@ export class HipChatEnterpriseImporter extends Base {
 				count++;
 			} else if (m.NotificationMessage) {
 				const newMessage = this.convertImportedMessage(m.NotificationMessage, rid, 'notif');
-				newMessage.u._id = 'rocket.cat';
+				newMessage.u._id = 'mona';
 				newMessage.alias = m.NotificationMessage.sender;
 
 				this.converter.addMessage(newMessage);

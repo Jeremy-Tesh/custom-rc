@@ -26,7 +26,7 @@ const getData = <T>(param: T[] | ((params: { adminUser: IUser }) => T[]), adminU
 };
 
 export async function sendMessagesToAdmins({
-	fromId = 'rocket.cat',
+	fromId = 'mona',
 	checkFrom = true,
 	msgs = [],
 	banners = [],

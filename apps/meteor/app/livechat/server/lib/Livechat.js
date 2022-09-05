@@ -660,7 +660,7 @@ export const Livechat = {
 		if (pageInfo.change !== Livechat.historyMonitorType) {
 			return;
 		}
-		const user = Users.findOneById('rocket.cat');
+		const user = Users.findOneById('mona');
 
 		const pageTitle = pageInfo.title;
 		const pageUrl = pageInfo.location.href;
@@ -1237,7 +1237,7 @@ export const Livechat = {
 
 		let type = 'user';
 		if (!user) {
-			user = Users.findOneById('rocket.cat', { fields: { _id: 1, username: 1, name: 1 } });
+			user = Users.findOneById('mona', { fields: { _id: 1, username: 1, name: 1 } });
 			type = 'visitor';
 		}
 

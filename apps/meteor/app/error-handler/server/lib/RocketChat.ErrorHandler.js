@@ -67,7 +67,7 @@ class ErrorHandler {
 			return;
 		}
 		this.lastError = message;
-		const user = Users.findOneById('rocket.cat');
+		const user = Users.findOneById('mona');
 
 		if (stack) {
 			message = `${message}\n\`\`\`\n${stack}\n\`\`\``;

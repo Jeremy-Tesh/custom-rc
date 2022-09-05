@@ -35,8 +35,8 @@ const makeWarningBanner = (seats: number): IBanner => ({
 		],
 	},
 	createdBy: {
-		_id: 'rocket.cat',
-		username: 'rocket.cat',
+		_id: 'mona',
+		username: 'mona',
 	},
 	expireAt: new Date(8640000000000000),
 	startAt: new Date(),
@@ -69,8 +69,8 @@ const makeDangerBanner = (): IBanner => ({
 		],
 	},
 	createdBy: {
-		_id: 'rocket.cat',
-		username: 'rocket.cat',
+		_id: 'mona',
+		username: 'mona',
 	},
 	expireAt: new Date(8640000000000000),
 	startAt: new Date(),

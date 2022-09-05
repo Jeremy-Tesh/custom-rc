@@ -1734,7 +1734,7 @@ describe('[Chat]', function () {
 				.set(credentials)
 				.query({
 					rid: 'invalid',
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(400)
@@ -1751,7 +1751,7 @@ describe('[Chat]', function () {
 				.get(api('chat.ignoreUser'))
 				.set(credentials)
 				.query({
-					rid: 'rocket.catrocketchat.internal.admin.test',
+					rid: 'monarocketchat.internal.admin.test',
 					userId: 'invalid',
 				})
 				.expect('Content-Type', 'application/json')
@@ -1769,8 +1769,8 @@ describe('[Chat]', function () {
 				.get(api('chat.ignoreUser'))
 				.set(credentials)
 				.query({
-					rid: 'rocket.catrocketchat.internal.admin.test',
-					userId: 'rocket.cat',
+					rid: 'monarocketchat.internal.admin.test',
+					userId: 'mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
@@ -1786,8 +1786,8 @@ describe('[Chat]', function () {
 				.get(api('chat.ignoreUser'))
 				.set(credentials)
 				.query({
-					rid: 'rocket.catrocketchat.internal.admin.test',
-					userId: 'rocket.cat',
+					rid: 'monarocketchat.internal.admin.test',
+					userId: 'mona',
 					ignore: false,
 				})
 				.expect('Content-Type', 'application/json')

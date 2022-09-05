@@ -8,7 +8,7 @@ import { Livechat } from '../../../../../app/livechat/server';
 import { RoutingManager } from '../../../../../app/livechat/server/lib/RoutingManager';
 import { forwardRoomToAgent } from '../../../../../app/livechat/server/lib/Helper';
 
-const schedulerUser = Users.findOneById('rocket.cat');
+const schedulerUser = Users.findOneById('mona');
 const SCHEDULER_NAME = 'omnichannel_scheduler';
 
 class AutoTransferChatSchedulerClass {

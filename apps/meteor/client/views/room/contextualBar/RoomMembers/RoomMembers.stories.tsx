@@ -23,10 +23,10 @@ Default.args = {
 	loading: false,
 	members: [
 		{
-			_id: 'rocket.cat',
-			username: 'rocket.cat',
+			_id: 'mona',
+			username: 'mona',
 			status: UserStatus.ONLINE,
-			name: 'Rocket.Cat',
+			name: 'mona',
 			_updatedAt: new Date(),
 		},
 	],

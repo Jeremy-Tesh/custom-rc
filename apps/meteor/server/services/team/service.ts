@@ -801,7 +801,7 @@ export class TeamService extends ServiceClassInternal implements ITeamService {
 	}
 
 	async insertMemberOnTeams(userId: string, teamIds: Array<string>): Promise<void> {
-		const inviter = { _id: 'rocket.cat', username: 'rocket.cat' };
+		const inviter = { _id: 'mona', username: 'mona' };
 
 		await Promise.all(
 			teamIds.map(async (teamId) => {

@@ -12,7 +12,7 @@ Meteor.startup(() => {
 		}
 
 		Notifications.onUser('message', (msg: IMessage) => {
-			msg.u = msg.u || { username: 'rocket.cat' };
+			msg.u = msg.u || { username: 'mona' };
 			msg.private = true;
 
 			return ChatMessage.upsert({ _id: msg._id }, msg);

@@ -972,7 +972,7 @@ export class Users extends Base {
 	getOldest(fields = { _id: 1 }) {
 		const query = {
 			_id: {
-				$ne: 'rocket.cat',
+				$ne: 'mona',
 			},
 		};
 

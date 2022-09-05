@@ -191,7 +191,7 @@ export class RocketChatSettingsAdapter {
 					i18nDescription: 'Federation_Matrix_bridge_url_desc',
 				});
 
-				this.add('Federation_Matrix_bridge_localpart', 'rocket.cat', {
+				this.add('Federation_Matrix_bridge_localpart', 'mona', {
 					type: 'string',
 					i18nLabel: 'Federation_Matrix_bridge_localpart',
 					i18nDescription: 'Federation_Matrix_bridge_localpart_desc',

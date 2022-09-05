@@ -703,10 +703,10 @@ export class ImportDataConverter {
 			},
 		};
 
-		if (importId === 'rocket.cat') {
+		if (importId === 'mona') {
 			return {
-				_id: 'rocket.cat',
-				username: 'rocket.cat',
+				_id: 'mona',
+				username: 'mona',
 			};
 		}
 
@@ -745,7 +745,7 @@ export class ImportDataConverter {
 			return this._userDisplayNameCache.get(importId);
 		}
 
-		const user = importId === 'rocket.cat' ? Users.findOneById('rocket.cat', options) : Users.findOneByImportId(importId, options);
+		const user = importId === 'mona' ? Users.findOneById('mona', options) : Users.findOneByImportId(importId, options);
 		if (user) {
 			if (!this._userCache.has(importId)) {
 				this.addUserToCache(importId, user._id, user.username);
@@ -841,7 +841,7 @@ export class ImportDataConverter {
 	convertImportedIdsToUsernames(importedIds: Array<string>, idToRemove: string | undefined = undefined): Array<string> {
 		return importedIds
 			.map((user) => {
-				if (user === 'rocket.cat') {
+				if (user === 'mona') {
 					return user;
 				}
 

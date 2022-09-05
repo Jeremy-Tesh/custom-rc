@@ -144,10 +144,10 @@ export function addSettings(): void {
 
 					const syncChannelsQuery = [enableQuery, { _id: 'LDAP_Sync_User_Data_Channels', value: true }];
 
-					this.add('LDAP_Sync_User_Data_Channels_Admin', 'rocket.cat', {
+					this.add('LDAP_Sync_User_Data_Channels_Admin', 'mona', {
 						type: 'string',
 						enableQuery: syncChannelsQuery,
-						invalidValue: 'rocket.cat',
+						invalidValue: 'mona',
 					});
 
 					this.add('LDAP_Sync_User_Data_Channels_Filter', '(&(cn=#{groupName})(memberUid=#{username}))', {

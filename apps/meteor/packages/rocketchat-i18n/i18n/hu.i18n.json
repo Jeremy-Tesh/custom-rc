@@ -2407,7 +2407,7 @@
   "Message_editing": "Üzenet szerkesztése",
   "Message_ErasureType": "Üzenet törlési típusa",
   "Message_ErasureType_Delete": "Összes üzenet törlése",
-  "Message_ErasureType_Description": "Határozza meg, hogy mi történjen a fiókjaikat eltávolító felhasználók üzeneteivel.\n\n**Felhasználónév és üzenetek megtartása:** Az üzenetek és a fájlok törlésre kerülnek a privát üzenetekből, a szobákban találhatóak megtartásával.\n\n**Minden üzenet törlése:**  A felhasználóhoz kapcsolódó minden üzenet és fájl törlése az adatbázisból, a felhasználó a továbbiakban nem lesz megtalálható.\n\n**Felhasználó és üzenetek összerendelésének eltávolítása:** Ez a lehetőség a felhasználó minden üzenetét és fájljai a Rocket.Cat bot fiókhoz rendeli, a privát üzenetek törlésre kerülnek.",
+  "Message_ErasureType_Description": "Határozza meg, hogy mi történjen a fiókjaikat eltávolító felhasználók üzeneteivel.\n\n**Felhasználónév és üzenetek megtartása:** Az üzenetek és a fájlok törlésre kerülnek a privát üzenetekből, a szobákban találhatóak megtartásával.\n\n**Minden üzenet törlése:**  A felhasználóhoz kapcsolódó minden üzenet és fájl törlése az adatbázisból, a felhasználó a továbbiakban nem lesz megtalálható.\n\n**Felhasználó és üzenetek összerendelésének eltávolítása:** Ez a lehetőség a felhasználó minden üzenetét és fájljai a mona bot fiókhoz rendeli, a privát üzenetek törlésre kerülnek.",
   "Message_ErasureType_Keep": "Üzenetek és felhasználói név megtartása",
   "Message_ErasureType_Unlink": "A felhasználó és az üzenetek közötti kapcsolat eltávolítása",
   "Message_GlobalSearch": "Globális keresés",

@@ -529,7 +529,7 @@ export class SlackImporter extends Base {
 
 	_replaceSlackUserId(userId) {
 		if (userId === 'USLACKBOT') {
-			return 'rocket.cat';
+			return 'mona';
 		}
 
 		return userId;

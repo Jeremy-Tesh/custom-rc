@@ -13,8 +13,8 @@ const denormalizeMessage = (originalResource) => {
 
 	// Denormalize mentions
 	for (const mention of resource.mentions) {
-		// Ignore if we are dealing with all, here or rocket.cat
-		if (['all', 'here', 'rocket.cat'].indexOf(mention.username) !== -1) {
+		// Ignore if we are dealing with all, here or mona
+		if (['all', 'here', 'mona'].indexOf(mention.username) !== -1) {
 			continue;
 		}
 
@@ -31,8 +31,8 @@ const denormalizeMessage = (originalResource) => {
 
 	// Denormalize channels
 	for (const channel of resource.channels) {
-		// Ignore if we are dealing with all, here or rocket.cat
-		if (['all', 'here', 'rocket.cat'].indexOf(channel.name) !== -1) {
+		// Ignore if we are dealing with all, here or mona
+		if (['all', 'here', 'mona'].indexOf(channel.name) !== -1) {
 			continue;
 		}
 
@@ -64,8 +64,8 @@ const normalizeMessage = (originalResource) => {
 
 	// Normalize mentions
 	for (const mention of resource.mentions || []) {
-		// Ignore if we are dealing with all, here or rocket.cat
-		if (['all', 'here', 'rocket.cat'].indexOf(mention.username) !== -1) {
+		// Ignore if we are dealing with all, here or mona
+		if (['all', 'here', 'mona'].indexOf(mention.username) !== -1) {
 			continue;
 		}
 

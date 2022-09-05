@@ -126,7 +126,7 @@ describe('Apps - Send Messages As User', function () {
 			it('should send a message as app user', (done) => {
 				createRoom({
 					type: 'd',
-					username: 'rocket.cat',
+					username: 'mona',
 				}).end((err, createdRoom) => {
 					request
 						.post(apps(`/public/${app.id}/send-message-as-user?userId=${adminUsername}`))

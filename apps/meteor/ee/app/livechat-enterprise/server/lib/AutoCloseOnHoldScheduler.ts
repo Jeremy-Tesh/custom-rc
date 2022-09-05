@@ -6,7 +6,7 @@ import moment from 'moment';
 import { Livechat } from '../../../../../app/livechat/server';
 import { LivechatRooms, Users } from '../../../../../app/models/server';
 
-const schedulerUser = Users.findOneById('rocket.cat');
+const schedulerUser = Users.findOneById('mona');
 const SCHEDULER_NAME = 'omnichannel_auto_close_on_hold_scheduler';
 
 class AutoCloseOnHoldSchedulerClass {

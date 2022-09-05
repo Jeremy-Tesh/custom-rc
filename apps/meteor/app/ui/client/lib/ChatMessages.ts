@@ -499,9 +499,9 @@ export class ChatMessages {
 						ts: new Date(),
 						msg: TAPi18n.__('No_such_command', { command: escapeHTML(command) }),
 						u: {
-							_id: 'rocket.cat',
-							username: 'rocket.cat',
-							name: 'Rocket.Cat',
+							_id: 'mona',
+							username: 'mona',
+							name: 'mona',
 						},
 						private: true,
 					};

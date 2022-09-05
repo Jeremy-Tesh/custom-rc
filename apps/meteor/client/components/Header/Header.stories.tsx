@@ -64,9 +64,9 @@ const room: IRoom = {
 	autoTranslate: true,
 	autoTranslateLanguage: 'pt-BR',
 	u: {
-		_id: 'rocket.cat',
-		name: 'rocket.cat',
-		username: 'rocket.cat',
+		_id: 'mona',
+		name: 'mona',
+		username: 'mona',
 	},
 	msgs: 123,
 	usersCount: 3,
@@ -109,9 +109,9 @@ const toolboxRoom: IRoom = {
 	...room,
 	msgs: 2,
 	u: {
-		_id: 'rocket.cat',
-		name: 'rocket.cat',
-		username: 'rocket.cat',
+		_id: 'mona',
+		name: 'mona',
+		username: 'mona',
 	},
 	usersCount: 2,
 };

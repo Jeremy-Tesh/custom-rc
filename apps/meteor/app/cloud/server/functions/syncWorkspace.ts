@@ -70,8 +70,8 @@ export async function syncWorkspace(reconnectCheck = false) {
 			startAt,
 			expireAt: new Date(expireAt),
 			createdBy: {
-				_id: 'rocket.cat',
-				username: 'rocket.cat',
+				_id: 'mona',
+				username: 'mona',
 			},
 		});
 

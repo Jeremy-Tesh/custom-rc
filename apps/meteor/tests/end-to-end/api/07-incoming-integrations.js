@@ -43,7 +43,7 @@ describe('[Incoming Integrations]', function () {
 						name: 'Incoming test',
 						enabled: true,
 						alias: 'test',
-						username: 'rocket.cat',
+						username: 'mona',
 						scriptEnabled: false,
 						channel: '#general',
 					})
@@ -67,7 +67,7 @@ describe('[Incoming Integrations]', function () {
 						name: 'Incoming test',
 						enabled: true,
 						alias: 'test',
-						username: 'rocket.cat',
+						username: 'mona',
 						scriptEnabled: false,
 						channel: '#general',
 					})
@@ -90,7 +90,7 @@ describe('[Incoming Integrations]', function () {
 					name: 'Incoming test',
 					enabled: true,
 					alias: 'test',
-					username: 'rocket.cat',
+					username: 'mona',
 					scriptEnabled: false,
 					channel: '#general',
 				})
@@ -114,7 +114,7 @@ describe('[Incoming Integrations]', function () {
 						name: 'Incoming test',
 						enabled: true,
 						alias: 'test',
-						username: 'rocket.cat',
+						username: 'mona',
 						scriptEnabled: false,
 						channel: '#general',
 					})
@@ -140,7 +140,7 @@ describe('[Incoming Integrations]', function () {
 							name: 'Incoming test 2',
 							enabled: true,
 							alias: 'test2',
-							username: 'rocket.cat',
+							username: 'mona',
 							scriptEnabled: false,
 							channel: '#general',
 						})
@@ -198,7 +198,7 @@ describe('[Incoming Integrations]', function () {
 								name: 'Incoming test',
 								enabled: true,
 								alias: 'test',
-								username: 'rocket.cat',
+								username: 'mona',
 								scriptEnabled: false,
 								channel: '#general',
 							},
@@ -379,7 +379,7 @@ describe('[Incoming Integrations]', function () {
 					name: 'Incoming test updated',
 					enabled: true,
 					alias: 'test updated',
-					username: 'rocket.cat',
+					username: 'mona',
 					scriptEnabled: true,
 					channel: '#general',
 					integrationId: integration._id,

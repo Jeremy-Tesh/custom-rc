@@ -26,11 +26,11 @@ Default.args = {
 		_id: 'test',
 		_updatedAt: new Date(),
 		createdBy: {
-			_id: 'rocket.cat',
-			username: 'rocket.cat',
+			_id: 'mona',
+			username: 'mona',
 		},
 		departmentName: '',
-		userId: 'rocket.cat',
+		userId: 'mona',
 		departmentId: '',
 	},
 };

@@ -184,7 +184,7 @@ export function addOAuthService(name: string, values: { [k: string]: string | bo
 		modules: ['oauth-enterprise'],
 	});
 
-	settingsRegistry.add(`Accounts_OAuth_Custom-${name}-channels_admin`, values.channelsAdmin || 'rocket.cat', {
+	settingsRegistry.add(`Accounts_OAuth_Custom-${name}-channels_admin`, values.channelsAdmin || 'mona', {
 		type: 'string',
 		group: 'OAuth',
 		section: `Custom OAuth: ${name}`,

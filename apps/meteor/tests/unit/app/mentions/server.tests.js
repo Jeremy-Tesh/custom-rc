@@ -12,7 +12,7 @@ beforeEach(function () {
 			[
 				{
 					_id: 1,
-					username: 'rocket.cat',
+					username: 'mona',
 				},
 				{
 					_id: 2,
@@ -54,7 +54,7 @@ describe('Mention Server', () => {
 					usernames: [
 						{
 							_id: 1,
-							username: 'rocket.cat',
+							username: 'mona',
 						},
 						{
 							_id: 2,
@@ -90,14 +90,14 @@ describe('Mention Server', () => {
 				const result = mention.getUsersByMentions(message);
 				expect(expected).to.be.deep.equal(result);
 			});
-			it('should return "rocket.cat"', () => {
+			it('should return "mona"', () => {
 				const message = {
-					msg: '@rocket.cat',
+					msg: '@mona',
 				};
 				const expected = [
 					{
 						_id: 1,
-						username: 'rocket.cat',
+						username: 'mona',
 					},
 				];
 				const result = mention.getUsersByMentions(message);
@@ -122,9 +122,9 @@ describe('Mention Server', () => {
 				const result = mention.getUsersByMentions(message);
 				expect(expected).to.be.deep.equal(result);
 			});
-			it('should return "here and rocket.cat"', () => {
+			it('should return "here and mona"', () => {
 				const message = {
-					msg: '@here @rocket.cat',
+					msg: '@here @mona',
 				};
 				const expected = [
 					{
@@ -133,16 +133,16 @@ describe('Mention Server', () => {
 					},
 					{
 						_id: 1,
-						username: 'rocket.cat',
+						username: 'mona',
 					},
 				];
 				const result = mention.getUsersByMentions(message);
 				expect(expected).to.be.deep.equal(result);
 			});
 
-			it('should return "here, rocket.cat, jon"', () => {
+			it('should return "here, mona, jon"', () => {
 				const message = {
-					msg: '@here @rocket.cat @jon',
+					msg: '@here @mona @jon',
 				};
 				const expected = [
 					{
@@ -151,7 +151,7 @@ describe('Mention Server', () => {
 					},
 					{
 						_id: 1,
-						username: 'rocket.cat',
+						username: 'mona',
 					},
 					{
 						_id: 2,

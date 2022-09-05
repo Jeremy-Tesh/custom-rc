@@ -34701,7 +34701,7 @@
         },
         {
           "pr": "15387",
-          "title": "[FIX] Notify admin was generating errors when Rocket.Cat user was edited or deleted",
+          "title": "[FIX] Notify admin was generating errors when mona user was edited or deleted",
           "userLogin": "rodrigok",
           "milestone": "2.1.0",
           "contributors": [
@@ -41119,7 +41119,7 @@
         },
         {
           "pr": "16371",
-          "title": "[IMPROVE] Use `rocket.cat` as default bot If `InternalHubot_Username` is undefined",
+          "title": "[IMPROVE] Use `rmona` as default bot If `InternalHubot_Username` is undefined",
           "userLogin": "ashwaniYDV",
           "contributors": [
             "ashwaniYDV"

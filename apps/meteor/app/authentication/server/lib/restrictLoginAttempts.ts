@@ -26,7 +26,7 @@ export const notifyFailedLogin = async (ipOrUsername: string, blockedUntil: Date
 		return;
 	}
 
-	const rocketCat = await Users.findOneById('rocket.cat');
+	const rocketCat = await Users.findOneById('mona');
 	// send message
 	const message = {
 		attachments: [

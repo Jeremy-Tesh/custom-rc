@@ -1,6 +1,6 @@
 export const appMessageMock = {
 	id: 'appMessageMock',
-	text: 'rocket.cat',
+	text: 'mona',
 	createdAt: new Date('2019-03-30T01:22:08.389Z'),
 	updatedAt: new Date('2019-03-30T01:22:08.412Z'),
 	groupable: false,
@@ -10,7 +10,7 @@ export const appMessageMock = {
 		slugifiedName: 'general',
 		type: 'c',
 		creator: {
-			username: 'rocket.cat',
+			username: 'mona',
 			emails: [
 				{
 					address: 'rocketcat@rocket.chat',
@@ -19,7 +19,7 @@ export const appMessageMock = {
 			],
 			type: 'bot',
 			isEnabled: true,
-			name: 'Rocket.Cat',
+			name: 'mona',
 			roles: ['bot'],
 			status: 'online',
 			statusConnection: 'online',
@@ -29,8 +29,8 @@ export const appMessageMock = {
 		},
 	},
 	sender: {
-		id: 'rocket.cat',
-		username: 'rocket.cat',
+		id: 'mona',
+		username: 'mona',
 		emails: [
 			{
 				address: 'rocketcat@rocket.chat',
@@ -39,7 +39,7 @@ export const appMessageMock = {
 		],
 		type: 'bot',
 		isEnabled: true,
-		name: 'Rocket.Cat',
+		name: 'mona',
 		roles: ['bot'],
 		status: 'online',
 		statusConnection: 'online',
@@ -54,7 +54,7 @@ export const appMessageMock = {
 
 export const appMessageInvalidRoomMock = {
 	id: 'appMessageInvalidRoomMock',
-	text: 'rocket.cat',
+	text: 'mona',
 	createdAt: new Date('2019-03-30T01:22:08.389Z'),
 	updatedAt: new Date('2019-03-30T01:22:08.412Z'),
 	groupable: false,
@@ -64,7 +64,7 @@ export const appMessageInvalidRoomMock = {
 		slugifiedName: 'mocked-room',
 		type: 'c',
 		creator: {
-			username: 'rocket.cat',
+			username: 'mona',
 			emails: [
 				{
 					address: 'rocketcat@rocket.chat',
@@ -73,7 +73,7 @@ export const appMessageInvalidRoomMock = {
 			],
 			type: 'bot',
 			isEnabled: true,
-			name: 'Rocket.Cat',
+			name: 'mona',
 			roles: ['bot'],
 			status: 'online',
 			statusConnection: 'online',
@@ -83,8 +83,8 @@ export const appMessageInvalidRoomMock = {
 		},
 	},
 	sender: {
-		id: 'rocket.cat',
-		username: 'rocket.cat',
+		id: 'mona',
+		username: 'mona',
 		emails: [
 			{
 				address: 'rocketcat@rocket.chat',
@@ -93,7 +93,7 @@ export const appMessageInvalidRoomMock = {
 		],
 		type: 'bot',
 		isEnabled: true,
-		name: 'Rocket.Cat',
+		name: 'mona',
 		roles: ['bot'],
 		status: 'online',
 		statusConnection: 'online',

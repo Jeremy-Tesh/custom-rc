@@ -16,7 +16,7 @@ describe('[Direct Messages]', function () {
 			.post(api('chat.postMessage'))
 			.set(credentials)
 			.send({
-				channel: 'rocket.cat',
+				channel: 'mona',
 				text: 'This message was sent using the API',
 			})
 			.expect('Content-Type', 'application/json')
@@ -37,13 +37,13 @@ describe('[Direct Messages]', function () {
 				.set(credentials)
 				.send({
 					roomId: directMessage._id,
-					topic: 'a direct message with rocket.cat',
+					topic: 'a direct message with mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
 				.expect((res) => {
 					expect(res.body).to.have.property('success', true);
-					expect(res.body).to.have.nested.property('topic', 'a direct message with rocket.cat');
+					expect(res.body).to.have.nested.property('topic', 'a direct message with mona');
 				})
 				.end(done);
 		});
@@ -73,7 +73,7 @@ describe('[Direct Messages]', function () {
 				.post(api('im.create'))
 				.set(credentials)
 				.send({
-					username: 'rocket.cat',
+					username: 'mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
@@ -416,7 +416,7 @@ describe('[Direct Messages]', function () {
 			.set(credentials)
 			.send({
 				roomId: directMessage._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -552,7 +552,7 @@ describe('[Direct Messages]', function () {
 				.get(api('im.members'))
 				.set(credentials)
 				.query({
-					username: 'rocket.cat',
+					username: 'mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
@@ -787,7 +787,7 @@ describe('[Direct Messages]', function () {
 				.post(api('im.create'))
 				.set(credentials)
 				.send({
-					username: 'rocket.cat',
+					username: 'mona',
 				})
 				.expect(200)
 				.expect('Content-Type', 'application/json')
@@ -802,7 +802,7 @@ describe('[Direct Messages]', function () {
 				.post(api('im.delete'))
 				.set(credentials)
 				.send({
-					username: 'rocket.cat',
+					username: 'mona',
 				})
 				.expect(200)
 				.expect('Content-Type', 'application/json')

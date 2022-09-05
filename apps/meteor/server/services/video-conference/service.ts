@@ -457,7 +457,7 @@ export class VideoConfService extends ServiceClassInternal implements IVideoConf
 
 		const room = await Rooms.findOneById(rid);
 		const appId = videoConfProviders.getProviderAppId(providerName);
-		const user = createdBy || (appId && (await Users.findOneByAppId(appId))) || (await Users.findOneById('rocket.cat'));
+		const user = createdBy || (appId && (await Users.findOneByAppId(appId))) || (await Users.findOneById('mona'));
 
 		const message = sendMessage(user, record, room, false);
 		return message._id;

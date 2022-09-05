@@ -81,7 +81,7 @@ export class CustomOAuth {
 		this.mergeUsers = options.mergeUsers;
 		this.rolesClaim = options.rolesClaim || 'roles';
 		this.accessTokenParam = options.accessTokenParam;
-		this.channelsAdmin = options.channelsAdmin || 'rocket.cat';
+		this.channelsAdmin = options.channelsAdmin || 'mona';
 
 		if (this.identityTokenSentVia == null || this.identityTokenSentVia === 'default') {
 			this.identityTokenSentVia = this.tokenSentVia;

@@ -23,11 +23,11 @@ Meteor.startup(async function () {
 		Settings.updateValueById('Initial_Channel_Created', true);
 	}
 
-	if (!Users.findOneById('rocket.cat')) {
+	if (!Users.findOneById('mona')) {
 		Users.create({
-			_id: 'rocket.cat',
-			name: 'Rocket.Cat',
-			username: 'rocket.cat',
+			_id: 'mona',
+			name: 'mona',
+			username: 'mona',
 			status: 'online',
 			statusDefault: 'online',
 			utcOffset: 0,
@@ -35,22 +35,22 @@ Meteor.startup(async function () {
 			type: 'bot',
 		});
 
-		await addUserRolesAsync('rocket.cat', ['bot']);
+		await addUserRolesAsync('mona', ['bot']);
 
 		const buffer = Buffer.from(Assets.getBinary('avatars/rocketcat.png'));
 
 		const rs = RocketChatFile.bufferToStream(buffer, 'utf8');
 		const fileStore = FileUpload.getStore('Avatars');
-		fileStore.deleteByName('rocket.cat');
+		fileStore.deleteByName('mona');
 
 		const file = {
-			userId: 'rocket.cat',
+			userId: 'mona',
 			type: 'image/png',
 			size: buffer.length,
 		};
 
-		Meteor.runAsUser('rocket.cat', () => {
-			fileStore.insert(file, rs, () => Users.setAvatarData('rocket.cat', 'local', null));
+		Meteor.runAsUser('mona', () => {
+			fileStore.insert(file, rs, () => Users.setAvatarData('mona', 'local', null));
 		});
 	}
 

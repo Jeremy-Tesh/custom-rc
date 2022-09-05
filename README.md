@@ -13,6 +13,47 @@ Using our self-managed offerings you can deploy Rocket.Chat on your own server, 
  
 <img src="https://github.com/RocketChat/Rocket.Chat.Artwork/blob/master/Product%20Images/Welcome%20to%20RC%20(Readme).jpg" data-canonical-src="https://github.com/RocketChat/Rocket.Chat.Artwork/blob/master/Product%20Images/Welcome%20to%20RC%20(Readme).jpg" width="919" height="511" />
 
+- base Dockerfile is from disney meteor base - https://github.com/disney/meteor-base
+- to block modules from settings that will not be used in instance (should be done during installation) use SETTINGS_BLOCKED variable
+
+```sh
+export ADMIN_USERNAME=admin
+export ADMIN_PASS=test123
+export ADMIN_EMAIL=admin@mongrov.com
+
+export SETTINGS_BLOCKED="AtlassianCrowd,Blockstack,Analytics,CAS,EmojiCustomFilesystem,CustomSoundsFilesystem,E2E Encryption,IRC_Federation,LDAP,LiveStream & Broadcasting,OTR,Search,SlackBridge,Smarsh,Webdav Integration,Meta,Logs,Bots,Federation,SAML,SMS,UserDataDownload,WebRTC,OAuth,Livechat"
+export SETTINGS_HIDDEN="Video Conference,Threads,Discussion,Setup_Wizard,RetentionPolicy,Rate Limiter,Push,FileUpload,Email"
+export SETTINGS_HIDDEN="Threads,Discussion,Setup_Wizard,RetentionPolicy,Rate Limiter,FileUpload,Message,Custom CSS,Colors,Custom_Scripts,User_Interface,theme-custom-css,Update,UTF8,UTF8,Show_Setup_Wizard,Reporting,Language,Language,REST API,Iframe_Integration,Translations,Stream_Cast,Assets"
+# settings
+export OVERWRITE_SETTING_Discussion_enabled=false
+export OVERWRITE_SETTING_FileUpload_MaxFileSize="24857600"
+export OVERWRITE_SETTING_FileUpload_Storage_Type="AmazonS3"
+
+export OVERWRITE_SETTING_Message_AllowEditing=true
+export OVERWRITE_SETTING_Message_AllowEditing_BlockEditInMinutes=1
+export OVERWRITE_SETTING_Message_AllowDeleting=true
+export OVERWRITE_SETTING_Message_AllowDeleting_BlockDeleteInMinutes=1
+export OVERWRITE_SETTING_Message_ShowFormattingTips=false
+export OVERWRITE_SETTING_Message_Read_Receipt_Enabled=true
+export OVERWRITE_SETTING_Katex_Enabled=false
+export OVERWRITE_SETTING_UI_DisplayRoles=false
+export OVERWRITE_SETTING_UI_Use_Name_Avatar=true
+export OVERWRITE_SETTING_UI_Use_Real_Name=true
+export OVERWRITE_SETTING_UI_Allow_room_names_with_special_chars=true
+export OVERWRITE_SETTING_Site_Name="mi.team"
+
+# mail
+export OVERWRITE_SETTING_SMTP_Protocol="smtp"
+export OVERWRITE_SETTING_SMTP_Host="smtp.gmail.com"
+export OVERWRITE_SETTING_SMTP_Port="587"
+export OVERWRITE_SETTING_SMTP_IgnoreTLS=false
+export OVERWRITE_SETTING_SMTP_Pool=true
+export OVERWRITE_SETTING_SMTP_Username="notifications@mongrov.com"
+export OVERWRITE_SETTING_SMTP_Password="Indic2018"
+export OVERWRITE_SETTING_From_Email="notifications@mongrov.com"
+
+```
+
 
 ## Cloud Hosted Rocket.Chat
 

@@ -54,8 +54,8 @@ export const getAndCreateNpsSurvey = Meteor.bindEnvironment(async function getNp
 			_updatedAt: new Date(), // Needed by the IRocketChatRecord interface
 			roles: surveyData.roles,
 			createdBy: {
-				_id: 'rocket.cat',
-				username: 'rocket.cat',
+				_id: 'mona',
+				username: 'mona',
 			},
 			view: surveyData.survey,
 		};

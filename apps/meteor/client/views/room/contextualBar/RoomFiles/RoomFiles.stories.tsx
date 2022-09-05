@@ -25,7 +25,7 @@ Default.args = {
 			url: '#',
 			uploadedAt: new Date(),
 			user: {
-				username: 'rocket.cat',
+				username: 'mona',
 			},
 		},
 		{
@@ -33,7 +33,7 @@ Default.args = {
 			url: '#',
 			uploadedAt: new Date(),
 			user: {
-				username: 'rocket.cat',
+				username: 'mona',
 			},
 		},
 	],

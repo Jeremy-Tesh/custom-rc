@@ -34,7 +34,7 @@ callbacks.add(
 			return data;
 		}
 
-		const user = Users.findOneById('rocket.cat', { fields: { username: 1 } });
+		const user = Users.findOneById('mona', { fields: { username: 1 } });
 		if (!user) {
 			return data;
 		}

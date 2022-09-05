@@ -20,7 +20,7 @@ function SlackBridgeImport(command, params, item) {
 	msgStream.emit(item.rid, {
 		_id: Random.id(),
 		rid: item.rid,
-		u: { username: 'rocket.cat' },
+		u: { username: 'mona' },
 		ts: new Date(),
 		msg: TAPi18n.__(
 			'SlackBridge_start',
@@ -39,7 +39,7 @@ function SlackBridgeImport(command, params, item) {
 					msgStream.emit(item.rid, {
 						_id: Random.id(),
 						rid: item.rid,
-						u: { username: 'rocket.cat' },
+						u: { username: 'mona' },
 						ts: new Date(),
 						msg: TAPi18n.__(
 							'SlackBridge_error',
@@ -54,7 +54,7 @@ function SlackBridgeImport(command, params, item) {
 					msgStream.emit(item.rid, {
 						_id: Random.id(),
 						rid: item.rid,
-						u: { username: 'rocket.cat' },
+						u: { username: 'mona' },
 						ts: new Date(),
 						msg: TAPi18n.__(
 							'SlackBridge_finish',
@@ -72,7 +72,7 @@ function SlackBridgeImport(command, params, item) {
 		msgStream.emit(item.rid, {
 			_id: Random.id(),
 			rid: item.rid,
-			u: { username: 'rocket.cat' },
+			u: { username: 'mona' },
 			ts: new Date(),
 			msg: TAPi18n.__(
 				'SlackBridge_error',

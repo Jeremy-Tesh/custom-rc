@@ -55,7 +55,7 @@ Meteor.methods({
 		} = room;
 		await RoutingManager.takeInquiry(inquiry, { agentId, username }, options);
 
-		const onHoldChatResumedBy = options.clientAction ? Meteor.user() : Users.findOneById('rocket.cat');
+		const onHoldChatResumedBy = options.clientAction ? Meteor.user() : Users.findOneById('mona');
 
 		const comment = await resolveOnHoldCommentInfo(options, room, onHoldChatResumedBy);
 		(Messages as any).createOnHoldResumedHistoryWithRoomIdMessageAndUser(roomId, comment, onHoldChatResumedBy);

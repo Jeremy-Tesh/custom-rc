@@ -602,7 +602,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -621,7 +621,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -637,7 +637,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -653,7 +653,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -669,7 +669,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -687,7 +687,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -708,7 +708,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -727,7 +727,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -1091,7 +1091,7 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.query({
 					roomId: channel._id,
-					filter: 'rocket.cat',
+					filter: 'mona',
 				})
 				.expect('Content-Type', 'application/json')
 				.expect(200)
@@ -1170,7 +1170,7 @@ describe('[Channels]', function () {
 										name: 'Incoming test',
 										enabled: true,
 										alias: 'test',
-										username: 'rocket.cat',
+										username: 'mona',
 										scriptEnabled: false,
 										channel: `#${createdChannel.name}`,
 									},
@@ -1288,7 +1288,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -1303,7 +1303,7 @@ describe('[Channels]', function () {
 			.set(credentials)
 			.send({
 				roomId: channel._id,
-				userId: 'rocket.cat',
+				userId: 'mona',
 			})
 			.expect('Content-Type', 'application/json')
 			.expect(200)
@@ -1715,7 +1715,7 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.send({
 					roomId: testChannel._id,
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.end(done);
 		});
@@ -1725,7 +1725,7 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.send({
 					roomId: testChannel._id,
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.end(done);
 		});
@@ -1735,7 +1735,7 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.send({
 					roomId: testChannel._id,
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.end(done);
 		});
@@ -1790,7 +1790,7 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.send({
 					roomId: testChannel._id,
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.end(done);
 		});
@@ -1800,11 +1800,11 @@ describe('[Channels]', function () {
 				.set(credentials)
 				.send({
 					roomId: testChannel._id,
-					userId: 'rocket.cat',
+					userId: 'mona',
 				})
 				.end(done);
 		});
-		it('should return an array of moderators with rocket.cat as a moderator', (done) => {
+		it('should return an array of moderators with mona as a moderator', (done) => {
 			request
 				.get(api('channels.moderators'))
 				.set(credentials)
@@ -1816,7 +1816,7 @@ describe('[Channels]', function () {
 				.expect((res) => {
 					expect(res.body).to.have.a.property('success', true);
 					expect(res.body).to.have.a.property('moderators').that.is.an('array').that.has.lengthOf(1);
-					expect(res.body.moderators[0].username).to.be.equal('rocket.cat');
+					expect(res.body.moderators[0].username).to.be.equal('mona');
 				})
 				.end(done);
 		});

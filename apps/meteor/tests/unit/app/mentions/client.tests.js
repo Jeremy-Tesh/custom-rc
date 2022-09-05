@@ -75,7 +75,7 @@ describe('Mention', function () {
 	describe('getUserMentions', () => {
 		describe('for simple text, no mentions', () => {
 			const result = [];
-			['#rocket.cat', 'hello rocket.cat how are you?'].forEach((text) => {
+			['#mona', 'hello mona how are you?'].forEach((text) => {
 				it(`should return "${JSON.stringify(result)}" from "${text}"`, () => {
 					expect(result).to.be.deep.equal(mentionsParser.getUserMentions(text));
 				});
@@ -83,42 +83,42 @@ describe('Mention', function () {
 		});
 
 		describe('for one user', () => {
-			const result = ['@rocket.cat'];
+			const result = ['@mona'];
 			[
-				'@rocket.cat',
-				' @rocket.cat ',
-				'hello @rocket.cat',
-				// 'hello,@rocket.cat', // this test case is ignored since is not compatible with the message box behavior
-				'@rocket.cat, hello',
-				'@rocket.cat,hello',
-				'hello @rocket.cat how are you?',
+				'@mona',
+				' @mona ',
+				'hello @mona',
+				// 'hello,@mona', // this test case is ignored since is not compatible with the message box behavior
+				'@mona, hello',
+				'@mona,hello',
+				'hello @mona how are you?',
 			].forEach((text) => {
 				it(`should return "${JSON.stringify(result)}" from "${text}"`, () => {
 					expect(result).to.be.deep.equal(mentionsParser.getUserMentions(text));
 				});
 			});
 
-			it.skip('should return without the "." from "@rocket.cat."', () => {
-				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@rocket.cat.'));
+			it.skip('should return without the "." from "@mona."', () => {
+				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@mona.'));
 			});
 
-			it.skip('should return without the "_" from "@rocket.cat_"', () => {
-				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@rocket.cat_'));
+			it.skip('should return without the "_" from "@mona_"', () => {
+				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@mona_'));
 			});
 
-			it.skip('should return without the "-" from "@rocket.cat-"', () => {
-				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@rocket.cat-'));
+			it.skip('should return without the "-" from "@mona-"', () => {
+				expect(result).to.be.deep.equal(mentionsParser.getUserMentions('@mona-'));
 			});
 		});
 
 		describe('for two users', () => {
-			const result = ['@rocket.cat', '@all'];
+			const result = ['@mona', '@all'];
 			[
-				'@rocket.cat @all',
-				' @rocket.cat @all ',
-				'hello @rocket.cat and @all',
-				'@rocket.cat, hello @all',
-				'hello @rocket.cat and @all how are you?',
+				'@mona @all',
+				' @mona @all ',
+				'hello @mona and @all',
+				'@mona, hello @all',
+				'hello @mona and @all how are you?',
 			].forEach((text) => {
 				it(`should return "${JSON.stringify(result)}" from "${text}"`, () => {
 					expect(result).to.be.deep.equal(mentionsParser.getUserMentions(text));
@@ -130,7 +130,7 @@ describe('Mention', function () {
 	describe('getChannelMentions', () => {
 		describe('for simple text, no mentions', () => {
 			const result = [];
-			['@rocket.cat', 'hello rocket.cat how are you?'].forEach((text) => {
+			['@mona', 'hello mona how are you?'].forEach((text) => {
 				it(`should return "${JSON.stringify(result)}" from "${text}"`, () => {
 					expect(result).to.be.deep.equal(mentionsParser.getChannelMentions(text));
 				});
@@ -195,14 +195,14 @@ describe('Mention', function () {
 
 const message = {
 	mentions: [
-		{ username: 'rocket.cat', name: 'Rocket.Cat' },
+		{ username: 'mona', name: 'mona' },
 		{ username: 'admin', name: 'Admin' },
 		{ username: 'me', name: 'Me' },
 		{ username: 'specialchars', name: '<img onerror=alert(hello)>' },
 	],
 	channels: [
 		{ name: 'general', _id: '42' },
-		{ name: 'rocket.cat', _id: '169' },
+		{ name: 'mona', _id: '169' },
 	],
 };
 
@@ -213,7 +213,7 @@ describe('replace methods', function () {
 			expect(result).to.be.equal('<a class="mention-link mention-link--all mention-link--group" data-group="all">all</a>');
 		});
 
-		const str2 = 'rocket.cat';
+		const str2 = 'mona';
 
 		it(`should render for "@${str2}"`, () => {
 			const result = mentionsParser.replaceUsers(`@${str2}`, message, 'me');
@@ -246,8 +246,8 @@ describe('replace methods', function () {
 			expect(result).to.be.equal('<a class="mention-link mention-link--all mention-link--group" data-group="all">all</a>');
 		});
 
-		const str2 = 'rocket.cat';
-		const str2Name = 'Rocket.Cat';
+		const str2 = 'mona';
+		const str2Name = 'mona';
 
 		it(`should render for "@${str2}"`, () => {
 			const result = mentionsParser.replaceUsers(`@${str2}`, message, 'me');
@@ -295,7 +295,7 @@ describe('replace methods', function () {
 			expect('<).to.be.equal(class="mention-link mention-link--room" data-channel="42">#general</a>', result);
 		});
 
-		const str2 = '#rocket.cat';
+		const str2 = '#mona';
 
 		it(`should render for ${str2}`, () => {
 			const result = mentionsParser.replaceChannels(str2, message);
@@ -320,11 +320,11 @@ describe('replace methods', function () {
 			expect(result.html).to.be.equal('<a class="mention-link mention-link--room" data-channel="42">#general</a>');
 		});
 
-		it('should render for "#general and @rocket.cat', () => {
-			message.html = '#general and @rocket.cat';
+		it('should render for "#general and @mona', () => {
+			message.html = '#general and @mona';
 			const result = mentionsParser.parse(message, 'me');
 			expect(result.html).to.be.equal(
-				'<a class="mention-link mention-link--room" data-channel="42">#general</a> and <a class="mention-link mention-link--user" data-username="rocket.cat" title="rocket.cat">rocket.cat</a>',
+				'<a class="mention-link mention-link--room" data-channel="42">#general</a> and <a class="mention-link mention-link--user" data-username="mona" title="mona">mona</a>',
 			);
 		});
 
@@ -352,11 +352,11 @@ describe('replace methods', function () {
 			expect(result.html).to.be.equal('<a class="mention-link mention-link--room" data-channel="42">#general</a>');
 		});
 
-		it('should render for "#general and @rocket.cat', () => {
-			message.html = '#general and @rocket.cat';
+		it('should render for "#general and @mona', () => {
+			message.html = '#general and @mona';
 			const result = mentionsParser.parse(message, 'me');
 			expect(result.html).to.be.equal(
-				'<a class="mention-link mention-link--room" data-channel="42">#general</a> and <a class="mention-link mention-link--user" data-username="rocket.cat" title="rocket.cat">Rocket.Cat</a>',
+				'<a class="mention-link mention-link--room" data-channel="42">#general</a> and <a class="mention-link mention-link--user" data-username="mona" title="mona">mona</a>',
 			);
 		});
 
