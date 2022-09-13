@@ -2,7 +2,7 @@ import { BaseModelMock } from './BaseModel.mock';
 
 export class UsersMock extends BaseModelMock {
 	data = {
-		'mona': {
+		mona: {
 			_id: 'mona',
 			createdAt: new Date('2019-03-27T20:51:36.821Z'),
 			avatarOrigin: 'local',
@@ -19,7 +19,7 @@ export class UsersMock extends BaseModelMock {
 	};
 
 	static convertedData = {
-		'mona': {
+		mona: {
 			id: 'mona',
 			username: 'mona',
 			emails: [
