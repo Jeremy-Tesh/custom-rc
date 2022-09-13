@@ -94,22 +94,22 @@ MessageTypes.registerType({
 	message: 'New_videocall_request',
 });
 
-MessageTypes.registerType({
-	id: 'livechat_webrtc_video_call',
-	render(message) {
-		if (message.msg === 'ended' && message.webRtcCallEndTs && message.ts) {
-			return TAPi18n.__('WebRTC_call_ended_message', {
-				callDuration: formatDistance(new Date(message.webRtcCallEndTs), new Date(message.ts)),
-				endTime: moment(message.webRtcCallEndTs).format('h:mm A'),
-			});
-		}
-		if (message.msg === 'declined' && message.webRtcCallEndTs) {
-			return TAPi18n.__('WebRTC_call_declined_message');
-		}
-		return escapeHTML(message.msg);
-	},
-	message: 'room_changed_privacy',
-});
+// MessageTypes.registerType({
+// 	id: 'livechat_webrtc_video_call',
+// 	render(message) {
+// 		if (message.msg === 'ended' && message.webRtcCallEndTs && message.ts) {
+// 			return TAPi18n.__('WebRTC_call_ended_message', {
+// 				callDuration: formatDistance(new Date(message.webRtcCallEndTs), new Date(message.ts)),
+// 				endTime: moment(message.webRtcCallEndTs).format('h:mm A'),
+// 			});
+// 		}
+// 		if (message.msg === 'declined' && message.webRtcCallEndTs) {
+// 			return TAPi18n.__('WebRTC_call_declined_message');
+// 		}
+// 		return escapeHTML(message.msg);
+// 	},
+// 	message: 'room_changed_privacy',
+// });
 
 MessageTypes.registerType({
 	id: 'omnichannel_placed_chat_on_hold',
