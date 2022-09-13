@@ -1,7 +1,7 @@
 {
-	"name": "rocket.chat",
+	"name": "Collaboration",
 	"version": "5.1.0",
-	"description": "Rocket.Chat Monorepo",
+	"description": "Collaboration",
 	"main": "index.js",
 	"private": true,
 	"scripts": {

@@ -4569,7 +4569,7 @@
   "Unmute_microphone": "Włącz mikrofon",
   "Update": "Aktualizacja",
   "Update_EnableChecker": "Włącz sprawdzanie aktualizacji",
-  "Update_EnableChecker_Description": "Sprawdza automatycznie nowe aktualizacje / ważne wiadomości od deweloperów Rocket.Chat i otrzymuje powiadomienia, gdy są one dostępne. Powiadomienie pojawia się raz na nową wersję jako klikalny baner oraz jako wiadomość od bota Rocket.Cat, obie widoczne tylko dla administratorów.",
+  "Update_EnableChecker_Description": "Sprawdza automatycznie nowe aktualizacje / ważne wiadomości od deweloperów Rocket.Chat i otrzymuje powiadomienia, gdy są one dostępne. Powiadomienie pojawia się raz na nową wersję jako klikalny baner oraz jako wiadomość od bota Mona, obie widoczne tylko dla administratorów.",
   "Update_every": "Aktualizuj każdy",
   "Update_LatestAvailableVersion": "Zaktualizuj najnowszą dostępną wersję",
   "Update_to_version": "Zaktualizuj do __version__",
