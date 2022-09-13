@@ -113,13 +113,7 @@ describe('Mention', function () {
 
 		describe('for two users', () => {
 			const result = ['@mona', '@all'];
-			[
-				'@mona @all',
-				' @mona @all ',
-				'hello @mona and @all',
-				'@mona, hello @all',
-				'hello @mona and @all how are you?',
-			].forEach((text) => {
+			['@mona @all', ' @mona @all ', 'hello @mona and @all', '@mona, hello @all', 'hello @mona and @all how are you?'].forEach((text) => {
 				it(`should return "${JSON.stringify(result)}" from "${text}"`, () => {
 					expect(result).to.be.deep.equal(mentionsParser.getUserMentions(text));
 				});
