@@ -21,13 +21,14 @@ const DefaultHomePage = (): ReactElement => {
 	const canAddUsers = usePermission('view-user-administration');
 	const canCreateChannel = useAtLeastOnePermission(CREATE_CHANNEL_PERMISSIONS);
 	const workspaceName = useSetting('Site_Name');
+	
 
 	return (
 		<Page data-qa='page-home' data-qa-type='default' backgroundColor='neutral-100'>
 			<HomePageHeader />
 			<PageScrollableContent>
 				<Box is='h1' fontScale='h1' data-qa-id='homepage-welcome-text'>
-					{t('Welcome_to', { Site_Name: workspaceName || 'Rocket.Chat' })}
+					{t('Welcome_to', { Site_Name:'Collaboration' || workspaceName })}
 				</Box>
 				<Box is='h3' fontScale='h3' mb='x16'>
 					{t('Some_ideas_to_get_you_started')}

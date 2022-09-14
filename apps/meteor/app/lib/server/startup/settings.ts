@@ -854,7 +854,7 @@ settingsRegistry.addGroup('General', function () {
 			public: true,
 		},
 	);
-	this.add('Site_Name', 'Rocket.Chat', {
+	this.add('Site_Name', 'Collaboration', {
 		type: 'string',
 		public: true,
 		wizard: {

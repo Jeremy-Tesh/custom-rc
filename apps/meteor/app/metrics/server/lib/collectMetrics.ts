@@ -105,10 +105,10 @@ app.use('/metrics', (_req, res) => {
 app.use('/', (_req, res) => {
 	const html = `<html>
 		<head>
-			<title>Rocket.Chat Prometheus Exporter</title>
+			<title>Collaboration Prometheus Exporter</title>
 		</head>
 		<body>
-			<h1>Rocket.Chat Prometheus Exporter</h1>
+			<h1>Collaboration Prometheus Exporter</h1>
 			<p><a href="/metrics">Metrics</a></p>
 		</body>
 	</html>`;

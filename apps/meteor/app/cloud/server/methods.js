@@ -112,7 +112,7 @@ Meteor.methods({
 
 		return disconnectWorkspace();
 	},
-	// Currently unused but will link local account to Rocket.Chat Cloud account.
+	// Currently unused but will link local account to Collaboration Cloud account.
 	'cloud:getOAuthAuthorizationUrl'() {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('error-invalid-user', 'Invalid user', {

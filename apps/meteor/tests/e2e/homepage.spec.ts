@@ -70,7 +70,7 @@ test.describe.serial('homepage', () => {
 
 		test.describe('default values', () => {
 			test('expect welcome text to use Site_Name default setting', async () => {
-				await expect(regularUserPage.locator('[data-qa-id="homepage-welcome-text"]')).toContainText('Rocket.Chat');
+				await expect(regularUserPage.locator('[data-qa-id="homepage-welcome-text"]')).toContainText('Collaboration');
 			});
 
 			test('expect header text to use Layout_Home_Title default setting', async () => {
@@ -99,7 +99,7 @@ test.describe.serial('homepage', () => {
 			});
 
 			test.afterAll(async ({ api }) => {
-				expect((await api.post('/settings/Site_Name', { value: 'Rocket.Chat' })).status()).toBe(200);
+				expect((await api.post('/settings/Site_Name', { value: 'Collaboration' })).status()).toBe(200);
 				expect((await api.post('/settings/Layout_Home_Title', { value: 'Home' })).status()).toBe(200);
 			});
 		});

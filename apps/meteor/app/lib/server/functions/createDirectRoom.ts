@@ -99,7 +99,7 @@ export const createDirectRoom = function (
 			}),
 		);
 		if (prevent) {
-			throw new Meteor.Error('error-app-prevented', 'A Rocket.Chat App prevented the room creation.');
+			throw new Meteor.Error('error-app-prevented', 'A Collaboration App prevented the room creation.');
 		}
 
 		const result = Promise.await(

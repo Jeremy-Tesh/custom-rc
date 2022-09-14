@@ -803,7 +803,7 @@ export class VideoConfService extends ServiceClassInternal implements IVideoConf
 		}
 
 		const room = await Rooms.findOneById(call.rid);
-		return room?.fname || room?.name || 'Rocket.Chat';
+		return room?.fname || room?.name || 'Collaboration';
 	}
 
 	private async getCallTitle(call: VideoConference): Promise<string> {
@@ -826,7 +826,7 @@ export class VideoConfService extends ServiceClassInternal implements IVideoConf
 			}
 		}
 
-		return 'Rocket.Chat';
+		return 'Collaboration';
 	}
 
 	private async getUrl(

@@ -12,7 +12,7 @@ export async function getConfirmationPoll(deviceCode: string): Promise<CloudConf
 		result = HTTP.get(`${cloudUrl}/api/v2/register/workspace/poll?token=${deviceCode}`);
 	} catch (e: any) {
 		if (e.response?.data?.error) {
-			SystemLogger.error(`Failed to register with Rocket.Chat Cloud. ErrorCode: ${e.response.data.error}`);
+			SystemLogger.error(`Failed to register with Collaboration Cloud. ErrorCode: ${e.response.data.error}`);
 		} else {
 			SystemLogger.error(e);
 		}

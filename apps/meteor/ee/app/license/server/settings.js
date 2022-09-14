@@ -43,7 +43,7 @@ if (process.env.ROCKETCHAT_LICENSE) {
 	Meteor.startup(() => {
 		if (settings.get('Enterprise_License')) {
 			console.warn(
-				'Rocket.Chat Enterprise: The license from your environment variable was ignored, please use only the admin setting from now on.',
+				'Collaboration Enterprise: The license from your environment variable was ignored, please use only the admin setting from now on.',
 			);
 			return;
 		}

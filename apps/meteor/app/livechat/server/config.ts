@@ -13,7 +13,7 @@ Meteor.startup(function () {
 			public: true,
 		});
 
-		this.add('Livechat_title', 'Rocket.Chat', {
+		this.add('Livechat_title', 'Collaboration', {
 			type: 'string',
 			group: 'Omnichannel',
 			section: 'Livechat',

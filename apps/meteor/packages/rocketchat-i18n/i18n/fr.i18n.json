@@ -1667,7 +1667,7 @@
   "Error_loading_pages": "Erreur lors du chargement des pages",
   "Error_login_blocked_for_ip": "La connexion a été temporairement bloquée pour cette adresse IP",
   "Error_login_blocked_for_user": "La connexion a été temporairement bloquée pour cet utilisateur",
-  "Error_RocketChat_requires_oplog_tailing_when_running_in_multiple_instances": "Erreur : Rocket.chat requiert l'activation de la fonction \"oplog tailing\" lors de l'exécution sur plusieurs instances",
+  "Error_RocketChat_requires_oplog_tailing_when_running_in_multiple_instances": "Erreur : Collaboration requiert l'activation de la fonction \"oplog tailing\" lors de l'exécution sur plusieurs instances",
   "Error_RocketChat_requires_oplog_tailing_when_running_in_multiple_instances_details": "Veuillez vous assurer que MongoDB est en mode ReplicaSet et que la variable d'environnement MONGO_OPLOG_URL est définie correctement sur le serveur de l'application",
   "Error_sending_livechat_offline_message": "Erreur lors de l'envoi du message hors ligne omnicanal",
   "Error_sending_livechat_transcript": "Erreur lors de l'envoi de la transcription omnicanale",

@@ -4,7 +4,7 @@
     "metadata": {
         "name": "rocket-chat",
         "annotations": {
-            "description": "Rocket.Chat with a MongoDB database running with a Persistent storage. Use this template if you want to run Rocket.Chat in production.",
+            "description": "Collaboration with a MongoDB database running with a Persistent storage. Use this template if you want to run Collaboration in production.",
             "tags": "quickstart,nodejs,mongodb,instant-app",
             "iconClass": "icon-nodejs"
         }

@@ -1,1 +1,1 @@
-##Rocket.Chat Federation
+##Collaboration Federation

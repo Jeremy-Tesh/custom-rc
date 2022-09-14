@@ -1,14 +1,14 @@
-# Rocket.chat bot helpers
+# Collaboration bot helpers
 
 This package provides some extra shortcut Meteor methods intended to help Hubot scripts.
 
 ## Approach
 
-This was an experiment in how to extend Hubot and Rocket.chat integration.
+This was an experiment in how to extend Hubot and Collaboration integration.
 
 Keeping controller logic out of Hubot scripts made sense to me, but its not necessarily the best approach.
 
-For bots to use these methods they obviously need this package added to Rocket.chat as well as the [rocketchat adapter](https://github.com/RocketChat/hubot-rocketchat).
+For bots to use these methods they obviously need this package added to Collaboration as well as the [rocketchat adapter](https://github.com/RocketChat/hubot-rocketchat).
 
 ## Usage
 
@@ -18,7 +18,7 @@ At present, there's only one type of helper (`botRequest`) for simple getters, m
 
 e.g. Below uses `onlineNames` method, which returns array of names of online users (not including bots).
 
-Listens for *"who is online"* and replies with something like *"Robert, Desmond and Billie are currently online"*.
+Listens for _"who is online"_ and replies with something like _"Robert, Desmond and Billie are currently online"_.
 
 ```
 # Use Bot Helpers class to check who's online

@@ -69,12 +69,12 @@ export const listenSessionLogin = async (): Promise<void> => {
 					mailData.deviceInfo = `${device.type} ${device.vendor || ''} ${device.model || ''} ${cpu.architecture || ''}`;
 					break;
 				case 'mobile-app':
-					mailData.browserInfo = `Rocket.Chat App ${app?.bundle || app?.version}`;
+					mailData.browserInfo = `Collaboration App ${app?.bundle || app?.version}`;
 					mailData.osInfo = `${os.name} ${os.version || ''}`;
 					mailData.deviceInfo = 'Mobile App';
 					break;
 				case 'desktop-app':
-					mailData.browserInfo = `Rocket.Chat ${app?.name || browser.name} ${app?.bundle || app?.version || browser.version}`;
+					mailData.browserInfo = `Collaboration ${app?.name || browser.name} ${app?.bundle || app?.version || browser.version}`;
 					mailData.osInfo = `${os.name} ${os.version || ''}`;
 					mailData.deviceInfo = `Desktop App ${cpu.architecture || ''}`;
 					break;

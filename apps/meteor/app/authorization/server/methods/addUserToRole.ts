@@ -36,7 +36,7 @@ Meteor.methods({
 				});
 			}
 
-			apiDeprecationLogger.warn(`Calling authorization:addUserToRole with role names will be deprecated in future versions of Rocket.Chat`);
+			apiDeprecationLogger.warn(`Calling authorization:addUserToRole with role names will be deprecated in future versions of Collaboration`);
 		}
 
 		if (role._id === 'admin' && !hasPermission(userId, 'assign-admin-role')) {

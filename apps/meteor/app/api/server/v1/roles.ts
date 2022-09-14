@@ -117,7 +117,7 @@ API.v1.addRoute(
 					return API.v1.failure('error-invalid-role-properties');
 				}
 
-				apiDeprecationLogger.warn(`Assigning roles by name is deprecated and will be removed on the next major release of Rocket.Chat`);
+				apiDeprecationLogger.warn(`Assigning roles by name is deprecated and will be removed on the next major release of Collaboration`);
 			}
 
 			const role = roleId ? await Roles.findOneById(roleId) : await Roles.findOneByIdOrName(roleName as string);
@@ -173,7 +173,7 @@ API.v1.addRoute(
 					throw new Meteor.Error('error-invalid-roleId');
 				}
 
-				apiDeprecationLogger.warn(`Querying roles by name is deprecated and will be removed on the next major release of Rocket.Chat`);
+				apiDeprecationLogger.warn(`Querying roles by name is deprecated and will be removed on the next major release of Collaboration`);
 			}
 
 			const { cursor, totalCount } = await getUsersInRolePaginated(roleData._id, roomId, {
@@ -284,7 +284,7 @@ API.v1.addRoute(
 					return API.v1.failure('error-invalid-role-properties');
 				}
 
-				apiDeprecationLogger.warn(`Unassigning roles by name is deprecated and will be removed on the next major release of Rocket.Chat`);
+				apiDeprecationLogger.warn(`Unassigning roles by name is deprecated and will be removed on the next major release of Collaboration`);
 			}
 
 			const user = Users.findOneByUsername(username);

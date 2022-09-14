@@ -64,7 +64,7 @@ Meteor.startup(() =>
 			addLogoutCronJob();
 		});
 
-		settings.watch<string>('LDAP_Groups_To_Rocket_Chat_Teams', (value) => {
+		settings.watch<string>('LDAP_Groups_To_Collaboration_Teams', (value) => {
 			try {
 				LDAPEEManager.validateLDAPTeamsMappingChanges(value);
 			} catch (error) {

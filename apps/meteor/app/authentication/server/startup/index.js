@@ -361,7 +361,7 @@ Accounts.validateLoginAttempt(function (login) {
 
 	/**
 	 * Trigger the event only when the
-	 * user does login in Rocket.chat
+	 * user does login in Collaboration
 	 */
 	if (login.type !== 'resume') {
 		// App IPostUserLoggedIn event hook

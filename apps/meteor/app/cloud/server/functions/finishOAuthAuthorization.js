@@ -35,7 +35,7 @@ export function finishOAuthAuthorization(code, state) {
 		});
 	} catch (e) {
 		if (e.response && e.response.data && e.response.data.error) {
-			SystemLogger.error(`Failed to get AccessToken from Rocket.Chat Cloud.  Error: ${e.response.data.error}`);
+			SystemLogger.error(`Failed to get AccessToken from Collaboration Cloud.  Error: ${e.response.data.error}`);
 		} else {
 			SystemLogger.error(e);
 		}

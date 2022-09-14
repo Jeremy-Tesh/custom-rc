@@ -39,7 +39,7 @@ export async function syncWorkspace(reconnectCheck = false) {
 		await getWorkspaceLicense();
 	} catch (e: any) {
 		if (e.response?.data?.error) {
-			SystemLogger.error(`Failed to sync with Rocket.Chat Cloud.  Error: ${e.response.data.error}`);
+			SystemLogger.error(`Failed to sync with Collaboration Cloud.  Error: ${e.response.data.error}`);
 		} else {
 			SystemLogger.error(e);
 		}

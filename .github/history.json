@@ -54270,7 +54270,7 @@
           "pr": "20196",
           "title": "[FIX] Omnichannel - Contact Center form is not validating custom fields properly",
           "userLogin": "rafaelblink",
-          "description": "The contact form is accepting undefined values in required custom fields when creating or editing contacts, and, the errror message isn't following Rocket.chat design system.\r\n\r\n### Before\r\n![image](https://user-images.githubusercontent.com/2493803/104522668-31688980-55dd-11eb-92c5-83f96073edc4.png)\r\n\r\n### After\r\n\r\n#### New\r\n![image](https://user-images.githubusercontent.com/2493803/104770494-68f74300-574f-11eb-94a3-c8fd73365308.png)\r\n\r\n\r\n#### Edit\r\n![image](https://user-images.githubusercontent.com/2493803/104770538-7b717c80-574f-11eb-829f-1ae304103369.png)",
+          "description": "The contact form is accepting undefined values in required custom fields when creating or editing contacts, and, the errror message isn't following Collaboration design system.\r\n\r\n### Before\r\n![image](https://user-images.githubusercontent.com/2493803/104522668-31688980-55dd-11eb-92c5-83f96073edc4.png)\r\n\r\n### After\r\n\r\n#### New\r\n![image](https://user-images.githubusercontent.com/2493803/104770494-68f74300-574f-11eb-94a3-c8fd73365308.png)\r\n\r\n\r\n#### Edit\r\n![image](https://user-images.githubusercontent.com/2493803/104770538-7b717c80-574f-11eb-829f-1ae304103369.png)",
           "milestone": "3.11.0",
           "contributors": [
             "rafaelblink",
@@ -55804,7 +55804,7 @@
           "pr": "20403",
           "title": "[FIX] Added check for view admin permission page",
           "userLogin": "yash-rajpal",
-          "description": "Admin Permission page was visible to all, if you add admin/permissions after the base url. This should not be visible to all user, only people with certain permissions should be able to see this page.\r\nI am also able to see permissions page for open workspace of Rocket chat.\r\n![image](https://user-images.githubusercontent.com/58601732/105829728-bfd00880-5fea-11eb-9121-6c53a752f140.png)",
+          "description": "Admin Permission page was visible to all, if you add admin/permissions after the base url. This should not be visible to all user, only people with certain permissions should be able to see this page.\r\nI am also able to see permissions page for open workspace of Collaboration.\r\n![image](https://user-images.githubusercontent.com/58601732/105829728-bfd00880-5fea-11eb-9121-6c53a752f140.png)",
           "contributors": [
             "yash-rajpal",
             "gabriellsh",
