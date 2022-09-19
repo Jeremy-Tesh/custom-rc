@@ -1,6 +1,7 @@
-import React, { ReactElement } from 'react';
 import { Sidebar } from '@rocket.chat/fuselage';
 import { useTranslation } from '@rocket.chat/ui-contexts';
+import React, { ReactElement } from 'react';
+
 import Search from '../header/actions/Search';
 // import colors from '@rocket.chat/fuselage-tokens/colors.json';
 
