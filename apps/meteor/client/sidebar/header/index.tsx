@@ -5,11 +5,11 @@ import React, { memo, ReactElement } from 'react';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import UserAvatarButton from './UserAvatarButton';
 import CreateRoom from './actions/CreateRoom';
-import Directory from './actions/Directory';
-import Home from './actions/Home';
 import Login from './actions/Login';
-import Search from './actions/Search';
-import Sort from './actions/Sort';
+// import Directory from './actions/Directory';
+// import Home from './actions/Home';
+// import Search from './actions/Search';
+// import Sort from './actions/Sort';
 
 const HeaderWithData = (): ReactElement => {
 	const user = useUser();

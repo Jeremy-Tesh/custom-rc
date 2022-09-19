@@ -1,26 +1,22 @@
-import { css } from '@rocket.chat/css-in-js';
-import { Sidebar } from '@rocket.chat/fuselage';
-import Search from '../header/actions/Search';
-import colors from '@rocket.chat/fuselage-tokens/colors.json';
 import React, { ReactElement } from 'react';
-
-// import { settings } from '../../../app/settings/client';
-// import { SidebarFooterWatermark } from '../../../ee/client/sidebar/footer/SidebarFooterWatermark';
+import { Sidebar } from '@rocket.chat/fuselage';
 import { useTranslation } from '@rocket.chat/ui-contexts';
+import Search from '../header/actions/Search';
+// import colors from '@rocket.chat/fuselage-tokens/colors.json';
 
 const SidebarFooterDefault = (): ReactElement => {
 	const t = useTranslation();
-	const sidebarFooterStyle = css`
-		& img {
-			max-width: 100%;
-			height: 100%;
-		}
+	// const sidebarFooterStyle = css`
+	// 	& img {
+	// 		max-width: 100%;
+	// 		height: 100%;
+	// 	}
 
-		& a:any-link {
-			color: ${colors.n600};
-			color: var(--rc-color-primary-light, ${colors.n600});
-		}
-	`;
+	// 	& a:any-link {
+	// 		color: ${colors.n600};
+	// 		color: var(--rc-color-primary-light, ${colors.n600});
+	// 	}
+	// `;
 
 	return (
 		<>
