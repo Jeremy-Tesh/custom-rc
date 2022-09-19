@@ -21,12 +21,12 @@ const HeaderWithData = (): ReactElement => {
 			<Sidebar.TopBar.Section className='sidebar--custom-colors'>
 				<UserAvatarButton />
 				<Sidebar.TopBar.Actions>
-					<Home title={t('Home')} />
-					<Search title={t('Search')} data-qa='sidebar-search' />
+					{/* <Home title={t('Home')} /> */}
+					{/* <Search title={t('Search')} data-qa='sidebar-search' /> */}
 					{user && (
 						<>
-							<Directory title={t('Directory')} />
-							<Sort title={t('Display')} />
+							{/* <Directory title={t('Directory')} />
+							<Sort title={t('Display')} /> */}
 							<CreateRoom title={t('Create_new')} data-qa='sidebar-create' />
 						</>
 					)}

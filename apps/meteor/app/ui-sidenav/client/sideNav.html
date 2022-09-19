@@ -1,6 +1,6 @@
 <template name="sideNav">
 	<aside class="rcx-sidebar sidebar sidebar--main sidebar--{{sidebarViewMode}} {{#if sidebarHideAvatar}}sidebar--hide-avatar{{/if}}" role="navigation"  data-qa-opened="{{dataQa}}">
-		{{> sidebarHeader }}
+		{{> sidebarFooter }}
 		<div class="wrapper-unread">
 			<div class="unread-rooms background-primary-action-color color-primary-action-contrast top-unread-rooms hidden">
 				<i class="icon-up-big"></i> {{_ "More_unreads"}}
@@ -17,7 +17,7 @@
 		<div class="flex-nav animated-hidden">
 			{{> Template.dynamic template=flexTemplate data=flexData }}
 		</div>
-		{{> sidebarFooter}}
+		{{> sidebarHeader}}
 	</aside>
 	<div class="sidebar-wrap"></div>
 </template>
