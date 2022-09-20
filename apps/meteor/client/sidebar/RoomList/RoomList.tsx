@@ -1,4 +1,3 @@
-import { IRoom } from '@rocket.chat/core-typings';
 import { Box } from '@rocket.chat/fuselage';
 import { useResizeObserver } from '@rocket.chat/fuselage-hooks';
 import { useSession, useUserPreference, useUserId, useTranslation } from '@rocket.chat/ui-contexts';
@@ -14,7 +13,7 @@ import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
 import Toggle from './Toogle';
 
-const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
+// const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
 
 const RoomList = (): ReactElement => {
 	useSidebarPaletteColor();
