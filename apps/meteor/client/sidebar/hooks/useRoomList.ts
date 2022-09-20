@@ -102,9 +102,7 @@ export const useRoomList = (): Type[] => {
 			sidebarGroupByType && channels.size && groups.set('Channels', channels);
 			sidebarGroupByType && direct.size && groups.set('Direct_Messages', direct);
 			!sidebarGroupByType && groups.set('Conversations', conversation);
-			return Array.from(groups).map((item) => {
-				return { [item[0]]: Array.from(item[1]) };
-			});
+			return Array.from(groups).map((item) => ({ [item[0]]: Array.from(item[1]) }));
 		});
 	}, [
 		rooms,

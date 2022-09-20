@@ -1,6 +1,6 @@
 import { SidebarSection } from '@rocket.chat/fuselage';
-import React, { ComponentType, memo, useMemo, ReactElement } from 'react';
 import FeatherIcon from 'feather-icons-react';
+import React, { ComponentType, memo, useMemo, ReactElement } from 'react';
 
 import { useVideoConfAcceptCall, useVideoConfRejectIncomingCall, useVideoConfIncomingCalls } from '../../contexts/VideoConfContext';
 import OmnichannelSection from '../sections/OmnichannelSection';

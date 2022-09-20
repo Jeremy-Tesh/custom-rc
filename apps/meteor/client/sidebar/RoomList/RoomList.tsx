@@ -12,7 +12,7 @@ import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
-import Toggle from './toogle';
+import Toggle from './Toogle';
 
 const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
 
@@ -64,7 +64,7 @@ const RoomList = (): ReactElement => {
 				const title = entries[0][0];
 				const list = entries[0][1];
 
-				return <Toggle key={index} list={list} title={title} itemData={itemData} computeItemKey={computeItemKey} />;
+				return <Toggle key={index} list={list} title={title} itemData={itemData} />;
 			})}
 		</Box>
 	);

@@ -1,12 +1,10 @@
 import { SidebarSection } from '@rocket.chat/fuselage';
-import React, { useState } from 'react';
 import FeatherIcon from 'feather-icons-react';
-import { Virtuoso } from 'react-virtuoso';
+import React, { useState } from 'react';
 
-import ScrollerWithCustomProps from './ScrollerWithCustomProps';
 import Row from './Row';
 
-function Toggle({ list, title, itemData, computeItemKey }) {
+function Toggle({ list, title, itemData }) {
 	const [open, setOpen] = useState(false);
 
 	return (
