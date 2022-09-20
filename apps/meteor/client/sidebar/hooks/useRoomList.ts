@@ -12,8 +12,10 @@ const query = { open: { $ne: false } };
 
 const emptyQueue: IRoom[] = [];
 
-export const useRoomList = (): Array<ISubscription & IRoom> => {
-	const [roomList, setRoomList] = useDebouncedState<(ISubscription & IRoom)[]>([], 150);
+type Type = { [n: string]: Array<ISubscription & IRoom> };
+
+export const useRoomList = (): Type[] => {
+	const [roomList, setRoomList] = useDebouncedState<Type[]>([], 150);
 
 	const showOmnichannel = useOmnichannelEnabled();
 	const sidebarGroupByType = useUserPreference('sidebarGroupByType');
@@ -100,7 +102,9 @@ export const useRoomList = (): Array<ISubscription & IRoom> => {
 			sidebarGroupByType && channels.size && groups.set('Channels', channels);
 			sidebarGroupByType && direct.size && groups.set('Direct_Messages', direct);
 			!sidebarGroupByType && groups.set('Conversations', conversation);
-			return [...groups.entries()].flatMap(([key, group]) => [key, ...group]);
+			return Array.from(groups).map((item) => {
+				return { [item[0]]: Array.from(item[1]) };
+			});
 		});
 	}, [
 		rooms,

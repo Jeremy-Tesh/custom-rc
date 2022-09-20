@@ -1,11 +1,8 @@
-import { IRoom, ISubscription } from '@rocket.chat/core-typings';
 import { SidebarSection } from '@rocket.chat/fuselage';
-import { useTranslation } from '@rocket.chat/ui-contexts';
 import React, { ComponentType, memo, useMemo, ReactElement } from 'react';
+import FeatherIcon from 'feather-icons-react';
 
 import { useVideoConfAcceptCall, useVideoConfRejectIncomingCall, useVideoConfIncomingCalls } from '../../contexts/VideoConfContext';
-import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
-import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
 import OmnichannelSection from '../sections/OmnichannelSection';
 import SideBarItemTemplateWithData from './SideBarItemTemplateWithData';
 
@@ -14,18 +11,27 @@ const sections: {
 } = {
 	Omnichannel: OmnichannelSection,
 };
+// function isExpanded(id:string){
+// 	if(item.id === openedRoom){
 
-type RoomListRowProps = {
-	extended: boolean;
-	t: ReturnType<typeof useTranslation>;
-	SideBarItemTemplate: ReturnType<typeof useTemplateByViewMode>;
-	AvatarTemplate: ReturnType<typeof useAvatarTemplate>;
-	openedRoom: string;
-	sidebarViewMode: 'extended' | 'condensed' | 'medium';
-	isAnonymous: boolean;
-};
+// 	}
 
-const Row = ({ data, item }: { data: RoomListRowProps; item: ISubscription & IRoom }): ReactElement => {
+// }
+
+// type RoomListRowProps = {
+// 	extended: boolean;
+// 	t: ReturnType<typeof useTranslation>;
+// 	SideBarItemTemplate: ReturnType<typeof useTemplateByViewMode>;
+// 	AvatarTemplate: ReturnType<typeof useAvatarTemplate>;
+// 	openedRoom: string;
+// 	sidebarViewMode: 'extended' | 'condensed' | 'medium';
+// 	isAnonymous: boolean;
+// };
+// const[activeItemId,setActiveItemId] = useState(()=>{
+
+// })
+
+const Row = ({ data, item }: { data: any; item: any }): ReactElement => {
 	const { extended, t, SideBarItemTemplate, AvatarTemplate, openedRoom, sidebarViewMode } = data;
 
 	const acceptCall = useVideoConfAcceptCall();
@@ -45,10 +51,11 @@ const Row = ({ data, item }: { data: RoomListRowProps; item: ISubscription & IRo
 	if (typeof item === 'string') {
 		const Section = sections[item];
 		return Section ? (
-			<Section aria-level='1' />
+			<Section style={{ border: 'solid green 2px' }} aria-level='1' />
 		) : (
 			<SidebarSection aria-level='1'>
 				<SidebarSection.Title>{t(item)}</SidebarSection.Title>
+				<FeatherIcon icon='chevron-down' size='1em' />
 			</SidebarSection>
 		);
 	}

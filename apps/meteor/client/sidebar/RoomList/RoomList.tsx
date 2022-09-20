@@ -3,7 +3,6 @@ import { Box } from '@rocket.chat/fuselage';
 import { useResizeObserver } from '@rocket.chat/fuselage-hooks';
 import { useSession, useUserPreference, useUserId, useTranslation } from '@rocket.chat/ui-contexts';
 import React, { useMemo, ReactElement } from 'react';
-import { Virtuoso } from 'react-virtuoso';
 
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
 import { usePreventDefault } from '../hooks/usePreventDefault';
@@ -11,8 +10,9 @@ import { useRoomList } from '../hooks/useRoomList';
 import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
-import Row from './Row';
-import ScrollerWithCustomProps from './ScrollerWithCustomProps';
+// import Row from './Row';
+// import ScrollerWithCustomProps from './ScrollerWithCustomProps';
+import Toggle from './toogle';
 
 const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
 
@@ -32,6 +32,15 @@ const RoomList = (): ReactElement => {
 	const t = useTranslation();
 
 	const roomsList = useRoomList();
+	// const[roomsdata,setroomsData]= useDebouncedState<Type[]>(()=>{
+	// 	return roomsList.map((elt) => {
+	// 		return setroomsData(Object.values(elt))
+	// 	})
+	// },100)
+	console.log(roomsList);
+
+	const roomsdata = roomsList.map((elt) => Object.values(elt));
+	console.log(roomsdata);
 	const itemData = useMemo(
 		() => ({
 			extended,
@@ -49,13 +58,14 @@ const RoomList = (): ReactElement => {
 	useShortcutOpenMenu(ref);
 	return (
 		<Box h='full' w='full' ref={ref}>
-			<Virtuoso
-				totalCount={roomsList.length}
-				data={roomsList}
-				components={{ Scroller: ScrollerWithCustomProps }}
-				computeItemKey={computeItemKey}
-				itemContent={(_, data): ReactElement => <Row data={itemData} item={data} />}
-			/>
+			{roomsList.map((item, index) => {
+				const entries = Object.entries(item);
+
+				const title = entries[0][0];
+				const list = entries[0][1];
+
+				return <Toggle key={index} list={list} title={title} itemData={itemData} computeItemKey={computeItemKey} />;
+			})}
 		</Box>
 	);
 };
