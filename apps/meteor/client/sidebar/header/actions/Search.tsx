@@ -1,45 +1,45 @@
-import { Sidebar } from '@rocket.chat/fuselage';
-import { useMutableCallback, useOutsideClick } from '@rocket.chat/fuselage-hooks';
-import React, { useState, useEffect, useRef, VFC, HTMLAttributes } from 'react';
-import tinykeys from 'tinykeys';
+import { Box } from '@rocket.chat/fuselage';
+import React, { VFC, HTMLAttributes } from 'react';
 
 import SearchList from '../../search/SearchList';
 
-const Search: VFC<Omit<HTMLAttributes<HTMLElement>, 'is'>> = (props) => {
-	const [searchOpen, setSearchOpen] = useState(false);
+const Search: VFC<Omit<HTMLAttributes<HTMLElement>, 'is'>> = () => {
+	// const [searchOpen, setSearchOpen] = useState(false);
 
-	const ref = useRef<HTMLElement>(null);
-	const handleCloseSearch = useMutableCallback(() => {
-		setSearchOpen(false);
-	});
+	// const ref = useRef<HTMLElement>(null);
+	// const handleCloseSearch = useMutableCallback(() => {
+	// 	setSearchOpen(false);
+	// });
 
-	useOutsideClick([ref], handleCloseSearch);
+	// useOutsideClick([ref], handleCloseSearch);
 
-	const openSearch = useMutableCallback(() => {
-		setSearchOpen(true);
-	});
+	// const openSearch = useMutableCallback(() => {
+	// 	setSearchOpen(true);
+	// });
 
-	useEffect(() => {
-		const unsubscribe = tinykeys(window, {
-			'$mod+K': (event) => {
-				event.preventDefault();
-				openSearch();
-			},
-			'$mod+P': (event) => {
-				event.preventDefault();
-				openSearch();
-			},
-		});
+	// useEffect(() => {
+	// 	const unsubscribe = tinykeys(window, {
+	// 		'$mod+K': (event) => {
+	// 			event.preventDefault();
+	// 			openSearch();
+	// 		},
+	// 		'$mod+P': (event) => {
+	// 			event.preventDefault();
+	// 			openSearch();
+	// 		},
+	// 	});
 
-		return (): void => {
-			unsubscribe();
-		};
-	}, [openSearch]);
+	// 	return (): void => {
+	// 		unsubscribe();
+
+	// 	};
+	// }, [openSearch]);
 
 	return (
 		<>
-			<Sidebar.TopBar.Action icon='magnifier' onClick={openSearch} {...props} />
-			{searchOpen && <SearchList ref={ref} onClose={handleCloseSearch} />}
+			<Box w='full'>
+				<SearchList />
+			</Box>
 		</>
 	);
 };

@@ -1,14 +1,7 @@
 import { IRoom, ISubscription, RoomType } from '@rocket.chat/core-typings';
 import { css } from '@rocket.chat/css-in-js';
-import { Sidebar, TextInput, Box, Icon } from '@rocket.chat/fuselage';
-import {
-	useMutableCallback,
-	useDebouncedValue,
-	useStableArray,
-	useAutoFocus,
-	useUniqueId,
-	useMergedRefs,
-} from '@rocket.chat/fuselage-hooks';
+import { Sidebar, TextInput, Box } from '@rocket.chat/fuselage';
+import { useMutableCallback, useDebouncedValue, useStableArray, useUniqueId, useOutsideClick } from '@rocket.chat/fuselage-hooks';
 import { escapeRegExp } from '@rocket.chat/string-helpers';
 import { useUserPreference, useUserSubscriptions, useSetting, useTranslation, useMethod } from '@rocket.chat/ui-contexts';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
@@ -24,7 +17,6 @@ import React, {
 	SetStateAction,
 	Dispatch,
 	FormEventHandler,
-	Ref,
 } from 'react';
 import { Virtuoso, VirtuosoHandle } from 'react-virtuoso';
 import tinykeys from 'tinykeys';
@@ -167,17 +159,14 @@ const toggleSelectionState = (next: HTMLElement, current: HTMLElement | undefine
  * @type import('react').ForwardRefExoticComponent<{ onClose: unknown } & import('react').RefAttributes<HTMLElement>>
  */
 
-type SearchListProps = {
-	onClose: () => void;
-};
-
-const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, ref): ReactElement {
+const SearchList = forwardRef(function SearchList(): ReactElement {
 	const listId = useUniqueId();
 	const t = useTranslation();
 	const { setValue: setFilterValue, ...filter } = useInput('');
+	const [searchOpen, setSearchOpen] = useState(false);
 
 	const cursorRef = useRef<HTMLInputElement>(null);
-	const autofocus: Ref<HTMLInputElement> = useMergedRefs(useAutoFocus<HTMLInputElement>(), cursorRef);
+	const ref = useRef<HTMLElement>(null);
 
 	const listRef = useRef<VirtuosoHandle>(null);
 	const boxRef = useRef<HTMLDivElement>(null);
@@ -211,6 +200,16 @@ const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, 
 		}),
 		[avatarTemplate, extended, items, useRealName, sideBarItemTemplate, sidebarViewMode, t],
 	);
+
+	const handleCloseSearch = useMutableCallback(() => {
+		setSearchOpen(false);
+	});
+
+	const openSearch = useMutableCallback(() => {
+		setSearchOpen(true);
+	});
+
+	useOutsideClick([ref], handleCloseSearch);
 
 	const changeSelection = useMutableCallback((dir) => {
 		let nextSelectedElement = null;
@@ -248,6 +247,23 @@ const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, 
 	}, [filterText, resetCursor]);
 
 	useEffect(() => {
+		const unsubscribe = tinykeys(window, {
+			'$mod+K': (event) => {
+				event.preventDefault();
+				openSearch();
+			},
+			'$mod+P': (event) => {
+				event.preventDefault();
+				openSearch();
+			},
+		});
+
+		return (): void => {
+			unsubscribe();
+		};
+	}, [openSearch]);
+
+	useEffect(() => {
 		if (!cursorRef?.current) {
 			return;
 		}
@@ -256,13 +272,13 @@ const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, 
 				event.preventDefault();
 				setFilterValue((value) => {
 					if (!value) {
-						onClose();
+						handleCloseSearch();
 					}
 					resetCursor();
 					return '';
 				});
 			},
-			Tab: onClose,
+			Tab: handleCloseSearch,
 			ArrowUp: () => {
 				const currentElement = changeSelection('up');
 				itemIndexRef.current = Math.max(itemIndexRef.current - 1, 0);
@@ -283,14 +299,14 @@ const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, 
 		});
 		return (): void => {
 			unsubscribe();
+			handleCloseSearch();
 		};
-	}, [cursorRef, changeSelection, items.length, onClose, resetCursor, setFilterValue]);
+	}, [cursorRef, changeSelection, items.length, handleCloseSearch, resetCursor, setFilterValue, openSearch]);
 
 	return (
 		<Box
 			position='absolute'
 			rcx-sidebar
-			h='full'
 			display='flex'
 			flexDirection='column'
 			zIndex={99}
@@ -298,41 +314,47 @@ const SearchList = forwardRef(function SearchList({ onClose }: SearchListProps, 
 			className={css`
 				left: 0;
 				top: 0;
+				${searchOpen ? `height:100%` : `height:auto;overflow:hidden `}
 			`}
 			ref={ref}
 		>
-			<Sidebar.TopBar.Section {...({ role: 'search' } as any)} is='form'>
+			<Sidebar.TopBar.Section {...({ role: 'search' } as any)}>
 				<TextInput
+					border={'solid 2px'}
+					borderRadius={'20px'}
 					aria-owns={listId}
 					data-qa='sidebar-search-input'
-					ref={autofocus}
+					onFocus={openSearch}
+					// ref={autofocus}
 					{...filter}
 					placeholder={placeholder}
-					addon={<Icon name='cross' size='x20' onClick={onClose} />}
+					// onBlur={handleCloseSearch}
+					// addon={<Icon name='cross' size='x20' onClick={handleCloseSearch} />}
 				/>
 			</Sidebar.TopBar.Section>
-			<Box
-				ref={boxRef}
-				aria-expanded='true'
-				role='listbox'
-				id={listId}
-				tabIndex={-1}
-				flexShrink={1}
-				h='full'
-				w='full'
-				data-qa='sidebar-search-result'
-				onClick={onClose}
-				aria-busy={isLoading}
-			>
-				<Virtuoso
-					style={{ height: '100%', width: '100%' }}
-					totalCount={items.length}
-					data={items}
-					components={{ Scroller: ScrollerWithCustomProps }}
-					itemContent={(_, data): ReactElement => <Row data={itemData} item={data} />}
-					ref={listRef}
-				/>
-			</Box>
+			{searchOpen && (
+				<Box
+					ref={boxRef}
+					aria-expanded='true'
+					role='listbox'
+					id={listId}
+					tabIndex={-1}
+					flexShrink={1}
+					h='full'
+					w='full'
+					data-qa='sidebar-search-result'
+					aria-busy={isLoading}
+				>
+					<Virtuoso
+						style={{ height: '100%', width: '100%' }}
+						totalCount={items.length}
+						data={items}
+						components={{ Scroller: ScrollerWithCustomProps }}
+						itemContent={(_, data): ReactElement => <Row data={itemData} item={data} />}
+						ref={listRef}
+					/>
+				</Box>
+			)}
 		</Box>
 	);
 });

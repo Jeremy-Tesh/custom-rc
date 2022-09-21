@@ -36,10 +36,7 @@ const RoomList = (): ReactElement => {
 	// 		return setroomsData(Object.values(elt))
 	// 	})
 	// },100)
-	console.log(roomsList);
 
-	const roomsdata = roomsList.map((elt) => Object.values(elt));
-	console.log(roomsdata);
 	const itemData = useMemo(
 		() => ({
 			extended,
