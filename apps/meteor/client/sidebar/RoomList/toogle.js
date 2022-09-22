@@ -10,7 +10,7 @@ function Toggle({ list, title, itemData }) {
 	return (
 		<div className='mb-3'>
 			<SidebarSection aria-level='1'>
-				<div onClick={() => setOpen(!open)} style={{ display: 'flex', width: '100%', justifyContent: 'space-between', color: 'white' }}>
+				<div onClick={() => setOpen(!open)} style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
 					<SidebarSection.Title>{title}</SidebarSection.Title>
 					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
 				</div>

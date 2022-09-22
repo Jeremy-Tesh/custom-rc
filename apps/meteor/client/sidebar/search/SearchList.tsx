@@ -320,11 +320,13 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 		>
 			<Sidebar.TopBar.Section {...({ role: 'search' } as any)}>
 				<TextInput
-					border={'solid 2px'}
+					border={'solid 1px #d2ddec'}
 					borderRadius={'20px'}
 					aria-owns={listId}
 					data-qa='sidebar-search-input'
 					onFocus={openSearch}
+					bg={'white'}
+					rcx-sidebar
 					// ref={autofocus}
 					{...filter}
 					placeholder={placeholder}

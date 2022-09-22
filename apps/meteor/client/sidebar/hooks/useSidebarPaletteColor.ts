@@ -125,11 +125,11 @@ const getStyle = (
 
 			--rcx-button-icon-active-border-color: ${toVar(colors.n900)};
 			--rcx-button-icon-active-background-color: ${toVar(colors.n800)};
-			--rcx-button-icon-color: ${toVar(colors.n600)};
-			--rcx-button-icon-border-color: ${toVar(colors.sibebarSurface)};
-			--rcx-button-icon-background-color: ${toVar(colors.sibebarSurface)};
-			--rcx-button-icon-hover-background-color: ${toVar(colors.n900)};
-			--rcx-button-icon-hover-border-color: ${toVar(colors.n900)};
+			--rcx-button-icon-color: ${toVar(colors.n100)};
+			--rcx-button-icon-border-color: ${toVar(colors.b500)};
+			--rcx-button-icon-background-color: ${toVar(colors.b500)} ;
+			--rcx-button-icon-hover-background-color: ${toVar(colors.b500)};
+			--rcx-button-icon-hover-border-color: ${toVar(colors.b500)};
 			--rcx-button-icon-focus-background-color:  var(--rcx-color-neutral-300);
 			--rcx-button-icon-focus-border-color: var(--rcx-color-neutral-500);
 			--rcx-button-icon-focus-shadow-color: none;
@@ -143,7 +143,7 @@ const getStyle = (
 			--rcx-button-icon-success-hover-border-color: ${toVar(colors.n900)};
 
 
-			--rcx-sidebar-item-background-color-hover: ${toVar(colors.n900)};
+			--rcx-sidebar-item-background-color-hover: ${toVar(colors.b100)};
 			--rcx-sidebar-item-background-color-selected: ${h2r(toVar(colors.n700 || colors.n800), 0.3)};
 			--rcx-badge-colors-ghost-background-color: ${toVar(colors.n700)};
 			--rcx-tag-colors-ghost-background-color: ${toVar(colors.n700)};
@@ -157,11 +157,11 @@ const getStyle = (
 			--rcx-color-foreground-alternative: ${toVar(colors.n100)};
 			--rcx-color-foreground-hint: ${toVar(colors.n600)};
 
-			--rcx-sidebar-title-color: var(--rcx-color-neutral-400, ${toVar(colors.n400)});
-			--rcx-sidebar-item-color: var(--rcx-color-neutral-400, ${toVar(colors.n400)});
-			--rcx-sidebar-item-color-hover: var(--rcx-color-neutral-400, ${toVar(colors.n400)});
-			--rcx-sidebar-item-color-selected: var(--rcx-color-neutral-400, ${toVar(colors.n400)});
-			--rcx-sidebar-footer-highlight-color: var(--rcx-color-neutral-400, ${toVar(colors.n400)});
+			--rcx-sidebar-title-color: var(--rcx-color-neutral-200, ${toVar(colors.n400)});
+			--rcx-sidebar-item-color: var(--rcx-color-neutral-200, ${toVar(colors.n400)});
+			--rcx-sidebar-item-color-hover: var(--rcx-color-neutral-200, ${toVar(colors.n400)});
+			--rcx-sidebar-item-color-selected: var(--rcx-color-neutral-200, ${toVar(colors.n400)});
+			--rcx-sidebar-footer-highlight-color: var(--rcx-color-neutral-200, ${toVar(colors.n400)});
 
 		}
 
@@ -173,7 +173,7 @@ const getStyle = (
 		}
 
 		.rcx-sidebar {
-			background-color: ${toVar(colors.sibebarSurface)};
+			background-color: ${toVar(colors.n100)};
 		}
 		`
 )(isIE11 ? ':root' : modifier);

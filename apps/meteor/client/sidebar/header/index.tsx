@@ -1,4 +1,4 @@
-import { Sidebar } from '@rocket.chat/fuselage';
+import { Box, Sidebar } from '@rocket.chat/fuselage';
 import { useUser, useTranslation } from '@rocket.chat/ui-contexts';
 import React, { memo, ReactElement } from 'react';
 
@@ -17,7 +17,7 @@ const HeaderWithData = (): ReactElement => {
 	useSidebarPaletteColor();
 
 	return (
-		<>
+		<Box border={'1px solid #e3ebf6'}>
 			<Sidebar.TopBar.Section className='sidebar--custom-colors'>
 				<UserAvatarButton />
 				<Sidebar.TopBar.Actions>
@@ -33,7 +33,7 @@ const HeaderWithData = (): ReactElement => {
 					{!user && <Login title={t('Login')} />}
 				</Sidebar.TopBar.Actions>
 			</Sidebar.TopBar.Section>
-		</>
+		</Box>
 	);
 };
 
