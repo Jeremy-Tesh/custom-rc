@@ -41,7 +41,7 @@ const UserAvatarButton = function UserAvatarButton(): ReactElement {
 				`}
 				data-qa='sidebar-avatar-button'
 			>
-				<UserAvatar size='x40' username={username} etag={avatarETag} />
+				<UserAvatar size='x32' username={username} etag={avatarETag} />
 				<Box
 					className={css`
 						bottom: 0;

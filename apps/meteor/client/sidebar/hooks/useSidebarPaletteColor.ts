@@ -173,7 +173,7 @@ const getStyle = (
 		}
 
 		.rcx-sidebar {
-			background-color: ${toVar(colors.n100)};
+			background-color: #ffffff;
 		}
 		`
 )(isIE11 ? ':root' : modifier);

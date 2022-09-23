@@ -305,7 +305,6 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 
 	return (
 		<Box
-			position='absolute'
 			rcx-sidebar
 			display='flex'
 			flexDirection='column'
@@ -318,8 +317,9 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 			`}
 			ref={ref}
 		>
-			<Sidebar.TopBar.Section {...({ role: 'search' } as any)}>
+			<Box p={'12px 34px'} w='full' {...({ role: 'search' } as any)}>
 				<TextInput
+					w='full'
 					border={'solid 1px #d2ddec'}
 					borderRadius={'20px'}
 					aria-owns={listId}
@@ -333,7 +333,7 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 					// onBlur={handleCloseSearch}
 					// addon={<Icon name='cross' size='x20' onClick={handleCloseSearch} />}
 				/>
-			</Sidebar.TopBar.Section>
+			</Box>
 			{searchOpen && (
 				<Box
 					ref={boxRef}

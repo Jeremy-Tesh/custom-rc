@@ -1,4 +1,4 @@
-import { Sidebar } from '@rocket.chat/fuselage';
+import { Box } from '@rocket.chat/fuselage';
 import { useTranslation } from '@rocket.chat/ui-contexts';
 import React, { ReactElement } from 'react';
 
@@ -20,14 +20,10 @@ const SidebarFooterDefault = (): ReactElement => {
 	// `;
 
 	return (
-		<>
-			<Sidebar.TopBar.Section className='sidebar--custom-colors'>
-				<Sidebar.TopBar.Actions>
-					{/* <Home title={t('Home')} /> */}
-					<Search title={t('Search')} data-qa='sidebar-search' />
-				</Sidebar.TopBar.Actions>
-			</Sidebar.TopBar.Section>
-		</>
+		<Box>
+			{/* <Home title={t('Home')} /> */}
+			<Search title={t('Search')} data-qa='sidebar-search' />
+		</Box>
 	);
 };
 

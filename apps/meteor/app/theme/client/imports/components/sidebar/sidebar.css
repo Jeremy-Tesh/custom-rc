@@ -120,7 +120,8 @@
 	}
 }
 
-@media (min-width: 1372px) { /* 1440px -68px (eletron menu) */
+@media (min-width: 1372px) {
+	/* 1440px -68px (eletron menu) */
 	.sidebar {
 		flex: 0 0 20%;
 

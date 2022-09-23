@@ -51,7 +51,7 @@ const Row = ({ data, item }: { data: any; item: any }): ReactElement => {
 	if (typeof item === 'string') {
 		const Section = sections[item];
 		return Section ? (
-			<Section style={{ border: 'solid green 2px' }} aria-level='1' />
+			<Section aria-level='1' />
 		) : (
 			<SidebarSection aria-level='1'>
 				<SidebarSection.Title>{t(item)}</SidebarSection.Title>

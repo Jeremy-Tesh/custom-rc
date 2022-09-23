@@ -26,10 +26,10 @@ const CreateRoom: VFC<Omit<HTMLAttributes<HTMLElement>, 'is'>> = (props) => {
 					{...props}
 					ref={reference}
 					icon='edit-rounded'
-					padding={'20px'}
+					padding={'8px 16px'}
 					margin={'5px'}
 					borderRadius={'0.375rem'}
-					fontSize={'0.9375rem'}
+					lineHeight={'1.5'}
 				>
 					Add new
 				</Sidebar.TopBar.Action>

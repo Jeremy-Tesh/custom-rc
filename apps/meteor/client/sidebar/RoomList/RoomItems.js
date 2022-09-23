@@ -1,20 +1,19 @@
-import { SidebarSection } from '@rocket.chat/fuselage';
+import { Box, SidebarSection } from '@rocket.chat/fuselage';
 import FeatherIcon from 'feather-icons-react';
 import React, { useState } from 'react';
 
 import Row from './Row';
 
-function Toggle({ list, title, itemData }) {
+function RoomItems({ list, title, itemData }) {
 	const [open, setOpen] = useState(false);
 
 	return (
 		<div className='mb-3'>
-			<SidebarSection aria-level='1'>
-				<div onClick={() => setOpen(!open)} style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-					<SidebarSection.Title>{title}</SidebarSection.Title>
-					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
-				</div>
-			</SidebarSection>
+			<Box pb='10px' onClick={() => setOpen(!open)} style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+				<SidebarSection.Title>{title}</SidebarSection.Title>
+				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+			</Box>
+
 			<div style={open ? { height: 'auto', overflow: 'hidden' } : { height: '0px', overflow: 'hidden' }}>
 				{list.map((item, index) => (
 					<Row key={index} data={itemData} item={item} />
@@ -33,4 +32,4 @@ function Toggle({ list, title, itemData }) {
 	);
 }
 
-export default Toggle;
+export default RoomItems;
