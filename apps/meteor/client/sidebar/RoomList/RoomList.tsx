@@ -77,11 +77,11 @@ const RoomList = (): ReactElement => {
 			})}
 
 			<hr></hr>
-			<Box display='flex' pb='10px' onClick={() => {}}>
+			<Box display='flex' pb='10px'>
 				<FeatherIcon icon='grid' size='1em' />
 				<SidebarSection.Title>Apps</SidebarSection.Title>
 			</Box>
-			<Box display='flex' pb='10px' onClick={() => {}}>
+			<Box display='flex' pb='10px'>
 				<FeatherIcon icon='help-circle' size='1em' />
 				<SidebarSection.Title>Help</SidebarSection.Title>
 			</Box>
