@@ -1,8 +1,6 @@
 import { Box, SidebarSection } from '@rocket.chat/fuselage';
-import { useResizeObserver } from '@rocket.chat/fuselage-hooks';
-import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
-import { useRoute } from '@rocket.chat/ui-contexts';
-import { useSession, useUserPreference, useUserId, useTranslation } from '@rocket.chat/ui-contexts';
+import { useResizeObserver, useMutableCallback } from '@rocket.chat/fuselage-hooks';
+import { useSession, useUserPreference, useUserId, useTranslation, useRoute } from '@rocket.chat/ui-contexts';
 import FeatherIcon from 'feather-icons-react';
 import React, { useMemo, ReactElement } from 'react';
 

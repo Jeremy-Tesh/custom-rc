@@ -1,6 +1,6 @@
 import { IRoom, ISubscription, RoomType } from '@rocket.chat/core-typings';
 import { css } from '@rocket.chat/css-in-js';
-import { Sidebar, TextInput, Box } from '@rocket.chat/fuselage';
+import { TextInput, Box } from '@rocket.chat/fuselage';
 import { useMutableCallback, useDebouncedValue, useStableArray, useUniqueId, useOutsideClick } from '@rocket.chat/fuselage-hooks';
 import { escapeRegExp } from '@rocket.chat/string-helpers';
 import { useUserPreference, useUserSubscriptions, useSetting, useTranslation, useMethod } from '@rocket.chat/ui-contexts';
