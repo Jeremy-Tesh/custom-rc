@@ -1,6 +1,6 @@
+import { css } from '@rocket.chat/css-in-js';
 import { Box, SidebarSection } from '@rocket.chat/fuselage';
 import FeatherIcon from 'feather-icons-react';
-import { css } from '@rocket.chat/css-in-js';
 import React, { useState } from 'react';
 
 import Row from './Row';

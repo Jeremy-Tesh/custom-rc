@@ -1,8 +1,7 @@
+import { css } from '@rocket.chat/css-in-js';
 import { Box, Divider, Icon, SidebarSection } from '@rocket.chat/fuselage';
 import { useResizeObserver, useMutableCallback } from '@rocket.chat/fuselage-hooks';
-import { css } from '@rocket.chat/css-in-js';
 import { useSession, useUserPreference, useUserId, useTranslation, useRoute } from '@rocket.chat/ui-contexts';
-
 import React, { useMemo, ReactElement } from 'react';
 
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
