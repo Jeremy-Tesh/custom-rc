@@ -313,7 +313,7 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 			className={css`
 				left: 0;
 				top: 0;
-				${searchOpen ? `height:100%` : `height:auto;overflow:hidden `}
+				${searchOpen ? `height:100%; position:absolute ` : `height:auto;overflow:hidden `}
 			`}
 			ref={ref}
 		>
