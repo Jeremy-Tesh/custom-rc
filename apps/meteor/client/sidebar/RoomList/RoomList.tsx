@@ -5,18 +5,19 @@ import { useSession, useUserPreference, useUserId, useTranslation, useRoute } fr
 import React, { useMemo, ReactElement, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
+import { useDropdownVisibility } from '../header/hooks/useDropdownVisibility';
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
 import { usePreventDefault } from '../hooks/usePreventDefault';
 import { useRoomList } from '../hooks/useRoomList';
 import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
-import { useDropdownVisibility } from '../header/hooks/useDropdownVisibility';
-
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
-import SortList from '/client/components/SortList';
+
 import RoomItems from './RoomItems';
+import SortList from '../../components/SortList/SortList';
+
 // import Sidebar from '/client/components/Sidebar';
 // const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
 
