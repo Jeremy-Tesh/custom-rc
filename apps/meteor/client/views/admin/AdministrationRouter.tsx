@@ -14,20 +14,20 @@ const AdministrationRouter = ({ children }: AdministrationRouterProps): ReactEle
 	const { tabType, trialEndDate, isLoading } = useUpgradeTabParams();
 	const [routeName] = useCurrentRoute();
 	const defaultRoute = useRoute('admin-info');
-	const upgradeRoute = useRoute('upgrade');
+	// const upgradeRoute = useRoute('upgrade');
 
 	useEffect(() => {
 		if (isLoading || routeName !== 'admin-index') {
 			return;
 		}
 
-		if (tabType) {
-			upgradeRoute.replace({ type: tabType }, trialEndDate ? { trialEndDate } : undefined);
-			return;
-		}
+		// if (tabType) {
+		// 	upgradeRoute.replace({ type: tabType }, trialEndDate ? { trialEndDate } : undefined);
+		// 	return;
+		// }
 
 		defaultRoute.replace();
-	}, [defaultRoute, upgradeRoute, routeName, tabType, trialEndDate, isLoading]);
+	}, [defaultRoute, routeName, tabType, trialEndDate, isLoading]);
 
 	return (
 		<AdministrationLayout>
