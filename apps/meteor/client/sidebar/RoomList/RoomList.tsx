@@ -1,8 +1,9 @@
 import { css } from '@rocket.chat/css-in-js';
-import { Box, Divider, Icon, SidebarSection } from '@rocket.chat/fuselage';
+import { Box, Divider, Dropdown, Icon, SidebarSection } from '@rocket.chat/fuselage';
 import { useResizeObserver, useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import { useSession, useUserPreference, useUserId, useTranslation, useRoute } from '@rocket.chat/ui-contexts';
-import React, { useMemo, ReactElement } from 'react';
+import React, { useMemo, ReactElement, useRef } from 'react';
+import { createPortal } from 'react-dom';
 
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
 import { usePreventDefault } from '../hooks/usePreventDefault';
@@ -10,12 +11,13 @@ import { useRoomList } from '../hooks/useRoomList';
 import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
+import { useDropdownVisibility } from '../header/hooks/useDropdownVisibility';
+
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
+import SortList from '/client/components/SortList';
 import RoomItems from './RoomItems';
-
 // import Sidebar from '/client/components/Sidebar';
-
 // const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
 
 const RoomList = (): ReactElement => {
@@ -54,8 +56,18 @@ const RoomList = (): ReactElement => {
 	);
 
 	const homeRoute = useRoute('home');
+	const adminRoute = useRoute('admin-index');
+
+	const reference = useRef(null);
+	const target = useRef(null);
+	const { isVisible, toggle } = useDropdownVisibility({ reference, target });
+
 	const handleHome = useMutableCallback(() => {
 		homeRoute.push({});
+	});
+
+	const handleAdmin = useMutableCallback(() => {
+		adminRoute.push();
 	});
 
 	usePreventDefault(ref);
@@ -89,9 +101,20 @@ const RoomList = (): ReactElement => {
 				<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
 				<SidebarSection.Title>Apps</SidebarSection.Title>
 			</Box>
-			<Box className={itemStyle}>
-				<Icon name='info-circled' padding='0px 10px 0px 0px' size='x16' />
-				<SidebarSection.Title>Help</SidebarSection.Title>
+			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
+				<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
+				<SidebarSection.Title>Sort</SidebarSection.Title>
+			</Box>
+			{isVisible &&
+				createPortal(
+					<Dropdown reference={reference} ref={target}>
+						<SortList />
+					</Dropdown>,
+					document.body,
+				)}
+			<Box className={itemStyle} onClick={handleAdmin}>
+				<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
+				<SidebarSection.Title>Administration</SidebarSection.Title>
 			</Box>
 		</Box>
 	);

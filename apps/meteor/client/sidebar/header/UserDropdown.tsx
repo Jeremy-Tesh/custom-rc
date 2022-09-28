@@ -64,9 +64,9 @@ type UserDropdownProps = {
 const UserDropdown = ({ user, onClose }: UserDropdownProps): ReactElement => {
 	const t = useTranslation();
 	const accountRoute = useRoute('account-index');
-	const adminRoute = useRoute('admin-index');
+	// const adminRoute = useRoute('admin-index');
 	const logout = useLogout();
-	const { sidebar, isMobile } = useLayout();
+	const { isMobile } = useLayout();
 
 	const { username, avatarETag, status, statusText } = user;
 
@@ -92,11 +92,11 @@ const UserDropdown = ({ user, onClose }: UserDropdownProps): ReactElement => {
 		onClose();
 	});
 
-	const handleAdmin = useMutableCallback(() => {
-		adminRoute.push();
-		sidebar.toggle();
-		onClose();
-	});
+	// const handleAdmin = useMutableCallback(() => {
+	// 	adminRoute.push();
+	// 	sidebar.toggle();
+	// 	onClose();
+	// });
 
 	const handleLogout = useMutableCallback(() => {
 		logout();
@@ -162,7 +162,7 @@ const UserDropdown = ({ user, onClose }: UserDropdownProps): ReactElement => {
 			{(accountBoxItems.length || showAdmin) && (
 				<>
 					<OptionDivider />
-					{showAdmin && <Option icon={'customize'} label={t('Administration')} onClick={handleAdmin}></Option>}
+					{/* {showAdmin && <Option icon={'customize'} label={t('Administration')} onClick={handleAdmin}></Option>} */}
 					{accountBoxItems
 						.filter((item) => !isAppAccountBoxItem(item))
 						.map((item, i) => {
