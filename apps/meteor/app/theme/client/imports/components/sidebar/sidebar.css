@@ -131,3 +131,15 @@
 		max-width: 20%;
 	}
 }
+.rcx-sidebar-title {
+	font-size: 15px !important;
+	line-height: 1.5rem !important;
+	font-weight: normal !important;
+}
+
+.rcx-sidebar-title:hover {
+	color: #04080d !important;
+}
+.rcx-icon {
+	line-height: 1.5rem !important;
+}
