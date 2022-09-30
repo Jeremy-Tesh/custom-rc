@@ -2,17 +2,20 @@ import { css } from '@rocket.chat/css-in-js';
 import { Box, Divider, Dropdown, Icon, SidebarSection } from '@rocket.chat/fuselage';
 import { useResizeObserver, useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import { useSession, useUserPreference, useUserId, useTranslation, useRoute } from '@rocket.chat/ui-contexts';
-import React, { useMemo, ReactElement, useRef } from 'react';
+import FeatherIcon from 'feather-icons-react';
+import React, { useMemo, ReactElement, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import SortList from '../../components/SortList/SortList';
 import { useDropdownVisibility } from '../header/hooks/useDropdownVisibility';
+import { useApps } from '../hooks/useApps';
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
 import { usePreventDefault } from '../hooks/usePreventDefault';
 import { useRoomList } from '../hooks/useRoomList';
 import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
+
 import RoomItems from './RoomItems';
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
@@ -35,6 +38,7 @@ const RoomList = (): ReactElement => {
 	const t = useTranslation();
 
 	const roomsList = useRoomList();
+	const apps = useApps();
 	// const[roomsdata,setroomsData]= useDebouncedState<Type[]>(()=>{
 	// 	return roomsList.map((elt) => {
 	// 		return setroomsData(Object.values(elt))
@@ -53,6 +57,8 @@ const RoomList = (): ReactElement => {
 		}),
 		[avatarTemplate, extended, isAnonymous, openedRoom, sideBarItemTemplate, sidebarViewMode, t],
 	);
+
+	const [open, setOpen] = useState(false);
 
 	const homeRoute = useRoute('home');
 	const adminRoute = useRoute('admin-index');
@@ -96,9 +102,21 @@ const RoomList = (): ReactElement => {
 			})}
 
 			<Divider />
-			<Box className={itemStyle}>
-				<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
-				<SidebarSection.Title>Apps</SidebarSection.Title>
+			<Box onClick={() => setOpen(!open)} className={itemStyle} justifyContent='space-between'>
+				<div style={{ display: 'flex' }}>
+					<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
+					<SidebarSection.Title>Apps</SidebarSection.Title>
+				</div>
+
+				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+
+				{open && (
+					<Box height='auto' p='8px'>
+						{apps.map((item, index) => (
+							<div key={index}>{item.name}</div>
+						))}
+					</Box>
+				)}
 			</Box>
 			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
 				<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
