@@ -15,7 +15,6 @@ import { useRoomList } from '../hooks/useRoomList';
 import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
-
 import RoomItems from './RoomItems';
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
