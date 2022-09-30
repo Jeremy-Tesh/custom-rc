@@ -1,4 +1,4 @@
-import { Box, Sidebar } from '@rocket.chat/fuselage';
+import { Sidebar } from '@rocket.chat/fuselage';
 import { useUser, useTranslation } from '@rocket.chat/ui-contexts';
 import React, { memo, ReactElement } from 'react';
 
@@ -17,23 +17,21 @@ const HeaderWithData = (): ReactElement => {
 	useSidebarPaletteColor();
 
 	return (
-		<Box border={'1px solid #e3ebf6'}>
-			<Sidebar.TopBar.Section className='sidebar--custom-colors'>
-				<UserAvatarButton />
-				<Sidebar.TopBar.Actions>
-					{/* <Home title={t('Home')} /> */}
-					{/* <Search title={t('Search')} data-qa='sidebar-search' /> */}
-					{user && (
-						<>
-							{/* <Directory title={t('Directory')} />
+		<Sidebar.TopBar.Section className='sidebar--custom-colors'>
+			<UserAvatarButton />
+			<Sidebar.TopBar.Actions>
+				{/* <Home title={t('Home')} /> */}
+				{/* <Search title={t('Search')} data-qa='sidebar-search' /> */}
+				{user && (
+					<>
+						{/* <Directory title={t('Directory')} />
 							<Sort title={t('Display')} /> */}
-							<CreateRoom title={t('Create_new')} data-qa='sidebar-create' />
-						</>
-					)}
-					{!user && <Login title={t('Login')} />}
-				</Sidebar.TopBar.Actions>
-			</Sidebar.TopBar.Section>
-		</Box>
+						<CreateRoom title={t('Create_new')} data-qa='sidebar-create' />
+					</>
+				)}
+				{!user && <Login title={t('Login')} />}
+			</Sidebar.TopBar.Actions>
+		</Sidebar.TopBar.Section>
 	);
 };
 

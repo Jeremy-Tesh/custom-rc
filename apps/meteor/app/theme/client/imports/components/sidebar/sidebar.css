@@ -145,3 +145,25 @@
 .rcx-icon {
 	line-height: 1.5rem !important;
 }
+
+.rcx-sidebar-item {
+	&--highlighted {
+		color: #1f2329 !important;
+
+		font-weight: var(--sidebar-item-unread-font-weight) !important;
+	}
+
+	&__icon--highlighted {
+		color: #1f2329 !important;
+
+		font-weight: var(--sidebar-item-unread-font-weight) !important;
+	}
+}
+
+.rcx-sidebar-topbar {
+	height: 80px !important;
+
+	&__wrapper {
+		border: solid var(--rcx-divider-color) !important;
+	}
+}
