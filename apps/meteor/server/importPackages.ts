@@ -108,3 +108,4 @@ import '../app/custom/server';
 import '../app/authentication/server';
 import '../app/voip/server/startup';
 import '../app/vertiv/server';
+import '../app/custom-setting/server';
