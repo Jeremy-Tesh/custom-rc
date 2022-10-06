@@ -7,6 +7,7 @@ import '../app/autotranslate/client';
 import '../app/cas/client';
 import '../app/channel-settings';
 import '../app/crowd/client';
+import '../app/custom-app/client';
 import '../app/custom-oauth';
 import '../app/custom-sounds/client';
 import '../app/dolphin/client';

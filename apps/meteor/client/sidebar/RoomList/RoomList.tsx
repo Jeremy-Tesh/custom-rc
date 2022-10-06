@@ -108,15 +108,14 @@ const RoomList = (): ReactElement => {
 				</div>
 
 				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
-
-				{open && (
-					<Box height='auto' p='8px'>
-						{apps.map((item, index) => (
-							<div key={index}>{item.name}</div>
-						))}
-					</Box>
-				)}
 			</Box>
+			{open && (
+				<Box height='auto' p='8px'>
+					{apps.map((item, index) => (
+						<div key={index}>{item.name}</div>
+					))}
+				</Box>
+			)}
 			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
 				<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
 				<SidebarSection.Title>Sort</SidebarSection.Title>

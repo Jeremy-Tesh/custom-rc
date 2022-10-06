@@ -1,0 +1,30 @@
+<template name="customapp">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="rc-header header-body">
+				<div class="rc-header__wrap">
+					<div class="rc-header__content rc-header__block">
+						<div class="rc-header__data">
+							{{_ name}}
+						</div>
+					{{#if isSection}}
+					<span class="rc-header__block">{{_ sectionName}}</span>
+					{{/if}}
+					<!-- Mongrov: close icon -->
+					{{#if showCloseIcon}}
+                    <div class="rc-header__block rc-header__block--action rc-tooltip rc-tooltip--down rc-tooltip--end" aria-label={{_ "Close"}}>
+						<!-- <span class="rc-header__first-icon">{{> icon block="rc-header__icon rc-header__icon" icon="plus"}}</span> -->
+						<button class="btn-danger h3 px-3 py-2 mr-2 rounded-lg js-close-vc feather-x-square mb-0">Close</button>
+                    </div>
+					{{/if}}
+					</div>
+				</div>
+			</header>
+		<!-- <div class="content"> -->
+	<!-- <span class="iframe-button full-modal__back-button" style="margin: 27px 25px; cursor: pointer;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+	</span> -->
+    <iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  allow="geolocation; microphone; camera" src="{{customurl}}" sandbox="allow-forms allow-scripts allow-modals allow-same-origin allow-popups" height="100%" width="100%"></iframe>
+	<!-- </div> -->
+	</section>
+</template>
+

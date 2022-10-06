@@ -58,6 +58,18 @@ FlowRouter.route('/', {
 	},
 });
 
+FlowRouter.route('/custom', {
+	name: 'custom',
+	// eslint-disable-next-line no-unused-vars
+	action: () => {
+		appLayout.render(
+			<MainLayout>
+				<BlazeTemplate template='customapp' />
+			</MainLayout>,
+		);
+	},
+});
+
 FlowRouter.route('/login', {
 	name: 'login',
 
