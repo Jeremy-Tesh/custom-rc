@@ -1,6 +1,6 @@
 <template name="sideNav">
 	<aside class="rcx-sidebar sidebar sidebar--main sidebar--{{sidebarViewMode}} {{#if sidebarHideAvatar}}sidebar--hide-avatar{{/if}}" role="navigation"  data-qa-opened="{{dataQa}}">
-		{{> sidebarFooter }}
+		{{> sidebarFooter}}
 		<div class="wrapper-unread">
 			<div class="unread-rooms background-primary-action-color color-primary-action-contrast top-unread-rooms hidden">
 				<i class="icon-up-big"></i> {{_ "More_unreads"}}
@@ -8,49 +8,19 @@
 		</div>
 		<div class="rooms-list sidebar--custom-colors" aria-label="{{_ "Channels"}}" role="region">
 			{{> sidebarChats }}
-			<div>
-				<ul class="navbar-nav" >
-					{{#if showAppMenu}}
-					<li >
-					  <a class="nav-link collapsed js-appscollapse" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="appsListType">
-						<i class="fe fe-grid"></i> Apps
-					  </a>
-					  <div class="collapse" id="appsListType">
-						<ul class="nav nav-sm flex-column collapse-list-vertical-margin">
-							{{#with appMenuList}}
-							  {{#each appMenuList}}
-								<li class="nav-item">
-								  <a class="nav-link js-applink" name="{{customurl}}" title="{{name}}">
-									{{name}}
-								  </a>
-								</li>
-							  {{/each}}
-							{{/with}}
-						  </ul>
-						</div>
-					</li>
-					{{/if}}
-				</ul>
-			</div>
-			
 		</div>
-		<!-- <div class="wrapper-unread">
+		<div class="wrapper-unread">
 			<div class="unread-rooms background-primary-action-color color-primary-action-contrast bottom-unread-rooms hidden">
 				<i class="icon-down-big"></i> {{_ "More_unreads"}}
 			</div>
+		</div>
+		<!-- <div class="rooms-list rcx-sidebar-title">
+			<i class="icon-repo"></i> Apps
 		</div> -->
-		<!-- <div class="flex-nav animated-hidden">
+		<div class="flex-nav animated-hidden">
 			{{> Template.dynamic template=flexTemplate data=flexData }}
-		</div> -->
-		
-		<!-- <ul class="navbar-nav">
-			{{#each roomType}}
-				{{> Template.dynamic template=template data=data}}
-			{{/each}}
-		</ul> -->
-		
-		
-		{{> sidebarHeader}}
+		</div>
+		{{> sidebarHeader }}
 	</aside>
 	<div class="sidebar-wrap"></div>
 </template>

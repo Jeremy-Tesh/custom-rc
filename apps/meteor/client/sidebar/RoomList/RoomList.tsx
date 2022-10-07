@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 
 import SortList from '../../components/SortList/SortList';
 import { useDropdownVisibility } from '../header/hooks/useDropdownVisibility';
-import { useApps } from '../hooks/useApps';
+import { useApp, useHandleClick } from '../hooks/AppContext';
 import { useAvatarTemplate } from '../hooks/useAvatarTemplate';
 import { usePreventDefault } from '../hooks/usePreventDefault';
 import { useRoomList } from '../hooks/useRoomList';
@@ -37,12 +37,16 @@ const RoomList = (): ReactElement => {
 	const t = useTranslation();
 
 	const roomsList = useRoomList();
-	const apps = useApps();
+	const app = useApp();
+	const handleClick = useHandleClick();
+
 	// const[roomsdata,setroomsData]= useDebouncedState<Type[]>(()=>{
 	// 	return roomsList.map((elt) => {
 	// 		return setroomsData(Object.values(elt))
 	// 	})
 	// },100)
+	console.log(app);
+	console.log(handleClick);
 
 	const itemData = useMemo(
 		() => ({
@@ -109,13 +113,17 @@ const RoomList = (): ReactElement => {
 
 				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
 			</Box>
+
 			{open && (
-				<Box height='auto' p='8px'>
-					{apps.map((item, index) => (
-						<div key={index}>{item.name}</div>
+				<div style={{ height: 'auto', padding: '20px 24px 0px 24px' }}>
+					{app.map((item: any, index: number) => (
+						<Box className={itemStyle} key={index} data-title={item.name} data-name={item.customurl} onClick={handleClick}>
+							{item.name}
+						</Box>
 					))}
-				</Box>
+				</div>
 			)}
+
 			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
 				<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
 				<SidebarSection.Title>Sort</SidebarSection.Title>
