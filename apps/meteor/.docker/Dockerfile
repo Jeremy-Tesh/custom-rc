@@ -17,6 +17,10 @@ RUN aptMark="$(apt-mark showmanual)" \
     && apt-get install -y --no-install-recommends g++ make python ca-certificates \
     && cd /app/bundle/programs/server \
     && npm install \
+    && npm install bcrypt sharp \
+    && cp -r node_modules/bcrypt npm/node_modules \
+    && cp -r node_modules/bcrypt npm/node_modules/meteor/accounts-password/node_modules \
+    && cp -r node_modules/sharp npm/node_modules \
     && apt-mark auto '.*' > /dev/null \
     && apt-mark manual $aptMark > /dev/null \
     && find /usr/local -type f -executable -exec ldd '{}' ';' \
