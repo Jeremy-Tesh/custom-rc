@@ -83,6 +83,13 @@ settingsRegistry.addGroup('FileUpload', function () {
 	});
 
 	this.section('Amazon S3', function () {
+		this.add('FileUpload_S3_Url', '', {
+			type: 'string',
+			enableQuery: {
+				_id: 'FileUpload_Storage_Type',
+				value: 'AmazonS3',
+			},
+		});
 		this.add('FileUpload_S3_Bucket', '', {
 			type: 'string',
 			enableQuery: {

@@ -64,8 +64,9 @@ const AmazonS3UserDataFiles = new FileUploadClass({
 });
 
 const configure = _.debounce(function () {
+	const Url = settings.get('FileUpload_S3_Url');
 	const Bucket = settings.get('FileUpload_S3_Bucket');
-	const Acl = settings.get('FileUpload_S3_Acl');
+	// const Acl = settings.get('FileUpload_S3_Acl');
 	const AWSAccessKeyId = settings.get('FileUpload_S3_AWSAccessKeyId');
 	const AWSSecretAccessKey = settings.get('FileUpload_S3_AWSSecretAccessKey');
 	const URLExpiryTimeSpan = settings.get('FileUpload_S3_URLExpiryTimeSpan');
@@ -73,7 +74,7 @@ const configure = _.debounce(function () {
 	const SignatureVersion = settings.get('FileUpload_S3_SignatureVersion');
 	const ForcePathStyle = settings.get('FileUpload_S3_ForcePathStyle');
 	// const CDN = RocketChat.settings.get('FileUpload_S3_CDN');
-	const BucketURL = settings.get('FileUpload_S3_BucketURL');
+	// const BucketURL = settings.get('FileUpload_S3_BucketURL');
 
 	if (!Bucket) {
 		return;
@@ -85,7 +86,6 @@ const configure = _.debounce(function () {
 			s3ForcePathStyle: ForcePathStyle,
 			params: {
 				Bucket,
-				ACL: Acl,
 			},
 			region: Region,
 		},
@@ -100,8 +100,8 @@ const configure = _.debounce(function () {
 		config.connection.secretAccessKey = AWSSecretAccessKey;
 	}
 
-	if (BucketURL) {
-		config.connection.endpoint = BucketURL;
+	if (Url) {
+		config.connection.endpoint = Url;
 	}
 
 	AmazonS3Uploads.store = FileUpload.configureUploadsStore('AmazonS3', AmazonS3Uploads.name, config);
