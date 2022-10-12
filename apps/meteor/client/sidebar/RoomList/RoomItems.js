@@ -24,11 +24,11 @@ function RoomItems({ list, title, itemData }) {
 			</Box>
 
 			{open && (
-				<Box height='auto' p='8px'>
+				<>
 					{list.map((item, index) => (
 						<Row key={index} data={itemData} item={item} />
 					))}
-				</Box>
+				</>
 			)}
 
 			{/* <Virtuoso

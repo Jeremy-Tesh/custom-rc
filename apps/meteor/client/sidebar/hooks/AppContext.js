@@ -50,7 +50,6 @@ export default function AppProvider({ children }) {
 		const title = aelem.getAttribute('data-title');
 		// const replacedurl = url.replace('$$auth$$', Accounts._storedLoginToken());
 		// const newshook = replacedurl.includes('&$$newshook$$');
-		console.log(url, title);
 		if (url) {
 			newsIntegration(url, title);
 		} else {
@@ -67,35 +66,29 @@ export default function AppProvider({ children }) {
 
 			try {
 				const customAppSettings = JSON.parse(customAppConf);
+
 				if (customAppSettings) {
 					for (let index = 0; index < customAppSettings.length; index++) {
 						const element = customAppSettings[index];
-						for (const ekey in element) {
-							if (element.hasOwnProperty(ekey)) {
-								const menuListArray = element[ekey];
-								for (let index = 0; index < menuListArray.length; index++) {
-									const element = menuListArray[index];
-									if (element.roles.includes('all')) {
-										customAppList.push({
-											icon: 'check',
-											name: t(element.name),
-											customurl: element.url,
-											// action: () => {
-											// 	const replacedurl = element.url.replace('&$$newshook$$', '');
-											// 	const newshook = replacedurl.includes('&$$newshook$$');
-											// 	if (newshook) {
-											// 		newsIntegration(replacedurl, element.name);
-											// 	} else {
-											// 		Session.set('customappname', t(appname));
-											// 		Session.set('customurl', replacedurl);
-											// 		FlowRouter.go('custom');
-											// 		popover.close();
-											// 	}
-											// },
-										});
-									}
-								}
-							}
+
+						if (element.roles.includes('all')) {
+							customAppList.push({
+								icon: 'check',
+								name: t(element.name),
+								customurl: element.url,
+								// action: () => {
+								// 	const replacedurl = element.url.replace('&$$newshook$$', '');
+								// 	const newshook = replacedurl.includes('&$$newshook$$');
+								// 	if (newshook) {
+								// 		newsIntegration(replacedurl, element.name);
+								// 	} else {
+								// 		Session.set('customappname', t(appname));
+								// 		Session.set('customurl', replacedurl);
+								// 		FlowRouter.go('custom');
+								// 		popover.close();
+								// 	}
+								// },
+							});
 						}
 					}
 				}

@@ -45,8 +45,6 @@ const RoomList = (): ReactElement => {
 	// 		return setroomsData(Object.values(elt))
 	// 	})
 	// },100)
-	console.log(app);
-	console.log(handleClick);
 
 	const itemData = useMemo(
 		() => ({
@@ -88,7 +86,7 @@ const RoomList = (): ReactElement => {
 	`;
 
 	return (
-		<Box h='full' w='full' p='20px' overflowY='auto' ref={ref}>
+		<Box w='full' p='20px' ref={ref}>
 			<Box className={itemStyle} onClick={handleHome}>
 				<Icon padding='0px 10px 0px 0px' name='home' size='x16' />
 				<SidebarSection.Title>Home</SidebarSection.Title>
