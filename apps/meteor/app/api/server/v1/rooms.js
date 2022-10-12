@@ -78,6 +78,56 @@ API.v1.addRoute(
 );
 
 API.v1.addRoute(
+	'rooms.upload/:rid/:mid',
+	{ authRequired: true },
+	{
+		post() {
+			const midVal = this.urlParams.mid;
+
+			if (!canAccessRoomId(this.urlParams.rid, this.userId)) {
+				return API.v1.unauthorized();
+			}
+
+			const [file, fields] = Promise.await(
+				getUploadFormData({
+					request: this.request,
+				}),
+			);
+
+			if (!file) {
+				throw new Meteor.Error('invalid-field');
+			}
+
+			const details = {
+				_id: midVal,
+				name: file.filename,
+				size: file.fileBuffer.length,
+				type: file.mimetype,
+				rid: this.urlParams.rid,
+				userId: this.userId,
+			};
+
+			const stripExif = settings.get('Message_Attachments_Strip_Exif');
+			const fileStore = FileUpload.getStore('Uploads');
+			if (stripExif) {
+				file.fileBuffer = Promise.await(Media.stripExifFromBuffer(file.fileBuffer));
+			}
+			const uploadedFile = fileStore.insertSync(details, file.fileBuffer);
+
+			uploadedFile.description = fields.description;
+
+			delete fields.description;
+			fields.mid = midVal;
+			Meteor.call('sendFileMessage', this.urlParams.rid, null, uploadedFile, fields);
+
+			return API.v1.success({
+				message: Messages.getMessageByFileIdAndUsername(uploadedFile._id, this.userId),
+			});
+		},
+	},
+);
+
+API.v1.addRoute(
 	'rooms.upload/:rid',
 	{ authRequired: true },
 	{

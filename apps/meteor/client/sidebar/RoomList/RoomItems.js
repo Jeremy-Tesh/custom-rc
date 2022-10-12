@@ -13,14 +13,15 @@ function RoomItems({ list, title, itemData }) {
 		display: flex;
 		padding: 15px 0px;
 		width: 100%;
-		justify-content: space-between;
 	`;
 
 	return (
 		<Box>
 			<Box onClick={() => setOpen(!open)} className={itemStyle}>
-				<SidebarSection.Title>{title}</SidebarSection.Title>
-				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+				<SidebarSection.Title>
+					{title}
+					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+				</SidebarSection.Title>
 			</Box>
 
 			{open && (

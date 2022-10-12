@@ -133,9 +133,15 @@
 }
 
 .rcx-sidebar-title {
+	display: flex;
+
+	width: 100%;
+
 	font-size: 15px !important;
 	font-weight: normal !important;
 	line-height: 1.5rem !important;
+
+	justify-content: space-between;
 }
 
 .rcx-sidebar-title:hover {
@@ -157,6 +163,13 @@
 		color: #1f2329 !important;
 
 		font-weight: var(--sidebar-item-unread-font-weight) !important;
+	}
+
+	&--clickable {
+		height: 52px !important;
+
+		margin: 0 -24px !important;
+		padding: 0 40px !important;
 	}
 }
 

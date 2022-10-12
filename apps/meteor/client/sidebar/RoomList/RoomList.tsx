@@ -88,8 +88,12 @@ const RoomList = (): ReactElement => {
 	return (
 		<Box w='full' p='20px' ref={ref}>
 			<Box className={itemStyle} onClick={handleHome}>
-				<Icon padding='0px 10px 0px 0px' name='home' size='x16' />
-				<SidebarSection.Title>Home</SidebarSection.Title>
+				<SidebarSection.Title>
+					<div>
+						<Icon padding='0px 10px 0px 0px' name='home' size='x16' />
+						Home
+					</div>
+				</SidebarSection.Title>
 			</Box>
 			<Divider />
 
@@ -104,18 +108,27 @@ const RoomList = (): ReactElement => {
 
 			<Divider />
 			<Box onClick={() => setOpen(!open)} className={itemStyle} justifyContent='space-between'>
-				<div style={{ display: 'flex' }}>
-					<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
-					<SidebarSection.Title>Apps</SidebarSection.Title>
-				</div>
+				<SidebarSection.Title>
+					<div>
+						<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
+						Apps
+					</div>
 
-				<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+				</SidebarSection.Title>
 			</Box>
 
 			{open && (
 				<div style={{ height: 'auto', padding: '20px 24px 0px 24px' }}>
 					{app.map((item: any, index: number) => (
-						<Box className={itemStyle} key={index} data-title={item.name} data-name={item.customurl} onClick={handleClick}>
+						<Box
+							rcx-sidebar-title
+							className={itemStyle}
+							key={index}
+							data-title={item.name}
+							data-name={item.customurl}
+							onClick={handleClick}
+						>
 							{item.name}
 						</Box>
 					))}
@@ -123,8 +136,12 @@ const RoomList = (): ReactElement => {
 			)}
 
 			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
-				<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
-				<SidebarSection.Title>Sort</SidebarSection.Title>
+				<SidebarSection.Title>
+					<div>
+						<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
+						Sort
+					</div>
+				</SidebarSection.Title>
 			</Box>
 			{isVisible &&
 				createPortal(
@@ -134,8 +151,12 @@ const RoomList = (): ReactElement => {
 					document.body,
 				)}
 			<Box className={itemStyle} onClick={handleAdmin}>
-				<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
-				<SidebarSection.Title>Administration</SidebarSection.Title>
+				<SidebarSection.Title>
+					<div>
+						<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
+						Administration
+					</div>
+				</SidebarSection.Title>
 			</Box>
 		</Box>
 	);
