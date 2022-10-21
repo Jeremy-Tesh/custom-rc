@@ -2,7 +2,7 @@ import { Box } from '@rocket.chat/fuselage';
 import { useLayout } from '@rocket.chat/ui-contexts';
 import React, { FC } from 'react';
 
-import HeaderDivider from './HeaderDivider';
+// import HeaderDivider from './HeaderDivider';
 
 const Header: FC<any> = (props) => {
 	const { isMobile } = useLayout();
@@ -30,7 +30,7 @@ const Header: FC<any> = (props) => {
 				flexDirection='row'
 				{...props}
 			/>
-			<HeaderDivider />
+			{/* <HeaderDivider /> */}
 		</Box>
 	);
 };

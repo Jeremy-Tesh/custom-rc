@@ -1,14 +1,14 @@
 import type { IRoom } from '@rocket.chat/core-typings';
 import { Menu, Option, Box } from '@rocket.chat/fuselage';
-import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
-import { TranslationKey, useLayout, useTranslation } from '@rocket.chat/ui-contexts';
+// import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
+import { useLayout, useTranslation } from '@rocket.chat/ui-contexts';
 import React, { memo, ReactNode, useRef, ComponentProps, ReactElement } from 'react';
 
 // used to open the menu option by keyboard
-import Header from '../../../../components/Header';
+// import Header from '../../../../components/Header';
 import { ToolboxActionConfig, OptionRenderer } from '../../lib/Toolbox';
 import { useToolboxContext } from '../../lib/Toolbox/ToolboxContext';
-import { useTab, useTabBarOpen } from '../../providers/ToolboxProvider';
+import { useTabBarOpen } from '../../providers/ToolboxProvider';
 
 const renderMenuOption: OptionRenderer = ({ label: { title, icon }, ...props }: any): ReactNode => (
 	<Option label={title} icon={icon} data-qa-id={`ToolBoxAction-${icon}`} {...props} />
@@ -20,7 +20,7 @@ type ToolBoxProps = {
 };
 
 const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
-	const tab = useTab();
+	// const tab = useTab();
 	const openTabBar = useTabBarOpen();
 	const { isMobile } = useLayout();
 	const t = useTranslation();
@@ -29,10 +29,10 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 	const { actions: mapActions } = useToolboxContext();
 
 	const actions = (Array.from(mapActions.values()) as ToolboxActionConfig[]).sort((a, b) => (a.order || 0) - (b.order || 0));
-	const visibleActions = isMobile ? [] : actions.slice(0, 6);
+	const visibleActions = isMobile ? [] : actions.slice(0, 7);
 
 	const hiddenActions: Record<string, ToolboxActionConfig> = Object.fromEntries(
-		(isMobile ? actions : actions.slice(6))
+		(isMobile ? actions : visibleActions)
 			.filter((item) => !item.disabled)
 			.map((item) => {
 				hiddenActionRenderers.current = {
@@ -52,10 +52,10 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 			}),
 	);
 
-	const actionDefault = useMutableCallback((e) => {
-		const index = e.currentTarget.getAttribute('data-toolbox');
-		openTabBar(actions[index].id);
-	});
+	// const actionDefault = useMutableCallback((e) => {
+	// 	const index = e.currentTarget.getAttribute('data-toolbox');
+	// 	openTabBar(actions[index].id);
+	// });
 
 	// const open = useMutableCallback((index) => {
 	// 	openTabBar(actions[index].id);
@@ -74,7 +74,7 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 
 	return (
 		<>
-			{visibleActions.map(({ renderAction, id, icon, title, action = actionDefault, disabled, 'data-tooltip': tooltip }, index) => {
+			{/* {visibleActions.map(({ renderAction, id, icon, title, action = actionDefault, disabled, 'data-tooltip': tooltip }, index) => {
 				const props = {
 					id,
 					icon,
@@ -92,19 +92,30 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 					return renderAction(props);
 				}
 				return <Header.ToolBoxAction {...props} />;
-			})}
+			})} */}
+
 			{actions.length > 6 && (
 				<Menu
+					bg='white'
+					color='white'
+					borderColor='#e3ebf6'
+					padding='8px 12px'
 					data-qa-id='ToolBox-Menu'
 					tiny={!isMobile}
-					title={t('Options')}
+					title={t('More')}
 					maxHeight='initial'
+					height='41px'
+					width='65px'
 					className={className}
 					aria-keyshortcuts='alt'
 					tabIndex={-1}
 					options={hiddenActions}
 					renderItem={({ value, ...props }): ReactElement | null => value && (hiddenActionRenderers.current[value](props) as ReactElement)}
-				/>
+				>
+					<Box w='full' position='absolute' color='#283e59' zIndex={'99'}>
+						Menu
+					</Box>
+				</Menu>
 			)}
 		</>
 	);

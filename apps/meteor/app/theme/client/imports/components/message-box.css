@@ -75,7 +75,7 @@
 
 			width: 0;
 
-			content: "\2026"; /* ascii code for the ellipsis character */
+			content: '\2026'; /* ascii code for the ellipsis character */
 			animation: ellipsis steps(4, end) 1.5s infinite;
 			vertical-align: bottom;
 		}
@@ -93,6 +93,8 @@
 		border-width: var(--message-box-container-border-width);
 		border-color: var(--message-box-container-border-color);
 		border-radius: var(--message-box-container-border-radius);
+
+		background-color: white;
 
 		align-items: center;
 
@@ -143,6 +145,16 @@
 
 		& .rc-input__icon-svg--plus {
 			transition: transform 0.1s linear;
+		}
+
+		& .rc-input__icon-svg--send {
+			width: 30px;
+			height: 30px;
+			padding: 6px;
+
+			color: white;
+			border-radius: 63px;
+			background-color: #2c7be5;
 		}
 	}
 
