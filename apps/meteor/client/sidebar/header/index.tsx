@@ -4,6 +4,7 @@ import React, { memo, ReactElement } from 'react';
 
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import UserAvatarButton from './UserAvatarButton';
+// import Administration from './actions/Administration';
 import CreateRoom from './actions/CreateRoom';
 import Login from './actions/Login';
 // import Directory from './actions/Directory';

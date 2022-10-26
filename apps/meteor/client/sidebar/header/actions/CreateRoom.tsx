@@ -20,7 +20,7 @@ const CreateRoom: VFC<Omit<HTMLAttributes<HTMLElement>, 'is'>> = (props) => {
 			{showCreate && (
 				<Box
 					width={'112px'}
-					height={'37px'}
+					height={'42px'}
 					title='Add New'
 					onClick={(): void => toggle()}
 					{...props}

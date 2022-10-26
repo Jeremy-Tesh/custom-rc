@@ -1,14 +1,11 @@
 import type { IRoom } from '@rocket.chat/core-typings';
 import { Menu, Option, Box } from '@rocket.chat/fuselage';
-// import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import { useLayout, useTranslation } from '@rocket.chat/ui-contexts';
 import React, { memo, ReactNode, useRef, ComponentProps, ReactElement } from 'react';
 
 // used to open the menu option by keyboard
-// import Header from '../../../../components/Header';
+import { useToolboxContext, useTabBarOpen } from '../../contexts/ToolboxContext';
 import { ToolboxActionConfig, OptionRenderer } from '../../lib/Toolbox';
-import { useToolboxContext } from '../../lib/Toolbox/ToolboxContext';
-import { useTabBarOpen } from '../../providers/ToolboxProvider';
 
 const renderMenuOption: OptionRenderer = ({ label: { title, icon }, ...props }: any): ReactNode => (
 	<Option label={title} icon={icon} data-qa-id={`ToolBoxAction-${icon}`} {...props} />
@@ -20,16 +17,18 @@ type ToolBoxProps = {
 };
 
 const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
+	const t = useTranslation();
 	// const tab = useTab();
 	const openTabBar = useTabBarOpen();
 	const { isMobile } = useLayout();
-	const t = useTranslation();
 	const hiddenActionRenderers = useRef<{ [key: string]: OptionRenderer }>({});
 
 	const { actions: mapActions } = useToolboxContext();
 
 	const actions = (Array.from(mapActions.values()) as ToolboxActionConfig[]).sort((a, b) => (a.order || 0) - (b.order || 0));
-	const visibleActions = isMobile ? [] : actions.slice(0, 7);
+	// const featuredActions = actions.filter((action) => action.featured);
+	const filteredActions = actions.filter((action) => !action.featured);
+	const visibleActions = isMobile ? [] : filteredActions.slice(0, 8);
 
 	const hiddenActions: Record<string, ToolboxActionConfig> = Object.fromEntries(
 		(isMobile ? actions : visibleActions)
@@ -52,9 +51,8 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 			}),
 	);
 
-	// const actionDefault = useMutableCallback((e) => {
-	// 	const index = e.currentTarget.getAttribute('data-toolbox');
-	// 	openTabBar(actions[index].id);
+	// const actionDefault = useMutableCallback((actionId) => {
+	// 	openTabBar(actionId);
 	// });
 
 	// const open = useMutableCallback((index) => {
@@ -72,29 +70,49 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 	// 	};
 	// }, [visibleActions.length, open]);
 
+	// TODO: Create helper for render Actions
+	// TODO: Add proper Vertical Divider Component
+
 	return (
 		<>
-			{/* {visibleActions.map(({ renderAction, id, icon, title, action = actionDefault, disabled, 'data-tooltip': tooltip }, index) => {
+			{/* {featuredActions.map(({ renderAction, id, icon, title, action = actionDefault, disabled, 'data-tooltip': tooltip }, index) => {
 				const props = {
 					id,
 					icon,
-					'title': t(title),
+					title: t(title),
 					className,
 					index,
-					'info': id === tab?.id,
-					'data-toolbox': index,
+					info: id === tab?.id,
 					action,
-					'key': id,
+					key: id,
 					disabled,
 					...(tooltip ? { 'data-tooltip': t(tooltip as TranslationKey) } : {}),
 				};
 				if (renderAction) {
 					return renderAction(props);
 				}
-				return <Header.ToolBoxAction {...props} />;
+				return <Header.ToolBox.Action {...props} />;
+			})}
+			{featuredActions.length > 0 && <Header.ToolBox.Divider />}
+			{visibleActions.map(({ renderAction, id, icon, title, action = actionDefault, disabled, 'data-tooltip': tooltip }, index) => {
+				const props = {
+					id,
+					icon,
+					title: t(title),
+					className,
+					index,
+					info: id === tab?.id,
+					action,
+					key: id,
+					disabled,
+					...(tooltip ? { 'data-tooltip': t(tooltip as TranslationKey) } : {}),
+				};
+				if (renderAction) {
+					return renderAction(props);
+				}
+				return <Header.ToolBox.Action {...props} />;
 			})} */}
-
-			{actions.length > 6 && (
+			{filteredActions.length > 6 && (
 				<Menu
 					bg='white'
 					color='white'

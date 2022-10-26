@@ -3,7 +3,7 @@ import { Box, SidebarSection } from '@rocket.chat/fuselage';
 import FeatherIcon from 'feather-icons-react';
 import React, { useState } from 'react';
 
-import Row from './Row';
+import RoomListRow from './RoomListRow';
 
 function RoomItems({ list, title, itemData }) {
 	const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ function RoomItems({ list, title, itemData }) {
 			{open && (
 				<>
 					{list.map((item, index) => (
-						<Row key={index} data={itemData} item={item} />
+						<RoomListRow key={index} data={itemData} item={item} />
 					))}
 				</>
 			)}
