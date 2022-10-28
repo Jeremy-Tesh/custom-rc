@@ -28,10 +28,10 @@ const ToolBox = ({ className }: ToolBoxProps): ReactElement => {
 	const actions = (Array.from(mapActions.values()) as ToolboxActionConfig[]).sort((a, b) => (a.order || 0) - (b.order || 0));
 	// const featuredActions = actions.filter((action) => action.featured);
 	const filteredActions = actions.filter((action) => !action.featured);
-	const visibleActions = isMobile ? [] : filteredActions.slice(0, 8);
+	// const visibleActions = isMobile ? [] : filteredActions.slice(0, 8);
 
 	const hiddenActions: Record<string, ToolboxActionConfig> = Object.fromEntries(
-		(isMobile ? actions : visibleActions)
+		(isMobile ? actions : actions.slice(0, 8))
 			.filter((item) => !item.disabled)
 			.map((item) => {
 				hiddenActionRenderers.current = {

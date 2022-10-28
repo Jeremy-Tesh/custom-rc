@@ -1,1 +1,1 @@
-export { default } from './VideoConfListWithData';
+export { default } from '../../Call/BBB/D';

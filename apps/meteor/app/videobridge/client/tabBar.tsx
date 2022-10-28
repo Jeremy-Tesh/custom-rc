@@ -1,6 +1,9 @@
-import { useMemo, lazy } from 'react';
+import React, { useMemo, lazy } from 'react';
+import type { ReactNode } from 'react';
+import { Header } from '@rocket.chat/ui-client';
+import { Badge, Option } from '@rocket.chat/fuselage';
 import { useStableArray, useMutableCallback } from '@rocket.chat/fuselage-hooks';
-import { useSetting, useUser } from '@rocket.chat/ui-contexts';
+import { useSetting, useTranslation, useUser } from '@rocket.chat/ui-contexts';
 import { isRoomFederated } from '@rocket.chat/core-typings';
 
 import { useVideoConfDispatchOutgoing, useVideoConfIsCalling, useVideoConfIsRinging } from '../../../client/contexts/VideoConfContext';
@@ -41,6 +44,7 @@ addAction('start-call', ({ room }) => {
 	const isCalling = useVideoConfIsCalling();
 	const isRinging = useVideoConfIsRinging();
 	const federated = isRoomFederated(room);
+	const t = useTranslation();
 
 	const ownUser = room.uids && room.uids.length === 1;
 
@@ -88,14 +92,33 @@ addAction('start-call', ({ room }) => {
 						id: 'start-call',
 						title: 'Call',
 						icon: 'phone',
-						action: handleOpenVideoConf,
+						// action: handleOpenVideoConf,
 						...(federated && {
 							'disabled': true,
 							'data-tooltip': 'Video_Call_unavailable_for_federation',
 						}),
+						template: lazy(() => import('../../../client/views/room/contextualBar/VideoConference/VideoConfList')),
 						full: true,
 						order: live ? -1 : 4,
 						featured: true,
+						renderAction: (props): ReactNode => (
+							<Header.ToolBoxAction {...props}>
+								{live && (
+									<Header.Badge title={t('Started_a_video_call')} variant='primary'>
+										!
+									</Header.Badge>
+								)}
+							</Header.ToolBoxAction>
+						),
+						renderOption: ({ label: { title, icon }, ...props }: any): ReactNode => (
+							<Option label={title} title={title} icon={icon} {...props}>
+								{live && (
+									<Badge title={t('Started_a_video_call')} variant='primary'>
+										!
+									</Badge>
+								)}
+							</Option>
+						),
 				  }
 				: null,
 		[groups, enableOption, live, handleOpenVideoConf, ownUser, federated],
