@@ -1,4 +1,3 @@
-import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import { Match, check } from 'meteor/check';
 import { Random } from 'meteor/random';
@@ -13,7 +12,6 @@ Meteor.methods({
 		check(options, {
 			id: Match.Optional(String),
 			token: _matchToken,
-			authToken: String,
 			appName: String,
 			userId: Match.OneOf(String, null),
 			metadata: Match.Optional(Object),
@@ -23,9 +21,6 @@ Meteor.methods({
 		if (options.userId && options.userId !== this.userId) {
 			throw new Meteor.Error(403, 'Forbidden access');
 		}
-
-		// we always store the hashed token to protect users
-		const hashedToken = Accounts._hashLoginToken(options.authToken);
 
 		let doc;
 
@@ -53,7 +48,6 @@ Meteor.methods({
 			// Rig default doc
 			doc = {
 				token: options.token,
-				authToken: hashedToken,
 				appName: options.appName,
 				userId: options.userId,
 				enabled: true,
@@ -71,16 +65,12 @@ Meteor.methods({
 			appTokensCollection._collection.insert(doc);
 		} else {
 			// We found the app so update the updatedAt and set the token
-			appTokensCollection.update(
-				{ _id: doc._id },
-				{
-					$set: {
-						updatedAt: new Date(),
-						token: options.token,
-						authToken: hashedToken,
-					},
+			appTokensCollection.update({ _id: doc._id }, {
+				$set: {
+					updatedAt: new Date(),
+					token: options.token,
 				},
-			);
+			});
 		}
 
 		if (doc.token) {
@@ -94,7 +84,7 @@ Meteor.methods({
 			});
 
 			if (removed) {
-				logger.debug(`Removed ${removed} existing app items`);
+				logger.debug(`Removed ${ removed } existing app items`);
 			}
 		}
 
@@ -107,7 +97,7 @@ Meteor.methods({
 	'raix:push-setuser'(id) {
 		check(id, String);
 
-		logger.debug(`Settings userId "${this.userId}" for app:`, id);
+		logger.debug(`Settings userId "${ this.userId }" for app:`, id);
 		const found = appTokensCollection.update({ _id: id }, { $set: { userId: this.userId } });
 
 		return !!found;
