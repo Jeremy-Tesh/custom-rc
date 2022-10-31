@@ -71,6 +71,17 @@ FlowRouter.route('/custom', {
 	},
 });
 
+FlowRouter.route('/videoconf', {
+	name: 'videoconf',
+	action: () => {
+		appLayout.render(
+			<MainLayout>
+				<BlazeTemplate template='bbbLiveView' />
+			</MainLayout>,
+		);
+	},
+});
+
 FlowRouter.route('/login', {
 	name: 'login',
 

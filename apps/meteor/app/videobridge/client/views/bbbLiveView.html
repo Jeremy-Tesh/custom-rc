@@ -1,3 +1,19 @@
 <template name="bbbLiveView">
-	<iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  allow="microphone *; camera *; display-capture *" src="{{source}}" width="380" height="400" frameborder="0"></iframe>
+	<section class="page-container page-list flex-tab-main-content">
+	<header class="rc-header header-body">
+		<div class="rc-header__wrap">
+			<div class="rc-header__content rc-header__block">
+			
+			<!-- Mongrov: close icon -->
+			{{#if showCloseIcon}}
+			<div class="rc-header__block rc-header__block--action rc-tooltip rc-tooltip--down rc-tooltip--end" aria-label={{_ "Close"}}>
+				<!-- <span class="rc-header__first-icon">{{> icon block="rc-header__icon rc-header__icon" icon="plus"}}</span> -->
+				<button class="btn-danger h3 px-3 py-2 mr-2 rounded-lg js-close-vc feather-x-square mb-0">Close</button>
+			</div>
+			{{/if}}
+			</div>
+		</div>
+	</header>
+	<iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  allow="microphone *; camera *; display-capture *" src="{{source}}" width="100%" height="100%" frameborder="0"></iframe>
+</section>
 </template>

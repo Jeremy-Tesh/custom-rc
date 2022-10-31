@@ -1,17 +1,13 @@
 import { IRoom } from '@rocket.chat/core-typings';
 import { useMutableCallback } from '@rocket.chat/fuselage-hooks';
 import { useMethod, usePermission, useSetting } from '@rocket.chat/ui-contexts';
+import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Session } from 'meteor/session';
 import React, { FC, useEffect } from 'react';
 
 import { popout } from '../../../../../../app/ui-utils/client';
 import { useRoom } from '../../../contexts/RoomContext';
 import { useTabBarClose } from '../../../contexts/ToolboxContext';
-// import { IRoom } from '../../../../../../definition/IRoom';
-// import { usePermission } from '../../../../../contexts/AuthorizationContext';
-// import { useMethod } from '../../../../../contexts/ServerContext';
-// import { useSetting } from '../../../../../contexts/SettingsContext';
-// import { useRoom } from '../../../contexts/RoomContext';
-// import { useTabBarClose } from '../../../providers/ToolboxProvider';
 import CallBBB from './CallBBB';
 
 type DProps = {
@@ -38,16 +34,20 @@ const D: FC<DProps> = ({ rid }) => {
 		if (openNewWindow) {
 			return window.open(result.url);
 		}
-		popout.open({
-			content: 'bbbLiveView',
-			data: {
-				source: result.url,
-				streamingOptions: result,
-				canOpenExternal: true,
-				showVideoControls: false,
-			},
-			onCloseCallback: () => false,
-		});
+
+		// popout.open({
+		// 	content: 'bbbLiveView',
+		// 	data: {
+		// 		source: result.url,
+		// 		streamingOptions: result,
+		// 		canOpenExternal: true,
+		// 		showVideoControls: false,
+		// 	},
+		// 	onCloseCallback: () => false,
+		// });
+		// Session.set('content','bbbLiveView')
+		Session.set('source', result.url);
+		FlowRouter.go('videoconf');
 	});
 
 	useEffect(() => {

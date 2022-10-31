@@ -116,9 +116,9 @@ Meteor.methods({
 			throw new Meteor.Error('error-invalid-room', 'Invalid room', { method: 'bbbEnd' });
 		}
 
-		if (!canAccessRoom({ _id: rid }, { _id: this.userId })) {
-			throw new Meteor.Error('error-invalid-user', 'Invalid user', { method: 'bbbEnd' });
-		}
+		// if (!canAccessRoom({ _id: rid }, { _id: this.userId })) {
+		// 	throw new Meteor.Error('error-invalid-user', 'Invalid user', { method: 'bbbEnd' });
+		// }
 
 		if (!settings.get('bigbluebutton_Enabled')) {
 			throw new Meteor.Error('error-not-allowed', 'Not Allowed', { method: 'bbbEnd' });
