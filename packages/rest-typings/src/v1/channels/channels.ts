@@ -52,6 +52,20 @@ export type ChannelsEndpoints = {
 			group: Partial<IRoom>;
 		};
 	};
+	'/v1/channels.createAlertChannel': {
+		POST: (params: {
+			name: string;
+			members: string[];
+			readOnly: boolean;
+			extraData: {
+				broadcast: boolean;
+				encrypted: boolean;
+				teamId?: string;
+			};
+		}) => {
+			group: Partial<IRoom>;
+		};
+	};
 	'/v1/channels.convertToTeam': {
 		POST: (params: { channelId: string; channelName: string }) => {
 			team: ITeam;
