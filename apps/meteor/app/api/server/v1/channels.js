@@ -269,6 +269,70 @@ API.v1.addRoute(
 );
 
 API.v1.addRoute(
+	'channels.createAlertChannel',
+	{ authRequired: true },
+	{
+		post() {
+			const { userId, bodyParams } = this;
+
+			let error;
+
+			try {
+				API.channels.create.validate({
+					user: {
+						value: userId,
+					},
+					name: {
+						value: bodyParams.name,
+						key: 'name',
+					},
+					members: {
+						value: bodyParams.members,
+						key: 'members',
+					},
+					teams: {
+						value: bodyParams.teams,
+						key: 'teams',
+					},
+				});
+			} catch (e) {
+				if (e.message === 'unauthorized') {
+					error = API.v1.unauthorized();
+				} else {
+					error = API.v1.failure(e.message);
+				}
+			}
+
+			if (error) {
+				return error;
+			}
+
+			if (bodyParams.teams) {
+				const canSeeAllTeams = hasPermission(this.userId, 'view-all-teams');
+				const teams = Promise.await(Team.listByNames(bodyParams.teams, { projection: { _id: 1 } }));
+				const teamMembers = [];
+
+				for (const team of teams) {
+					const { records: members } = Promise.await(
+						Team.members(this.userId, team._id, canSeeAllTeams, {
+							offset: 0,
+							count: Number.MAX_SAFE_INTEGER,
+						}),
+					);
+					const uids = members.map((member) => member.user.username);
+					teamMembers.push(...uids);
+				}
+
+				const membersToAdd = new Set([...teamMembers, ...bodyParams.members]);
+				bodyParams.members = [...membersToAdd];
+			}
+
+			return API.v1.success(API.channels.create.execute(userId, bodyParams));
+		},
+	},
+);
+
+API.v1.addRoute(
 	'channels.files',
 	{ authRequired: true },
 	{
