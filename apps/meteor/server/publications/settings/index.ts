@@ -83,6 +83,7 @@ Meteor.methods({
 			'SMS_',
 			'Image_Proxy_',
 			'vertiv_',
+			'Accounts_OAuth_Custom',
 		];
 		const mobilesettings: ISetting[] = [];
 		const publicSettings = (await Settings.findNotHiddenPublic().toArray()) as ISetting[];

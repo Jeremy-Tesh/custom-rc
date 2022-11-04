@@ -310,6 +310,53 @@ API.v1.addRoute(
 	},
 );
 
+// Create Private Group
+API.v1.addRoute(
+	'groups.createAlertGroup',
+	{ authRequired: true },
+	{
+		post() {
+			if (!hasPermission(this.userId, 'create-p')) {
+				return API.v1.unauthorized();
+			}
+
+			if (!this.bodyParams.name) {
+				return API.v1.failure('Body param "name" is required');
+			}
+
+			if (this.bodyParams.members && !_.isArray(this.bodyParams.members)) {
+				return API.v1.failure('Body param "members" must be an array if provided');
+			}
+
+			if (this.bodyParams.customFields && !(typeof this.bodyParams.customFields === 'object')) {
+				return API.v1.failure('Body param "customFields" must be an object if provided');
+			}
+			if (this.bodyParams.extraData && !(typeof this.bodyParams.extraData === 'object')) {
+				return API.v1.failure('Body param "extraData" must be an object if provided');
+			}
+
+			const readOnly = typeof this.bodyParams.readOnly !== 'undefined' ? this.bodyParams.readOnly : false;
+
+			let id;
+
+			Meteor.runAsUser(this.userId, () => {
+				id = Meteor.call(
+					'createPrivateGroup',
+					this.bodyParams.name,
+					this.bodyParams.members ? this.bodyParams.members : [],
+					readOnly,
+					this.bodyParams.customFields,
+					this.bodyParams.extraData,
+				);
+			});
+
+			return API.v1.success({
+				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
+			});
+		},
+	},
+);
+
 API.v1.addRoute(
 	'groups.delete',
 	{ authRequired: true },

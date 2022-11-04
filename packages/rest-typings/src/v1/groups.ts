@@ -347,6 +347,11 @@ export type GroupsEndpoints = {
 			group: Partial<IRoom>;
 		};
 	};
+	'/v1/groups.createAlertGroup': {
+		POST: (params: GroupsCreateProps) => {
+			group: Partial<IRoom>;
+		};
+	};
 	'/v1/groups.convertToTeam': {
 		POST: (params: GroupsConvertToTeamProps) => { team: ITeam };
 	};
