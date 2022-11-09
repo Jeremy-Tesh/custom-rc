@@ -1,7 +1,7 @@
 import { css } from '@rocket.chat/css-in-js';
 import { Box, Divider, Dropdown, Icon, SidebarSection } from '@rocket.chat/fuselage';
 import { useResizeObserver, useMutableCallback } from '@rocket.chat/fuselage-hooks';
-import { useSession, useUserPreference, useUserId, useTranslation, useRoute } from '@rocket.chat/ui-contexts';
+import { useSession, useUserPreference, useUserId, useTranslation, useRoute, useAtLeastOnePermission } from '@rocket.chat/ui-contexts';
 import FeatherIcon from 'feather-icons-react';
 import React, { useMemo, ReactElement, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -16,10 +16,28 @@ import { useShortcutOpenMenu } from '../hooks/useShortcutOpenMenu';
 import { useSidebarPaletteColor } from '../hooks/useSidebarPaletteColor';
 import { useTemplateByViewMode } from '../hooks/useTemplateByViewMode';
 import RoomItems from './RoomItems';
+
 // import Row from './Row';
 // import ScrollerWithCustomProps from './ScrollerWithCustomProps';
 // import Sidebar from '/client/components/Sidebar';
 // const computeItemKey = (index: number, room: IRoom): IRoom['_id'] | number => room._id || index;
+const ADMIN_PERMISSIONS = [
+	'view-logs',
+	'manage-emoji',
+	'manage-sounds',
+	'view-statistics',
+	'manage-oauth-apps',
+	'view-privileged-setting',
+	'manage-selected-settings',
+	'view-room-administration',
+	'view-user-administration',
+	'access-setting-permissions',
+	'manage-outgoing-integrations',
+	'manage-incoming-integrations',
+	'manage-own-outgoing-integrations',
+	'manage-own-incoming-integrations',
+	'view-engagement-dashboard',
+];
 
 const RoomList = (): ReactElement => {
 	useSidebarPaletteColor();
@@ -39,7 +57,6 @@ const RoomList = (): ReactElement => {
 	const roomsList = useRoomList();
 	const app = useApp();
 	const handleClick = useHandleClick();
-
 	// const[roomsdata,setroomsData]= useDebouncedState<Type[]>(()=>{
 	// 	return roomsList.map((elt) => {
 	// 		return setroomsData(Object.values(elt))
@@ -67,6 +84,7 @@ const RoomList = (): ReactElement => {
 	const reference = useRef(null);
 	const target = useRef(null);
 	const { isVisible, toggle } = useDropdownVisibility({ reference, target });
+	const showAdmin = useAtLeastOnePermission(ADMIN_PERMISSIONS);
 
 	const handleHome = useMutableCallback(() => {
 		homeRoute.push({});
@@ -107,16 +125,18 @@ const RoomList = (): ReactElement => {
 			})}
 
 			<Divider />
-			<Box onClick={() => setOpen(!open)} className={itemStyle} justifyContent='space-between'>
-				<SidebarSection.Title>
-					<div>
-						<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
-						Apps
-					</div>
+			{app.length > 0 && (
+				<Box onClick={() => setOpen(!open)} className={itemStyle} justifyContent='space-between'>
+					<SidebarSection.Title>
+						<div>
+							<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
+							Apps
+						</div>
 
-					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
-				</SidebarSection.Title>
-			</Box>
+						<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
+					</SidebarSection.Title>
+				</Box>
+			)}
 
 			{open && (
 				<div style={{ height: 'auto', padding: '20px 24px 0px 24px' }}>
@@ -150,14 +170,16 @@ const RoomList = (): ReactElement => {
 					</Dropdown>,
 					document.body,
 				)}
-			<Box className={itemStyle} onClick={handleAdmin}>
-				<SidebarSection.Title>
-					<div>
-						<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
-						Administration
-					</div>
-				</SidebarSection.Title>
-			</Box>
+			{showAdmin && (
+				<Box className={itemStyle} onClick={handleAdmin}>
+					<SidebarSection.Title>
+						<div>
+							<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
+							Administration
+						</div>
+					</SidebarSection.Title>
+				</Box>
+			)}
 		</Box>
 	);
 };
