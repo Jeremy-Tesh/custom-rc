@@ -2,7 +2,7 @@ import { Box, Grid, Button } from '@rocket.chat/fuselage';
 import { Card } from '@rocket.chat/ui-client';
 import { useSetting, useTranslation } from '@rocket.chat/ui-contexts';
 import { FlowRouter } from 'meteor/kadira:flow-router';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 
 import { settings } from '../../../app/settings/client';
 import Page from '../../components/Page/Page';
@@ -25,11 +25,22 @@ const DefaultHomePage = (): ReactElement => {
 	// const canAddUsers = usePermission('view-user-administration');
 	// const canCreateChannel = useAtLeastOnePermission(CREATE_CHANNEL_PERMISSIONS);
 	const workspaceName = useSetting('Site_Name');
-	const cardData = JSON.parse(settings.get('Custom_Cards'));
+	const [customCard, setCustomCard] = useState([]);
+	const cardData = settings.get('Custom_Cards');
 
 	const handleOpenUsersRoute = (path: string): void => {
 		FlowRouter.go(path);
 	};
+
+	useEffect(() => {
+		const getCustomCard = () => {
+			if (cardData) {
+				setCustomCard(JSON.parse(cardData));
+				console.log(cardData);
+			}
+		};
+		getCustomCard();
+	}, [cardData]);
 
 	return (
 		<Page data-qa='page-home' data-qa-type='default' background='tint'>
@@ -52,16 +63,18 @@ const DefaultHomePage = (): ReactElement => {
 							<CreateChannelsCard />
 						</HomepageGridItem>
 					)} */}
-					{Array.isArray(cardData)
-						? cardData.map((item) => (
-								<HomepageGridItem>
+					{Array.isArray(customCard)
+						? customCard.map((item, id) => (
+								<HomepageGridItem key={id}>
 									<Card variant='light' data-qa-id='homepage-add-users-card'>
 										<Card.Title>{item.title}</Card.Title>
 										<Card.Body>{item.content}</Card.Body>
 										<Card.FooterWrapper>
 											<Card.Footer>
-												{item.actions.map((button: any) => (
-													<Button onClick={(): void => handleOpenUsersRoute(button.route)}>{button.text}</Button>
+												{item.actions.map((button: any, id: any) => (
+													<Button key={id} onClick={(): void => handleOpenUsersRoute(button.route)}>
+														{button.text}
+													</Button>
 												))}
 											</Card.Footer>
 										</Card.FooterWrapper>
