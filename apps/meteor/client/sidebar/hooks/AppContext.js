@@ -20,6 +20,7 @@ export function useHandleClick() {
 
 export default function AppProvider({ children }) {
 	const [apps, setApps] = useState([]);
+	const customAppConf = settings.get('Custom_App_Domain');
 
 	function newsIntegration(url, appname) {
 		Meteor.call('getNewsIncomingIntegration', (err, res) => {
@@ -61,44 +62,44 @@ export default function AppProvider({ children }) {
 
 	useEffect(() => {
 		const getCustomAppList = () => {
-			const customAppConf = settings.get('Custom_App_Domain');
 			const customAppList = [];
+			if (customAppConf) {
+				try {
+					const customAppSettings = JSON.parse(customAppConf);
 
-			try {
-				const customAppSettings = JSON.parse(customAppConf);
+					if (customAppSettings) {
+						for (let index = 0; index < customAppSettings.length; index++) {
+							const element = customAppSettings[index];
 
-				if (customAppSettings) {
-					for (let index = 0; index < customAppSettings.length; index++) {
-						const element = customAppSettings[index];
-
-						if (element.roles.includes('all')) {
-							customAppList.push({
-								icon: 'check',
-								name: t(element.name),
-								customurl: element.url,
-								// action: () => {
-								// 	const replacedurl = element.url.replace('&$$newshook$$', '');
-								// 	const newshook = replacedurl.includes('&$$newshook$$');
-								// 	if (newshook) {
-								// 		newsIntegration(replacedurl, element.name);
-								// 	} else {
-								// 		Session.set('customappname', t(appname));
-								// 		Session.set('customurl', replacedurl);
-								// 		FlowRouter.go('custom');
-								// 		popover.close();
-								// 	}
-								// },
-							});
+							if (element.roles.includes('all')) {
+								customAppList.push({
+									icon: 'check',
+									name: t(element.name),
+									customurl: element.url,
+									// action: () => {
+									// 	const replacedurl = element.url.replace('&$$newshook$$', '');
+									// 	const newshook = replacedurl.includes('&$$newshook$$');
+									// 	if (newshook) {
+									// 		newsIntegration(replacedurl, element.name);
+									// 	} else {
+									// 		Session.set('customappname', t(appname));
+									// 		Session.set('customurl', replacedurl);
+									// 		FlowRouter.go('custom');
+									// 		popover.close();
+									// 	}
+									// },
+								});
+							}
 						}
 					}
+				} catch (error) {
+					console.log('error', error);
 				}
-			} catch (error) {
-				console.log('error', error);
 			}
 			setApps(customAppList);
 		};
 		getCustomAppList();
-	}, [settings.get('Custom_App_Domain')]);
+	}, [customAppConf]);
 
 	return (
 		<AppContext.Provider value={apps}>

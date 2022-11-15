@@ -79,6 +79,7 @@ export class CustomOAuth {
 		}
 
 		const config = ServiceConfiguration.configurations.findOne({ service: this.name });
+
 		if (!config) {
 			if (credentialRequestCompleteCallback) {
 				credentialRequestCompleteCallback(new ServiceConfiguration.ConfigError());

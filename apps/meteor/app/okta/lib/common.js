@@ -8,16 +8,15 @@ import { CustomOAuth } from '../../custom-oauth';
 
 const config = {
 	serverURL: '',
-	identityPath: '/oauth/userinfo',
-
+	identityPath: '/userinfo',
+	clientId: settings.get('Accounts_OAuth_Okta_id'),
 	addAutopublishFields: {
 		forLoggedInUser: ['services.okta'],
 		forOtherUsers: ['services.okta.user_login'],
 	},
 	accessTokenParam: 'access_token',
+	loginStyle: 'redirect',
 };
-
-const Okta = new CustomOAuth('okta', config);
 
 const fillSettings = _.debounce(
 	Meteor.bindEnvironment(() => {
@@ -29,46 +28,33 @@ const fillSettings = _.debounce(
 			return;
 		}
 
-		delete config.identityPath;
-		delete config.identityTokenSentVia;
-		delete config.authorizePath;
-		delete config.tokenPath;
-		delete config.scope;
+		// delete config.identityPath;
+		// delete config.identityTokenSentVia;
+		// delete config.authorizePath;
+		// delete config.tokenPath;
+		// delete config.scope;
 
-		const serverType = settings.get('Accounts_OAuth_Okta_server_type');
-		switch (serverType) {
-			case 'custom':
-				if (settings.get('Accounts_OAuth_Okta_identity_path')) {
-					config.identityPath = settings.get('Accounts_OAuth_Okta_identity_path');
-				}
-
-				if (settings.get('Accounts_OAuth_Okta_identity_token_sent_via')) {
-					config.identityTokenSentVia = settings.get('Accounts_OAuth_Okta_identity_token_sent_via');
-				}
-
-				if (settings.get('Accounts_OAuth_Okta_token_path')) {
-					config.tokenPath = settings.get('Accounts_OAuth_Okta_token_path');
-				}
-
-				if (settings.get('Accounts_OAuth_Okta_authorize_path')) {
-					config.authorizePath = settings.get('Accounts_OAuth_Okta_authorize_path');
-				}
-
-				if (settings.get('Accounts_OAuth_Okta_scope')) {
-					config.scope = settings.get('Accounts_OAuth_Okta_scope');
-				}
-				break;
-			case 'okta-com':
-				config.identityPath = 'https://public-api.okta.com/rest/v1/me';
-				config.identityTokenSentVia = 'header';
-				config.authorizePath = 'https://public-api.okta.com/oauth2/authorize';
-				config.tokenPath = 'https://public-api.okta.com/oauth2/token';
-				config.scope = 'auth';
-				break;
-			default:
-				config.identityPath = '/oauth/me';
-				break;
+		if (settings.get('Accounts_OAuth_Okta_identity_path')) {
+			config.identityPath = settings.get('Accounts_OAuth_Okta_identity_path');
 		}
+
+		if (settings.get('Accounts_OAuth_Okta_identity_token_sent_via')) {
+			config.identityTokenSentVia = settings.get('Accounts_OAuth_Okta_identity_token_sent_via');
+		}
+
+		if (settings.get('Accounts_OAuth_Okta_token_path')) {
+			config.tokenPath = settings.get('Accounts_OAuth_Okta_token_path');
+		}
+
+		if (settings.get('Accounts_OAuth_Okta_authorize_path')) {
+			config.authorizePath = settings.get('Accounts_OAuth_Okta_authorize_path');
+		}
+
+		if (settings.get('Accounts_OAuth_Okta_scope')) {
+			config.scope = settings.get('Accounts_OAuth_Okta_scope');
+		}
+
+		const Okta = new CustomOAuth('okta', config);
 
 		const result = Okta.configure(config);
 		if (Meteor.isServer) {
