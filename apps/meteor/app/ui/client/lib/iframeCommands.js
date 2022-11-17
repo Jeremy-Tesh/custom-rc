@@ -30,6 +30,26 @@ const commands = {
 		AccountBox.setStatus(data.status);
 	},
 
+	'login-with-okta'(data, event) {
+		if (typeof data.service === 'string') {
+			const customOAuthCallback = (response) => {
+				event.source.postMessage(
+					{
+						event: 'okta-callback',
+						response,
+					},
+					event.origin,
+				);
+			};
+	
+			const result = Meteor.call('login', {serviceName: 'okta',
+				expiresIn: data.expiresIn,
+				accessToken: data.accessToken
+			});
+			customOAuthCallback(data);
+		}
+	},
+
 	'call-custom-oauth-login'(data, event) {
 		const customOAuthCallback = (response) => {
 			event.source.postMessage(
