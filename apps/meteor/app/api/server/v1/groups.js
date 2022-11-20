@@ -17,6 +17,8 @@ import { API } from '../api';
 import { Team } from '../../../../server/sdk';
 import { findUsersOfRoom } from '../../../../server/lib/findUsersOfRoom';
 import { addUserToFileObj } from '../helpers/addUserToFileObj';
+import { settings } from '../../../settings/server';
+import { sendNotification } from '../../../lib/server';
 
 // Returns the private group subscription IF found otherwise it will return the failure of why it didn't. Check the `statusCode` property
 export function findPrivateGroupByIdOrName({ params, userId, checkedArchived = true }) {
@@ -302,6 +304,7 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
+			console.log('creating group', id);
 
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
@@ -349,6 +352,46 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
+
+			sendNotification({
+				subscription: {
+					rid: id.rid,
+					t: 'd',
+					u: {
+						id: id._id,
+					},
+					receiver: this.bodyParams.members,
+				},
+				sender: {},
+				hasMentionToAll: true, // consider all agents to be in the room
+				hasMentionToHere: false,
+				message: Object.assign({}, { u: settings.get('Alert_Message') }),
+				// we should use server's language for this type of messages instead of user's
+				notificationMessage: settings.get('Alert_Message'),
+				room: {},
+				mentionIds: [],
+			});
+			console.log(settings.get('Alert_Message'));
+			// api.broadcast('notify.desktop', this.userId, {
+			// 	title: this.bodyParams.name,
+			// 	text: settings.get('Alert_Message'),
+			// 	duration: undefined,
+			// 	payload: {
+			// 		_id: id._id,
+			// 		rid: id.rid,
+			// 		tmid: undefined,
+			// 		sender: {},
+			// 		type: 'p',
+			// 		name: this.bodyParams.name,
+			// 	},
+			// });
+			// Notification('ermi', {
+			// 	icon: null,
+			// 	body: s.stripTags('This_is_a_desktop_notification'),
+			// 	tag: { sender: { username: 'mona' } },
+			// 	canReply: true,
+			// 	silent: true,
+			// });
 
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),

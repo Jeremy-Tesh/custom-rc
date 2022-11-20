@@ -11,7 +11,6 @@ Meteor.methods({
 		if (updatedAt instanceof Date) {
 			const records = await Settings.findNotHiddenPublicUpdatedAfter(updatedAt).toArray();
 			SettingsEvents.emit('fetch-settings', records);
-
 			return {
 				update: records,
 				remove: await Settings.trashFindDeletedAfter(
@@ -87,6 +86,13 @@ Meteor.methods({
 		];
 		const mobilesettings: ISetting[] = [];
 		const publicSettings = (await Settings.findNotHiddenPublic().toArray()) as ISetting[];
+		const allSettings = await Settings.find().toArray();
+		// eslint-disable-next-line array-callback-return
+		allSettings.map((setting) => {
+			if (setting._id.startsWith('Accounts_OAuth_Custom-Okta')) {
+				mobilesettings.push(setting);
+			}
+		});
 		publicSettings.forEach((setting) => {
 			const index = keys.findIndex(function (element) {
 				return setting._id.startsWith(element.toString());

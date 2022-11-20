@@ -37,7 +37,6 @@ import '../app/message-star/client';
 import '../app/nextcloud/client';
 import '../app/oauth2-server-config/client';
 import '../app/oembed/client';
-import '../app/okta/client';
 import '../app/otr/client';
 import '../app/push-notifications/client';
 import '../app/apps/client';
