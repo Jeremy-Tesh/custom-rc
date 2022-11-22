@@ -8,7 +8,7 @@ const Header = (): ReactElement => {
 	return (
 		<header>
 			<a className='logo' href='/'>
-				<img src={logoUrl} height="60"/>
+				<img src={logoUrl} height='60' />
 			</a>
 		</header>
 	);

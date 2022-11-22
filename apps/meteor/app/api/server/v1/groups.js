@@ -353,45 +353,55 @@ API.v1.addRoute(
 				);
 			});
 
-			sendNotification({
-				subscription: {
-					rid: id.rid,
-					t: 'd',
-					u: {
-						id: id._id,
-					},
-					receiver: this.bodyParams.members,
-				},
-				sender: {},
-				hasMentionToAll: true, // consider all agents to be in the room
-				hasMentionToHere: false,
-				message: Object.assign({}, { u: settings.get('Alert_Message') }),
-				// we should use server's language for this type of messages instead of user's
-				notificationMessage: settings.get('Alert_Message'),
-				room: {},
-				mentionIds: [],
-			});
-			console.log(settings.get('Alert_Message'));
-			// api.broadcast('notify.desktop', this.userId, {
-			// 	title: this.bodyParams.name,
-			// 	text: settings.get('Alert_Message'),
-			// 	duration: undefined,
-			// 	payload: {
-			// 		_id: id._id,
-			// 		rid: id.rid,
-			// 		tmid: undefined,
-			// 		sender: {},
-			// 		type: 'p',
-			// 		name: this.bodyParams.name,
-			// 	},
-			// });
-			// Notification('ermi', {
-			// 	icon: null,
-			// 	body: s.stripTags('This_is_a_desktop_notification'),
-			// 	tag: { sender: { username: 'mona' } },
-			// 	canReply: true,
-			// 	silent: true,
-			// });
+			const notifyUsers = settings.get('Alert_Notification');
+			if (notifyUsers) {
+				const room = Rooms.findOneById(id.rid, {
+					_id: 1,
+					v: 1,
+					serverBy: 1,
+					open: 1,
+					departmentId: 1,
+				});
+				const receiver = this.bodyParams.members.map((username) => Meteor.users.findOne({ username }));
+
+				if (receiver.length) {
+					receiver.map((user) => {
+						return sendNotification({
+							subscription: {
+								id: id._id,
+								rid: id.rid,
+								t: 'p',
+								u: {
+									_id: user._id,
+								},
+								name: room.u.username,
+								receiver: [user],
+							},
+
+							sender: {
+								_id: this.userId,
+								status: this.user.status,
+								active: this.user.active,
+							},
+							message: {
+								id: id.rid,
+								rid: id.rid,
+								msg: settings.get('Alert_Message'),
+								u: room.u,
+								urls: [],
+								mentions: [],
+							},
+							hasMentionToAll: true,
+							hasMentionToHere: false,
+							notificationMessage: settings.get('Alert_Message'),
+							hasReplyToThread: false,
+							room: Object.assign(room, { name: this.bodyParams.name }),
+							mentionIds: [],
+							disableAllMessageNotifications: false,
+						});
+					});
+				}
+			}
 
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
