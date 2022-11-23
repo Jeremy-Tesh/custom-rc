@@ -41,11 +41,8 @@ const commands = {
 					event.origin,
 				);
 			};
-	
-			const result = Meteor.call('login', {serviceName: 'okta',
-				expiresIn: data.expiresIn,
-				accessToken: data.accessToken
-			});
+
+			// const result = Meteor.call('login', { serviceName: 'okta', expiresIn: data.expiresIn, accessToken: data.accessToken });
 			customOAuthCallback(data);
 		}
 	},
