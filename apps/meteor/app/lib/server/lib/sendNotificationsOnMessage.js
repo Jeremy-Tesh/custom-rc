@@ -17,6 +17,7 @@ import { notifyDesktopUser, shouldNotifyDesktop } from '../functions/notificatio
 import { Notification } from '../../../notification-queue/server/NotificationQueue';
 import { getMentions } from './notifyUsersOnMessage';
 import { roomCoordinator } from '../../../../server/lib/rooms/roomCoordinator';
+import { notifySMSUser, shouldNotifySMS } from '../functions/notifications/sms';
 
 let TroubleshootDisableNotifications;
 
@@ -35,6 +36,8 @@ export const sendNotification = async ({
 	if (TroubleshootDisableNotifications === true) {
 		return;
 	}
+
+	console.log(room);
 
 	// don't notify the sender
 	if (subscription.u._id === sender._id) {
@@ -175,6 +178,12 @@ export const sendNotification = async ({
 			mid: message._id,
 			items: queueItems,
 		});
+	}
+
+	console.log(shouldNotifySMS(receiver));
+	console.log(receiver.customFields.phonenumber);
+	if (shouldNotifySMS(receiver)) {
+		notifySMSUser({ receiver, message, notificationMessage, room });
 	}
 };
 
@@ -397,6 +406,7 @@ export async function sendAllNotifications(message, room) {
 }
 
 settings.watch('Troubleshoot_Disable_Notifications', (value) => {
+	console.log('hello');
 	if (TroubleshootDisableNotifications === value) {
 		return;
 	}

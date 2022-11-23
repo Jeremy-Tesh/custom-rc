@@ -366,6 +366,7 @@ API.v1.addRoute(
 
 				if (receiver.length) {
 					receiver.map((user) => {
+						console.log(user);
 						return sendNotification({
 							subscription: {
 								id: id._id,
