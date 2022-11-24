@@ -37,8 +37,6 @@ export const sendNotification = async ({
 		return;
 	}
 
-	console.log(room);
-
 	// don't notify the sender
 	if (subscription.u._id === sender._id) {
 		return;
@@ -180,10 +178,8 @@ export const sendNotification = async ({
 		});
 	}
 
-	console.log(shouldNotifySMS(receiver));
-	console.log(receiver.customFields.phonenumber);
-	if (shouldNotifySMS(receiver)) {
-		notifySMSUser({ receiver, message, notificationMessage, room });
+	if (shouldNotifySMS({ receiver, room })) {
+		notifySMSUser({ receiver, message });
 	}
 };
 
@@ -406,7 +402,6 @@ export async function sendAllNotifications(message, room) {
 }
 
 settings.watch('Troubleshoot_Disable_Notifications', (value) => {
-	console.log('hello');
 	if (TroubleshootDisableNotifications === value) {
 		return;
 	}

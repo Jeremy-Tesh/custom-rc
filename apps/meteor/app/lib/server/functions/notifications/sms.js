@@ -55,17 +55,19 @@ export function notifySMSUser({ receiver, message }) {
 	});
 }
 
-export function shouldNotifySMS(receiver) {
+export function shouldNotifySMS({ receiver, room }) {
 	if (!SMS.enabled) {
 		return false;
 	}
 	const SMSService = settings.get('SMS_Notification');
-	console.log('txt', SMSService);
 
 	if (!SMSService) {
 		return false;
 	}
-	if (!receiver?.customFields.phonenumber) {
+	if (!room?.t === 'p') {
+		return false;
+	}
+	if (!receiver?.customFields?.phonenumber) {
 		return false;
 	}
 	if (!settings.get('Accounts_AllowSMSNotifications')) {

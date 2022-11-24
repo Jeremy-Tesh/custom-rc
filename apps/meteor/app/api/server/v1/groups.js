@@ -304,7 +304,6 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
-			console.log('creating group', id);
 
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
@@ -366,7 +365,6 @@ API.v1.addRoute(
 
 				if (receiver.length) {
 					receiver.map((user) => {
-						console.log(user);
 						return sendNotification({
 							subscription: {
 								id: id._id,
@@ -383,6 +381,7 @@ API.v1.addRoute(
 								_id: this.userId,
 								status: this.user.status,
 								active: this.user.active,
+								username: '',
 							},
 							message: {
 								id: id.rid,
@@ -396,7 +395,7 @@ API.v1.addRoute(
 							hasMentionToHere: false,
 							notificationMessage: settings.get('Alert_Message'),
 							hasReplyToThread: false,
-							room: Object.assign(room, { name: this.bodyParams.name }),
+							room: Object.assign(room, { name: 'Alert' }),
 							mentionIds: [],
 							disableAllMessageNotifications: false,
 						});
