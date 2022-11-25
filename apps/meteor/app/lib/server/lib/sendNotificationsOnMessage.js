@@ -32,6 +32,7 @@ export const sendNotification = async ({
 	room,
 	mentionIds,
 	disableAllMessageNotifications,
+	customFields,
 }) => {
 	if (TroubleshootDisableNotifications === true) {
 		return;
@@ -81,6 +82,7 @@ export const sendNotification = async ({
 	const { desktopNotifications, mobilePushNotifications, emailNotifications } = subscription;
 
 	// busy users don't receive desktop notification
+
 	if (
 		shouldNotifyDesktop({
 			disableAllMessageNotifications,
@@ -94,7 +96,8 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		})
+		}) &&
+		customFields?.Alert_Desktop_Notification === 'Yes'
 	) {
 		notifyDesktopUser({
 			notificationMessage,
@@ -117,7 +120,8 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		})
+		}) &&
+		customFields?.Alert_Mobile_Notification === 'Yes'
 	) {
 		queueItems.push({
 			type: 'push',
@@ -145,7 +149,8 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		})
+		}) &&
+		customFields?.Alert_Email_Notification === 'Yes'
 	) {
 		receiver.emails.some((email) => {
 			if (email.verified) {
@@ -178,7 +183,7 @@ export const sendNotification = async ({
 		});
 	}
 
-	if (shouldNotifySMS({ receiver, room })) {
+	if (shouldNotifySMS({ receiver, room }) && customFields?.Alert_SMS_Notification === 'Yes') {
 		notifySMSUser({ receiver, message });
 	}
 };

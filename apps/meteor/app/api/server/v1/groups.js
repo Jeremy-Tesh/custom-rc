@@ -398,6 +398,7 @@ API.v1.addRoute(
 							room: Object.assign(room, { name: 'Alert' }),
 							mentionIds: [],
 							disableAllMessageNotifications: false,
+							customFields: user.customFields,
 						});
 					});
 				}
@@ -406,6 +407,84 @@ API.v1.addRoute(
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
 			});
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.notify',
+	{ authRequired: true },
+	{
+		async post() {
+			const findResult = findPrivateGroupByIdOrName({
+				params: this.requestParams(),
+				userId: this.userId,
+				checkedArchived: false,
+			});
+
+			const notifyUsers = settings.get('Alert_Notification');
+
+			const { cursor, totalCount } = findUsersOfRoom({
+				rid: findResult.rid,
+			});
+
+			const [members] = await Promise.all([cursor.toArray(), totalCount]);
+
+			if (notifyUsers) {
+				const room = Rooms.findOneById(findResult.rid, {
+					_id: 1,
+					v: 1,
+					serverBy: 1,
+					open: 1,
+					departmentId: 1,
+				});
+
+				const receiver = members.map((usr) => {
+					const { username } = usr;
+					return Meteor.users.findOne({ username });
+				});
+
+				if (receiver.length) {
+					receiver.map((user) => {
+						return sendNotification({
+							subscription: {
+								id: findResult._id,
+								rid: findResult.rid,
+								t: findResult.t,
+								u: {
+									_id: user._id,
+								},
+								name: room.u.username,
+								receiver: [user],
+							},
+
+							sender: {
+								_id: 'mona',
+								status: 'online',
+								active: true,
+								username: 'Mona',
+							},
+							message: {
+								// id: id.rid,
+								// rid: id.rid,
+								msg: settings.get('Alert_Message'),
+								u: room.u,
+								urls: [],
+								mentions: [],
+							},
+							hasMentionToAll: true,
+							hasMentionToHere: false,
+							notificationMessage: settings.get('Alert_Message'),
+							hasReplyToThread: false,
+							room: Object.assign(room, { name: 'Alert' }),
+							mentionIds: [],
+							disableAllMessageNotifications: false,
+							customFields: user.customFields,
+						});
+					});
+				}
+			}
+
+			return API.v1.success();
 		},
 	},
 );
