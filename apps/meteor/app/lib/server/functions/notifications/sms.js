@@ -22,7 +22,7 @@ export function notifySMSUser({ receiver, message }) {
 		 body: message.msg,
 		 from: fromNo, // '+18656584630',
 		//  to: '+917667337474'
-		 to: receiver.customFields.phonenumber, //'+917667337474'
+		 to: receiver.customFields.phoneNumber, //'+917667337474'
 	   })
 	  .then(message => console.log(message));
 }
