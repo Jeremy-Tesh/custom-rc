@@ -96,8 +96,7 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		}) &&
-		customFields?.Alert_Desktop_Notification === 'Yes'
+		})
 	) {
 		notifyDesktopUser({
 			notificationMessage,
@@ -120,8 +119,7 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		}) &&
-		customFields?.Alert_Mobile_Notification === 'Yes'
+		})
 	) {
 		queueItems.push({
 			type: 'push',

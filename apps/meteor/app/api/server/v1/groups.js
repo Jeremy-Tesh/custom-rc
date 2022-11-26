@@ -351,7 +351,6 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
-
 			const notifyUsers = settings.get('Alert_Notification');
 			if (notifyUsers) {
 				const room = Rooms.findOneById(id.rid, {
@@ -361,45 +360,41 @@ API.v1.addRoute(
 					open: 1,
 					departmentId: 1,
 				});
-				const receiver = this.bodyParams.members.map((username) => Meteor.users.findOne({ username }));
-
+				const receiver = this.bodyParams.members.map((username) => username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }));
 				if (receiver.length) {
 					receiver.map((user) => {
-						return sendNotification({
-							subscription: {
-								id: id._id,
-								rid: id.rid,
-								t: 'p',
-								u: {
-									_id: user._id,
+						if(user._id){
+						console.log('ezhil sendNotification ');
+							return sendNotification({
+								subscription: {
+									id: id._id,
+									rid: id.rid,
+									t: 'p',
+									u: {
+										_id: user._id,
+									},
+									name: room.u.username,
+									receiver: [user],
 								},
-								name: room.u.username,
-								receiver: [user],
-							},
-
-							sender: {
-								_id: this.userId,
-								status: this.user.status,
-								active: this.user.active,
-								username: '',
-							},
-							message: {
-								id: id.rid,
-								rid: id.rid,
-								msg: settings.get('Alert_Message'),
-								u: room.u,
-								urls: [],
-								mentions: [],
-							},
-							hasMentionToAll: true,
-							hasMentionToHere: false,
-							notificationMessage: settings.get('Alert_Message'),
-							hasReplyToThread: false,
-							room: Object.assign(room, { name: 'Alert' }),
-							mentionIds: [],
-							disableAllMessageNotifications: false,
-							customFields: user.customFields,
-						});
+								sender: Users.findOneById('mona'),
+								message: {
+									id: id.rid,
+									rid: id.rid,
+									msg: settings.get('Alert_Message'),
+									u: room.u,
+									urls: [],
+									mentions: [],
+								},
+								hasMentionToAll: true,
+								hasMentionToHere: false,
+								notificationMessage: settings.get('Alert_Message'),
+								hasReplyToThread: false,
+								room: Object.assign(room, { name: 'Alert' }),
+								mentionIds: [],
+								disableAllMessageNotifications: false,
+								customFields: user.customFields,
+							});
+						}
 					});
 				}
 			}
@@ -411,7 +406,7 @@ API.v1.addRoute(
 	},
 );
 API.v1.addRoute(
-	'groups.notify',
+	'groups.notifySecurityDispatch',
 	{ authRequired: true },
 	{
 		async post() {
@@ -456,24 +451,18 @@ API.v1.addRoute(
 								name: room.u.username,
 								receiver: [user],
 							},
-
-							sender: {
-								_id: 'mona',
-								status: 'online',
-								active: true,
-								username: 'Mona',
-							},
+							sender: Users.findOneById('mona'),
 							message: {
 								// id: id.rid,
 								// rid: id.rid,
-								msg: settings.get('Alert_Message'),
+								msg: settings.get('Alert_Security_Dispatch_Message'),
 								u: room.u,
 								urls: [],
 								mentions: [],
 							},
 							hasMentionToAll: true,
 							hasMentionToHere: false,
-							notificationMessage: settings.get('Alert_Message'),
+							notificationMessage: settings.get('Alert_Security_Dispatch_Message'),
 							hasReplyToThread: false,
 							room: Object.assign(room, { name: 'Alert' }),
 							mentionIds: [],

@@ -48,6 +48,15 @@ settingsRegistry.addGroup('SMS', function () {
 			i18nLabel: 'Auth_Token',
 			secret: true,
 		});
+		this.add('SMS_Twilio_FromNo', '', {
+			type: 'string',
+			enableQuery: {
+				_id: 'SMS_Service',
+				value: 'twilio',
+			},
+			i18nLabel: 'From Number',
+			secret: true,
+		});
 		this.add('SMS_Twilio_FileUpload_Enabled', true, {
 			type: 'boolean',
 			enableQuery: {

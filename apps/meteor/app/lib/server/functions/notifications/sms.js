@@ -7,72 +7,41 @@ const AWS = require('aws-sdk');
 
 export function notifySMSUser({ receiver, message }) {
 	const data = {
-		phoneNo: [receiver.customFields.phonenumber],
+		phoneNo: [receiver.customFields.phoneNumber],
 		messageText: message.msg,
 		MessageId: message.id,
 	};
+	const accountSid = settings.get('SMS_Twilio_Account_SID');
+	const authToken = settings.get('SMS_Twilio_authToken');
+	const fromNo = settings.get('SMS_Twilio_FromNo');
+	
+	const client = require('twilio')(accountSid, authToken);
 
-	// const userPhoneNumber = pno;
-	const awsAccessKeyId = settings.get('FileUpload_S3_AWSAccessKeyId');
-	const awsSecretAccessKey = settings.get('FileUpload_S3_AWSSecretAccessKey');
-	const awsRegion = settings.get('FileUpload_S3_Region');
-
-	AWS.config.update({ accessKeyId: awsAccessKeyId, secretAccessKey: awsSecretAccessKey, region: awsRegion });
-	const messageText = message.msg;
-	// eslint-disable-next-line array-callback-return
-	data.phoneNo.filter((phoneNo) => {
-		const params = {
-			Message: messageText.substring(0, 160),
-			PhoneNumber: phoneNo.startsWith('+') ? phoneNo : settings.get('SMS_Default_Country_Code') + phoneNo,
-		};
-		/** Params for set SMSType - Set Transactional for highest reliability */
-		const paramSmsType = {
-			attributes: {
-				/* required */ DefaultSMSType: 'Transactional',
-			},
-		};
-		const setSMSTypePromise = new AWS.SNS({ apiVersion: '2010-03-31' }).setSMSAttributes(paramSmsType).promise();
-		setSMSTypePromise
-			.then(function (data) {
-				console.log(` SMS Type ${JSON.stringify(data)}`);
-			})
-			.catch(function (err) {
-				console.error(err, err.stack);
-			});
-
-		const publishTextPromise = new AWS.SNS({ apiVersion: '2010-03-31' }).publish(params).promise();
-		publishTextPromise
-			.then(function (data) {
-				console.log(`MessageID is ${data.MessageId}`);
-			})
-			.catch(function (err) {
-				console.log(err);
-				throw new Meteor.Error('error-sms-send-failed', `Error trying to send invite sms: ${phoneNo}`, {
-					method: 'sendCutomerInvitationSMS',
-					message,
-				});
-			});
-	});
+	client.messages
+	  .create({
+		 body: message.msg,
+		 from: fromNo, // '+18656584630',
+		//  to: '+917667337474'
+		 to: receiver.customFields.phonenumber, //'+917667337474'
+	   })
+	  .then(message => console.log(message));
 }
 
 export function shouldNotifySMS({ receiver, room }) {
-	if (!SMS.enabled) {
-		return false;
-	}
 	const SMSService = settings.get('SMS_Notification');
 
 	if (!SMSService) {
+		console.log('Ezhil sms false0',receiver?.name)
 		return false;
 	}
 	if (!room?.t === 'p') {
+		console.log('Ezhil sms false1',receiver?.name)
 		return false;
 	}
-	if (!receiver?.customFields?.phonenumber) {
+	if (!receiver?.customFields?.phoneNumber) {
+		console.log('receiver Ezhil sms false2',receiver?.name)
 		return false;
 	}
-	if (!settings.get('Accounts_AllowSMSNotifications')) {
-		return false;
-	}
-
+	console.log('Ezhil sms true',receiver?.name)
 	return true;
 }
