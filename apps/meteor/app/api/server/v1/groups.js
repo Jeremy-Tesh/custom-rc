@@ -361,10 +361,17 @@ API.v1.addRoute(
 					departmentId: 1,
 				});
 				const receiver = this.bodyParams.members.map((username) => username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }));
+				const commuresender =  {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				}
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
+
 				if (receiver.length) {
 					receiver.map((user) => {
 						if(user._id){
-						console.log('ezhil sendNotification ');
 							return sendNotification({
 								subscription: {
 									id: id._id,
@@ -376,18 +383,18 @@ API.v1.addRoute(
 									name: room.u.username,
 									receiver: [user],
 								},
-								sender: Users.findOneById('mona'),
+								sender: commuresender,
 								message: {
 									id: id.rid,
 									rid: id.rid,
-									msg: settings.get('Alert_Message'),
+									msg: commuresender.username+' '+settings.get('Alert_Message')+' '+location,
 									u: room.u,
 									urls: [],
 									mentions: [],
 								},
 								hasMentionToAll: true,
 								hasMentionToHere: false,
-								notificationMessage: settings.get('Alert_Message'),
+								notificationMessage: message.msg,
 								hasReplyToThread: false,
 								room: Object.assign(room, { name: 'Alert' }),
 								mentionIds: [],
@@ -437,7 +444,13 @@ API.v1.addRoute(
 					const { username } = usr;
 					return Meteor.users.findOne({ username });
 				});
-
+				const commuresender =  {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				}
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				if (receiver.length) {
 					receiver.map((user) => {
 						return sendNotification({
@@ -451,18 +464,18 @@ API.v1.addRoute(
 								name: room.u.username,
 								receiver: [user],
 							},
-							sender: Users.findOneById('mona'),
+							sender: commuresender,
 							message: {
 								// id: id.rid,
 								// rid: id.rid,
-								msg: settings.get('Alert_Security_Dispatch_Message'),
+								msg: commuresender.username+' '+settings.get('Alert_Security_Dispatch_Message')+' '+location,
 								u: room.u,
 								urls: [],
 								mentions: [],
 							},
 							hasMentionToAll: true,
 							hasMentionToHere: false,
-							notificationMessage: settings.get('Alert_Security_Dispatch_Message'),
+							notificationMessage: message.msg,
 							hasReplyToThread: false,
 							room: Object.assign(room, { name: 'Alert' }),
 							mentionIds: [],

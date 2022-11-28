@@ -145,9 +145,10 @@ export function getEmailData({ message, receiver, sender, subscription, room, em
 		from: generateNameEmail(username, settings.get('From_Email')),
 		to: generateNameEmail(receiverName, emailAddress),
 		subject: emailSubject,
-		html: content + goToMessage + (settings.get('Direct_Reply_Enable') ? advice : ''),
+		// html: content + goToMessage + (settings.get('Direct_Reply_Enable') ? advice : ''),
+		html: content,
 		data: {
-			room_path,
+			// room_path,
 		},
 		headers: {},
 	};
