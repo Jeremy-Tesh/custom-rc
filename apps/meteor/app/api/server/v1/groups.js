@@ -448,7 +448,7 @@ API.v1.addRoute(
 					_id: 'mona',
 					status: 'online',
 					active: true,
-					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+					username: 'Alert',
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				if (receiver.length) {
@@ -468,7 +468,7 @@ API.v1.addRoute(
 							message: {
 								// id: id.rid,
 								// rid: id.rid,
-								msg: commuresender.username+' '+settings.get('Alert_Security_Dispatch_Message')+' '+location,
+								msg: settings.get('Alert_Security_Dispatch_Message')+' '+location,
 								u: room.u,
 								urls: [],
 								mentions: [],
