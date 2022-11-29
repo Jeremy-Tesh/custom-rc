@@ -368,7 +368,8 @@ API.v1.addRoute(
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
-
+				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
+				console.log("Ez ",commuresender.username, location, alertMsg);
 				if (receiver.length) {
 					receiver.map((user) => {
 						if(user._id){
@@ -387,14 +388,14 @@ API.v1.addRoute(
 								message: {
 									id: id.rid,
 									rid: id.rid,
-									msg: commuresender.username+' '+settings.get('Alert_Message')+' '+location,
+									msg: alertMsg,
 									u: room.u,
 									urls: [],
 									mentions: [],
 								},
 								hasMentionToAll: true,
 								hasMentionToHere: false,
-								notificationMessage: message.msg,
+								notificationMessage: alertMsg,
 								hasReplyToThread: false,
 								room: Object.assign(room, { name: 'Alert' }),
 								mentionIds: [],
@@ -426,13 +427,13 @@ API.v1.addRoute(
 			const notifyUsers = settings.get('Alert_Notification');
 
 			const { cursor, totalCount } = findUsersOfRoom({
-				rid: findResult.rid,
+				rid: findResult?.rid,
 			});
 
 			const [members] = await Promise.all([cursor.toArray(), totalCount]);
 
 			if (notifyUsers) {
-				const room = Rooms.findOneById(findResult.rid, {
+				const room = Rooms.findOneById(findResult?.rid, {
 					_id: 1,
 					v: 1,
 					serverBy: 1,
@@ -448,9 +449,11 @@ API.v1.addRoute(
 					_id: 'mona',
 					status: 'online',
 					active: true,
-					username: 'Alert',
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
+				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${commuresender.username} ${location}`;
+				console.log("Ez sd ",commuresender.username, location, alertMsg);
 				if (receiver.length) {
 					receiver.map((user) => {
 						return sendNotification({
@@ -468,14 +471,14 @@ API.v1.addRoute(
 							message: {
 								// id: id.rid,
 								// rid: id.rid,
-								msg: settings.get('Alert_Security_Dispatch_Message')+' '+location,
+								msg: alertMsg,
 								u: room.u,
 								urls: [],
 								mentions: [],
 							},
 							hasMentionToAll: true,
 							hasMentionToHere: false,
-							notificationMessage: message.msg,
+							notificationMessage: alertMsg,
 							hasReplyToThread: false,
 							room: Object.assign(room, { name: 'Alert' }),
 							mentionIds: [],
