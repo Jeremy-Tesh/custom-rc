@@ -369,7 +369,9 @@ API.v1.addRoute(
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
-				console.log("Ez ",commuresender.username, location, alertMsg);
+				const subject = `${commuresender.username} created an alert`;
+				console.log("Ez ca ",commuresender.username, location, alertMsg, subject);
+
 				if (receiver.length) {
 					receiver.map((user) => {
 						if(user._id){
@@ -389,9 +391,10 @@ API.v1.addRoute(
 									id: id.rid,
 									rid: id.rid,
 									msg: alertMsg,
-									u: room.u,
+									u: commuresender,
 									urls: [],
 									mentions: [],
+									subject,
 								},
 								hasMentionToAll: true,
 								hasMentionToHere: false,
@@ -452,8 +455,9 @@ API.v1.addRoute(
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
-				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${commuresender.username} ${location}`;
-				console.log("Ez sd ",commuresender.username, location, alertMsg);
+				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location} > ${commuresender.username}`;
+				const subject = `Security team dispatched to ${location}`;
+				console.log("Ez sd ",commuresender.username, location, alertMsg, subject);
 				if (receiver.length) {
 					receiver.map((user) => {
 						return sendNotification({
@@ -472,9 +476,10 @@ API.v1.addRoute(
 								// id: id.rid,
 								// rid: id.rid,
 								msg: alertMsg,
-								u: room.u,
+								u: commuresender,
 								urls: [],
 								mentions: [],
+								subject,
 							},
 							hasMentionToAll: true,
 							hasMentionToHere: false,

@@ -53,7 +53,7 @@ function getEmailContent({ message, user, room }) {
 				messageContent = messageContent.replace(token.token, token.text);
 			});
 		}
-		return `${header}:<br/><br/>${messageContent.replace(/\n/gm, '<br/>')}`;
+		return `<h2>Hi,</h2><br/><br/>${messageContent.replace(/\n/gm, '<br/>')}`;
 	}
 
 	if (message.file) {
@@ -144,7 +144,7 @@ export function getEmailData({ message, receiver, sender, subscription, room, em
 	const email = {
 		from: generateNameEmail(username, settings.get('From_Email')),
 		to: generateNameEmail(receiverName, emailAddress),
-		subject: emailSubject,
+		subject: message.subject? message.subject : emailSubject,
 		// html: content + goToMessage + (settings.get('Direct_Reply_Enable') ? advice : ''),
 		html: content,
 		data: {
