@@ -53,7 +53,7 @@ function getEmailContent({ message, user, room }) {
 				messageContent = messageContent.replace(token.token, token.text);
 			});
 		}
-		return `<h2>Hi,</h2><br/><br/>${messageContent.replace(/\n/gm, '<br/>')}`;
+		return `<h2 style="text-align: center;">Hi,</h2>${messageContent.replace(/\n/gm, '<br/>')}`;
 	}
 
 	if (message.file) {
