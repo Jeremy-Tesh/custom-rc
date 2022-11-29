@@ -455,7 +455,7 @@ API.v1.addRoute(
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
 				}
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
-				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location} > ${commuresender.username}`;
+				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location}`;
 				const subject = `Security team dispatched to ${location}`;
 				console.log("Ez sd ",commuresender.username, location, alertMsg, subject);
 				if (receiver.length) {
