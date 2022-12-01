@@ -12,6 +12,7 @@ import { appLayout } from '../lib/appLayout';
 import { dispatchToastMessage } from '../lib/toast';
 import BlazeTemplate from '../views/root/BlazeTemplate';
 import MainLayout from '../views/root/MainLayout';
+
 const PageLoading = lazy(() => import('../views/root/PageLoading'));
 const HomePage = lazy(() => import('../views/home/HomePage'));
 const InvitePage = lazy(() => import('../views/invite/InvitePage'));
@@ -157,7 +158,6 @@ FlowRouter.route('/conf/:uname', {
 				</MainLayout>,
 			);
 		} else {
-			<BlazeTemplate template='loading' />
 			Meteor.call('getConfroomDetails', { confroom: user }, (error, userobj) => {
 				if (userobj && !userobj.roles.includes('customer')) {
 					Session.set('confroom', userobj.name);
@@ -176,11 +176,7 @@ FlowRouter.route('/conf/:uname', {
 				}
 			});
 		}
-
 	},
-	triggersExit: [function () {
-		$('.main-content').addClass('rc-old');
-	}],
 });
 FlowRouter.route('/directory/:tab?', {
 	name: 'directory',

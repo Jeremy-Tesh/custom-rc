@@ -24,8 +24,8 @@ const getBBBAPI = () => {
 };
 
 Meteor.methods({
-	getConfroomDetails({ confroom }) {
-		return Users.findOneById(confroom, { fields: { _id: 1, name: 1, username: 1, roles: 1 } })
+	'getConfroomDetails'({ confroom }) {
+		return Users.findOneById(confroom, { fields: { _id: 1, name: 1, username: 1, roles: 1 } });
 		// return Users.findOneByUsernameIgnoringCase(confroom, { fields: { _id: 1, name: 1, username: 1, roles: 1 } });
 	},
 
@@ -60,13 +60,13 @@ Meteor.methods({
 		const room = Rooms.findOne(query);
 
 		if (room) {
-			const live = Rooms.findOne({ _id: room._id, 'streamingOptions.type': 'call' }, { fields: { streamingOptions: 1 } });
+			const live = Rooms.findOne({ '_id': room._id, 'streamingOptions.type': 'call' }, { fields: { streamingOptions: 1 } });
 			return live;
 		}
 		return null;
 	},
 
-	sendConfWaitingMsg({ userid, waitername }) {
+	'sendConfWaitingMsg'({ userid, waitername }) {
 		const query = {
 			t: 'd',
 			usersCount: 1,
@@ -78,13 +78,17 @@ Meteor.methods({
 			room = createRoom('d', null, null, [user], null, {}, { creator: userid });
 		}
 		const monauser = Users.findOneByUsernameIgnoringCase('mona');
-		sendMessage(monauser, { msg: `${waitername} is waiting in your conference room` }, { _id: room._id }, saveStreamingOptions(room._id, {
-			type: 'call',
-		}));
+		sendMessage(
+			monauser,
+			{ msg: `${waitername} is waiting in your conference room` },
+			{ _id: room._id },
+			saveStreamingOptions(room._id, {
+				type: 'call',
+			}),
+		);
 	},
 
-	createConf({ confrid, name }) {
-		const userObj = Users.findOneById(confrid);
+	'createConf'({ confrid, name }) {
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
 		const confArgsCreate = {
@@ -136,7 +140,7 @@ Meteor.methods({
 		return false;
 	},
 
-	joinConf({ confrid, name }) {
+	'joinConf'({ confrid, name }) {
 		// const user = Users.findOneById(confrid);
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
@@ -153,7 +157,7 @@ Meteor.methods({
 		};
 	},
 
-	createTcsConf({ confrid, name }) {
+	'createTcsConf'({ confrid, name }) {
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
 		const confArgsCreateJoin = {
@@ -173,7 +177,6 @@ Meteor.methods({
 			redirect: true,
 		};
 
-
 		const customValue = settings.get('bigbluebutton_custom_vanity'); // default
 		if (customValue && customValue.length > 0) {
 			const customValueArr = customValue.split('\n');
@@ -186,7 +189,6 @@ Meteor.methods({
 				}
 			}
 		}
-
 
 		const createUrl = api.urlFor('create', confArgsCreateJoin);
 		const createResult = HTTP.get(createUrl);
@@ -235,8 +237,7 @@ Meteor.methods({
 		}
 	},
 
-
-	createJoinConf({ confrid }) {
+	'createJoinConf'({ confrid }) {
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
 		const confArgsCreateJoin = {
@@ -257,7 +258,6 @@ Meteor.methods({
 			redirect: true,
 		};
 
-
 		const customValue = settings.get('bigbluebutton_custom_vanity'); // default
 		if (customValue && customValue.length > 0) {
 			const customValueArr = customValue.split('\n');
@@ -270,7 +270,6 @@ Meteor.methods({
 				}
 			}
 		}
-
 
 		const createUrl = api.urlFor('create', confArgsCreateJoin);
 		const createResult = HTTP.get(createUrl);
@@ -319,7 +318,7 @@ Meteor.methods({
 		}
 	},
 
-	confEnd({ confrid }) {
+	'confEnd'({ confrid }) {
 		const pw = this.userId && this.userId === confrid ? 'mp' : 'ap';
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
@@ -335,6 +334,4 @@ Meteor.methods({
 			console.log({ endApiResult });
 		}
 	},
-
-
 });

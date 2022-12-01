@@ -4,12 +4,12 @@ import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Tracker } from 'meteor/tracker';
+
 import { settings } from '../../../settings';
 import { roomTypes } from '../../../utils';
 import { Rooms } from '../../../models';
 
 Template.confTcsRoom.onCreated(function () {
-
 	Meteor.call('createTcsConf', { confrid: Session.get('confroomid'), name: Session.get('confuname') }, function (err, res) {
 		if (res) {
 			window.location = res.url;
@@ -32,19 +32,22 @@ Template.confOwnRoom.onCreated(function () {
 	});
 });
 
-
 Template.confVideoTemplate.onRendered(() => {
 	const iFrame = document.getElementById('confChatUrl');
-	iFrame.addEventListener('load', (event) => {
+	iFrame.addEventListener('load', () => {
 		const getVcId = iFrame.contentDocument || iFrame.contentWindow.document;
 		if (getVcId.location.href === Meteor.absoluteUrl('home')) {
 			const rocketChat = document.getElementById('rocket-chat');
 			const asideTag = rocketChat.getElementsByTagName('aside');
 			asideTag[0].style.setProperty('display', 'block');
 			const rid = Session.get('openedRoom');
-			if (!rid) { FlowRouter.go('/home'); }
+			if (!rid) {
+				FlowRouter.go('/home');
+			}
 			const room = Rooms.findOne({ _id: rid });
-			if (!room) { FlowRouter.go('/home'); }
+			if (!room) {
+				FlowRouter.go('/home');
+			}
 			try {
 				if (room.t === 'p') {
 					FlowRouter.go(`/group/${roomTypes.getRoomName(room.t, room)}`);
@@ -68,7 +71,6 @@ Template.confVideoTemplate.helpers({
 		}
 		return '';
 	},
-
 });
 
 Template.confOwnRoom.helpers({
@@ -91,7 +93,6 @@ Template.confOwnRoom.helpers({
 		return false;
 	},
 
-
 	getConf() {
 		Template.instance().ownconf.get();
 	},
@@ -108,9 +109,13 @@ Template.confOwnRoom.events({
 		const asideTag = rocketChat.getElementsByTagName('aside');
 		asideTag[0].style.setProperty('display', 'block');
 		const rid = Session.get('openedRoom');
-		if (!rid) { FlowRouter.go('/home'); }
+		if (!rid) {
+			FlowRouter.go('/home');
+		}
 		const room = Rooms.findOne({ _id: rid });
-		if (!room) { FlowRouter.go('/home'); }
+		if (!room) {
+			FlowRouter.go('/home');
+		}
 		try {
 			if (room.t === 'p') {
 				FlowRouter.go(`/group/${roomTypes.getRoomName(room.t, room)}`);
@@ -144,7 +149,6 @@ const updateVideoUrl = () => {
 	}
 };
 
-
 Template.confCustomer.onCreated(function () {
 	const self = this;
 	self.user = new ReactiveVar();
@@ -164,7 +168,6 @@ Template.confCustomer.onCreated(function () {
 	// 	return Meteor.defer(() => self.find('input').focus());
 	// });
 });
-
 
 Template.confCustomer.helpers({
 	title() {
@@ -186,7 +189,6 @@ Template.confCustomer.helpers({
 	username() {
 		return Template.instance().username.get();
 	},
-
 
 	isNameEnter() {
 		const temp = Template.instance().username.get();
@@ -210,7 +212,6 @@ Template.confCustomer.helpers({
 });
 
 Template.confCustomer.events({
-
 	'click .enterconf'(event) {
 		event.preventDefault();
 		const value = $('#username').val().trim();
@@ -227,8 +228,7 @@ Template.confCustomer.events({
 		});
 		Session.set('confuname', value);
 		Session.set('callstarted', 'false');
-		Meteor.call('sendConfWaitingMsg', { userid: Session.get('confroomid'), waitername: Session.get('confuname') }, function () {
-		});
+		Meteor.call('sendConfWaitingMsg', { userid: Session.get('confroomid'), waitername: Session.get('confuname') }, function () {});
 	},
 
 	'click .joincall'(event) {
@@ -239,5 +239,4 @@ Template.confCustomer.events({
 			}
 		});
 	},
-
 });
