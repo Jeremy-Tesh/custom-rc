@@ -360,21 +360,24 @@ API.v1.addRoute(
 					open: 1,
 					departmentId: 1,
 				});
-				const receiver = this.bodyParams.members.map((username) => username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }));
-				const commuresender =  {
+				const receiver = this.bodyParams.members.map((username) =>
+					username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }),
+				);
+				const commuresender = {
 					_id: 'mona',
 					status: 'online',
 					active: true,
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
-				}
+				};
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
 				const subject = `${commuresender.username} created an alert`;
-				console.log("Ez ca ",commuresender.username, location, alertMsg, subject);
+				console.log('Ez ca ', commuresender.username, location, alertMsg, subject);
 
 				if (receiver.length) {
+					// eslint-disable-next-line array-callback-return
 					receiver.map((user) => {
-						if(user._id){
+						if (user._id) {
 							return sendNotification({
 								subscription: {
 									id: id._id,
@@ -448,16 +451,16 @@ API.v1.addRoute(
 					const { username } = usr;
 					return Meteor.users.findOne({ username });
 				});
-				const commuresender =  {
+				const commuresender = {
 					_id: 'mona',
 					status: 'online',
 					active: true,
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
-				}
+				};
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location}`;
 				const subject = `Security team dispatched to ${location}`;
-				console.log("Ez sd ",commuresender.username, location, alertMsg, subject);
+				console.log('Ez sd ', commuresender.username, location, alertMsg, subject);
 				if (receiver.length) {
 					receiver.map((user) => {
 						return sendNotification({
@@ -1382,6 +1385,22 @@ API.v1.addRoute(
 			const team = Promise.await(Team.create(this.userId, teamData));
 
 			return API.v1.success({ team });
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.deleteAll',
+	{ authRequired: true },
+	{
+		async post() {
+			const ourQuery = { t: 'p' };
+			console.log(ourQuery);
+
+			const { cursor, totalCount } = RoomsRaw.findPaginated(ourQuery);
+
+			const [rooms] = await Promise.all([cursor.toArray(), totalCount]);
+			rooms.map((room) => Meteor.call('eraseRoom', room._id));
+			return API.v1.success();
 		},
 	},
 );
