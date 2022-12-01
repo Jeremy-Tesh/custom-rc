@@ -19,7 +19,7 @@ const parseString = Meteor.wrapAsync(parser.parseString);
 const getBBBAPI = () => {
 	const url = settings.get('bigbluebutton_server');
 	const secret = settings.get('bigbluebutton_sharedSecret');
-	const api = new BigBlueButtonApi(`${ url }/bigbluebutton/api`, secret);
+	const api = new BigBlueButtonApi(`${url}/bigbluebutton/api`, secret);
 	return { api, url };
 };
 
@@ -35,17 +35,17 @@ Meteor.methods({
 				method: 'conf:getMyConfURL',
 			});
 		}
-		if(settings.get('bigbluebutton_Enabled') && settings.get('MyConf_Enabled') && !hasRole(Meteor.userId(), 'customer')){
+		if (settings.get('bigbluebutton_Enabled') && settings.get('MyConf_Enabled') && !hasRole(Meteor.userId(), 'customer')) {
 			let confLink = settings.get('SMS_Conf_URL_Message');
 			// [site_url]/conf/[username]
-			confLink = confLink.replace('[site_url]',settings.get('Site_Url'));
-			confLink = confLink.replace('[username]',Meteor.user().username);
+			confLink = confLink.replace('[site_url]', settings.get('Site_Url'));
+			confLink = confLink.replace('[username]', Meteor.user().username);
 			// const confLink = `${ settings.get('Site_Url') }/conf/${ Meteor.user().username }`.replace(/\/\/conf+/g, '/conf');
 			return confLink;
-		} 
+		}
 		return null;
 	},
-		
+
 	'conf:getMyRoom': () => {
 		if (!Meteor.userId()) {
 			throw new Meteor.Error('error-invalid-user', 'Invalid user', {
@@ -78,7 +78,7 @@ Meteor.methods({
 			room = createRoom('d', null, null, [user], null, {}, { creator: userid });
 		}
 		const monauser = Users.findOneByUsernameIgnoringCase('mona');
-		sendMessage(monauser, { msg: `${ waitername } is waiting in your conference room` }, { _id: room._id }, saveStreamingOptions(room._id, {
+		sendMessage(monauser, { msg: `${waitername} is waiting in your conference room` }, { _id: room._id }, saveStreamingOptions(room._id, {
 			type: 'call',
 		}));
 	},
@@ -88,7 +88,7 @@ Meteor.methods({
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
 		const confArgsCreate = {
-			name: `${ name }'s personal room`,
+			name: `${name}'s personal room`,
 			meetingID,
 			attendeePW: 'ap',
 			moderatorPW: 'mp',
@@ -108,7 +108,7 @@ Meteor.methods({
 				const keyValuePair = customValueArr[i].split('=');
 				if (keyValuePair.length > 1) {
 					let fieldKey = keyValuePair[0];
-					if(!fieldKey.startsWith('userdata-bbb_custom_style_url')){
+					if (!fieldKey.startsWith('userdata-bbb_custom_style_url')) {
 						fieldKey = fieldKey.startsWith('prospect_') ? 'userdata-bbb_custom_style_url' : fieldKey;
 						confArgsCreate[fieldKey] = keyValuePair[1];
 					}
@@ -178,7 +178,7 @@ Meteor.methods({
 		if (customValue && customValue.length > 0) {
 			const customValueArr = customValue.split('\n');
 			for (let i = 0; i < customValueArr.length; i++) {
-				if(!customValueArr[i].startsWith('prospect_')){
+				if (!customValueArr[i].startsWith('prospect_')) {
 					const keyValuePair = customValueArr[i].split('=');
 					if (keyValuePair.length > 1) {
 						confArgsCreateJoin[keyValuePair[0]] = keyValuePair[1];
@@ -197,7 +197,7 @@ Meteor.methods({
 
 			const hookApi = api.urlFor('hooks/create', {
 				meetingID,
-				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${ meetingID }`),
+				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
 				logoutURL: Meteor.absoluteUrl('home'),
 			});
 
@@ -240,7 +240,7 @@ Meteor.methods({
 		const { api } = getBBBAPI();
 		const meetingID = settings.get('uniqueID') + confrid;
 		const confArgsCreateJoin = {
-			name: `${ Meteor.user().name }'s personal room`,
+			name: `${Meteor.user().name}'s personal room`,
 			meetingID,
 			attendeePW: 'ap',
 			moderatorPW: 'mp',
@@ -262,7 +262,7 @@ Meteor.methods({
 		if (customValue && customValue.length > 0) {
 			const customValueArr = customValue.split('\n');
 			for (let i = 0; i < customValueArr.length; i++) {
-				if(!customValueArr[i].startsWith('prospect_')){
+				if (!customValueArr[i].startsWith('prospect_')) {
 					const keyValuePair = customValueArr[i].split('=');
 					if (keyValuePair.length > 1) {
 						confArgsCreateJoin[keyValuePair[0]] = keyValuePair[1];
@@ -281,7 +281,7 @@ Meteor.methods({
 
 			const hookApi = api.urlFor('hooks/create', {
 				meetingID,
-				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${ meetingID }`),
+				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
 				logoutURL: Meteor.absoluteUrl('home'),
 			});
 
@@ -300,7 +300,7 @@ Meteor.methods({
 				fullName: Meteor.user().name,
 				userID: confrid,
 				joinViaHtml5: true,
-				avatarURL: Meteor.absoluteUrl(`avatar/${ Meteor.user().username }`),
+				avatarURL: Meteor.absoluteUrl(`avatar/${Meteor.user().username}`),
 			};
 
 			if (customValue && customValue.length > 0) {

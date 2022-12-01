@@ -79,7 +79,7 @@ const RoomList = (): ReactElement => {
 	const [open, setOpen] = useState(false);
 
 	const homeRoute = useRoute('home');
-	const conferenceRoute = useRoute(`conf/${ Meteor.userId() }`);
+	const conferenceRoute = useRoute(`conf/${Meteor.userId()}`);
 
 	const adminRoute = useRoute('admin-index');
 

@@ -148,38 +148,37 @@ FlowRouter.route('/home', {
 FlowRouter.route('/conf/:uname', {
 	name: 'conf',
 	// eslint-disable-next-line no-unused-vars
-	 action: (params, queryParams) => {
+	action: (params) => {
 		const user = params?.uname;
-		const userId = Meteor.userId();
 		if (Meteor.userId() && Meteor.userId() === user) {
 			appLayout.render(
 				<MainLayout>
-				<BlazeTemplate template='confOwnRoom' />
+					<BlazeTemplate template='confOwnRoom' />
 				</MainLayout>,
 			);
 		} else {
 			<BlazeTemplate template='loading' />
-			Meteor.call('getConfroomDetails', { confroom: user }, function(error, userobj) {
+			Meteor.call('getConfroomDetails', { confroom: user }, (error, userobj) => {
 				if (userobj && !userobj.roles.includes('customer')) {
 					Session.set('confroom', userobj.name);
 					Session.set('confroomid', userobj._id);
 					appLayout.render(
 						<MainLayout>
-						<BlazeTemplate template='confCustomer' />
+							<BlazeTemplate template='confCustomer' />
 						</MainLayout>,
 					);
 				} else {
 					appLayout.render(
 						<MainLayout>
-						<BlazeTemplate template='confUnknownRoom' />
+							<BlazeTemplate template='confUnknownRoom' />
 						</MainLayout>,
 					);
 				}
 			});
 		}
-	
+
 	},
-	triggersExit: [function() {
+	triggersExit: [function () {
 		$('.main-content').addClass('rc-old');
 	}],
 });
