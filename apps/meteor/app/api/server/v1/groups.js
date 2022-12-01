@@ -1443,7 +1443,7 @@ API.v1.addRoute(
 				};
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Cancel_Message')} ${location}`;
-				const subject = `Security team dispatched to ${location}`;
+				const subject = `${commuresender.username} canceled the alert`;
 				if (receiver.length) {
 					receiver.map((user) => {
 						return sendNotification({
