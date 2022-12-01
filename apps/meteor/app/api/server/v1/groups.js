@@ -304,7 +304,6 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
-			console.log('creating group', id);
 
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
@@ -352,7 +351,6 @@ API.v1.addRoute(
 					this.bodyParams.extraData,
 				);
 			});
-
 			const notifyUsers = settings.get('Alert_Notification');
 			if (notifyUsers) {
 				const room = Rooms.findOneById(id.rid, {
@@ -362,43 +360,55 @@ API.v1.addRoute(
 					open: 1,
 					departmentId: 1,
 				});
-				const receiver = this.bodyParams.members.map((username) => Meteor.users.findOne({ username }));
+				const receiver = this.bodyParams.members.map((username) =>
+					username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }),
+				);
+				const commuresender = {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				};
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
+				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
+				const subject = `${commuresender.username} created an alert`;
+				console.log('Ez ca ', commuresender.username, location, alertMsg, subject);
 
 				if (receiver.length) {
+					// eslint-disable-next-line array-callback-return
 					receiver.map((user) => {
-						return sendNotification({
-							subscription: {
-								id: id._id,
-								rid: id.rid,
-								t: 'p',
-								u: {
-									_id: user._id,
+						if (user._id) {
+							return sendNotification({
+								subscription: {
+									id: id._id,
+									rid: id.rid,
+									t: 'p',
+									u: {
+										_id: user._id,
+									},
+									name: room.u.username,
+									receiver: [user],
 								},
-								name: room.u.username,
-								receiver: [user],
-							},
-
-							sender: {
-								_id: this.userId,
-								status: this.user.status,
-								active: this.user.active,
-							},
-							message: {
-								id: id.rid,
-								rid: id.rid,
-								msg: settings.get('Alert_Message'),
-								u: room.u,
-								urls: [],
-								mentions: [],
-							},
-							hasMentionToAll: true,
-							hasMentionToHere: false,
-							notificationMessage: settings.get('Alert_Message'),
-							hasReplyToThread: false,
-							room: Object.assign(room, { name: this.bodyParams.name }),
-							mentionIds: [],
-							disableAllMessageNotifications: false,
-						});
+								sender: commuresender,
+								message: {
+									id: id.rid,
+									rid: id.rid,
+									msg: alertMsg,
+									u: commuresender,
+									urls: [],
+									mentions: [],
+									subject,
+								},
+								hasMentionToAll: true,
+								hasMentionToHere: false,
+								notificationMessage: alertMsg,
+								hasReplyToThread: false,
+								room: Object.assign(room, { name: 'Alert' }),
+								mentionIds: [],
+								disableAllMessageNotifications: false,
+								customFields: user.customFields,
+							});
+						}
 					});
 				}
 			}
@@ -406,6 +416,88 @@ API.v1.addRoute(
 			return API.v1.success({
 				group: this.composeRoomWithLastMessage(Rooms.findOneById(id.rid, { fields: API.v1.defaultFieldsToExclude }), this.userId),
 			});
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.notifySecurityDispatch',
+	{ authRequired: true },
+	{
+		async post() {
+			const findResult = findPrivateGroupByIdOrName({
+				params: this.requestParams(),
+				userId: this.userId,
+				checkedArchived: false,
+			});
+
+			const notifyUsers = settings.get('Alert_Notification');
+
+			const { cursor, totalCount } = findUsersOfRoom({
+				rid: findResult?.rid,
+			});
+
+			const [members] = await Promise.all([cursor.toArray(), totalCount]);
+
+			if (notifyUsers) {
+				const room = Rooms.findOneById(findResult?.rid, {
+					_id: 1,
+					v: 1,
+					serverBy: 1,
+					open: 1,
+					departmentId: 1,
+				});
+
+				const receiver = members.map((usr) => {
+					const { username } = usr;
+					return Meteor.users.findOne({ username });
+				});
+				const commuresender = {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				};
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
+				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location}`;
+				const subject = `Security team dispatched to ${location}`;
+				console.log('Ez sd ', commuresender.username, location, alertMsg, subject);
+				if (receiver.length) {
+					receiver.map((user) => {
+						return sendNotification({
+							subscription: {
+								id: findResult._id,
+								rid: findResult.rid,
+								t: findResult.t,
+								u: {
+									_id: user._id,
+								},
+								name: room.u.username,
+								receiver: [user],
+							},
+							sender: commuresender,
+							message: {
+								// id: id.rid,
+								// rid: id.rid,
+								msg: alertMsg,
+								u: commuresender,
+								urls: [],
+								mentions: [],
+								subject,
+							},
+							hasMentionToAll: true,
+							hasMentionToHere: false,
+							notificationMessage: alertMsg,
+							hasReplyToThread: false,
+							room: Object.assign(room, { name: 'Alert' }),
+							mentionIds: [],
+							disableAllMessageNotifications: false,
+							customFields: user.customFields,
+						});
+					});
+				}
+			}
+
+			return API.v1.success();
 		},
 	},
 );
@@ -1293,6 +1385,102 @@ API.v1.addRoute(
 			const team = Promise.await(Team.create(this.userId, teamData));
 
 			return API.v1.success({ team });
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.deleteAll',
+	{ authRequired: true },
+	{
+		async post() {
+			const ourQuery = { t: 'p' };
+
+			const { cursor, totalCount } = RoomsRaw.findPaginated(ourQuery);
+
+			const [rooms] = await Promise.all([cursor.toArray(), totalCount]);
+			rooms.map((room) => Meteor.call('eraseRoom', room._id));
+			return API.v1.success();
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.notifyCancel',
+	{ authRequired: true },
+	{
+		async post() {
+			const findResult = findPrivateGroupByIdOrName({
+				params: this.requestParams(),
+				userId: this.userId,
+				checkedArchived: false,
+			});
+
+			const notifyUsers = settings.get('Alert_Notification');
+
+			const { cursor, totalCount } = findUsersOfRoom({
+				rid: findResult?.rid,
+			});
+
+			const [members] = await Promise.all([cursor.toArray(), totalCount]);
+
+			if (notifyUsers) {
+				const room = Rooms.findOneById(findResult?.rid, {
+					_id: 1,
+					v: 1,
+					serverBy: 1,
+					open: 1,
+					departmentId: 1,
+				});
+
+				const receiver = members.map((usr) => {
+					const { username } = usr;
+					return Meteor.users.findOne({ username });
+				});
+				const commuresender = {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				};
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
+				const alertMsg = `${commuresender.username} ${settings.get('Alert_Cancel_Message')} ${location}`;
+				const subject = `Security team dispatched to ${location}`;
+				if (receiver.length) {
+					receiver.map((user) => {
+						return sendNotification({
+							subscription: {
+								id: findResult._id,
+								rid: findResult.rid,
+								t: findResult.t,
+								u: {
+									_id: user._id,
+								},
+								name: room.u.username,
+								receiver: [user],
+							},
+							sender: commuresender,
+							message: {
+								// id: id.rid,
+								// rid: id.rid,
+								msg: alertMsg,
+								u: commuresender,
+								urls: [],
+								mentions: [],
+								subject,
+							},
+							hasMentionToAll: true,
+							hasMentionToHere: false,
+							notificationMessage: alertMsg,
+							hasReplyToThread: false,
+							room: Object.assign(room, { name: 'Alert' }),
+							mentionIds: [],
+							disableAllMessageNotifications: false,
+							customFields: user.customFields,
+						});
+					});
+				}
+			}
+
+			return API.v1.success();
 		},
 	},
 );

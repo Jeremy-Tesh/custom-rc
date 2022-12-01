@@ -17,6 +17,7 @@ import { notifyDesktopUser, shouldNotifyDesktop } from '../functions/notificatio
 import { Notification } from '../../../notification-queue/server/NotificationQueue';
 import { getMentions } from './notifyUsersOnMessage';
 import { roomCoordinator } from '../../../../server/lib/rooms/roomCoordinator';
+import { notifySMSUser, shouldNotifySMS } from '../functions/notifications/sms';
 
 let TroubleshootDisableNotifications;
 
@@ -31,6 +32,7 @@ export const sendNotification = async ({
 	room,
 	mentionIds,
 	disableAllMessageNotifications,
+	customFields,
 }) => {
 	if (TroubleshootDisableNotifications === true) {
 		return;
@@ -80,6 +82,7 @@ export const sendNotification = async ({
 	const { desktopNotifications, mobilePushNotifications, emailNotifications } = subscription;
 
 	// busy users don't receive desktop notification
+
 	if (
 		shouldNotifyDesktop({
 			disableAllMessageNotifications,
@@ -144,7 +147,8 @@ export const sendNotification = async ({
 			hasReplyToThread,
 			roomType,
 			isThread,
-		})
+		}) &&
+		customFields?.Alert_Email_Notification === 'Yes'
 	) {
 		receiver.emails.some((email) => {
 			if (email.verified) {
@@ -175,6 +179,10 @@ export const sendNotification = async ({
 			mid: message._id,
 			items: queueItems,
 		});
+	}
+
+	if (shouldNotifySMS({ receiver, room }) && customFields?.Alert_SMS_Notification === 'Yes') {
+		notifySMSUser({ receiver, message });
 	}
 };
 

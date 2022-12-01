@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Meteor } from 'meteor/meteor';
 import { TAPi18n } from 'meteor/rocketchat:tap-i18n';
 import s from 'underscore.string';
@@ -7,7 +8,7 @@ import * as Mailer from '../../../../mailer';
 import { settings } from '../../../../settings/server';
 import { metrics } from '../../../../metrics';
 import { callbacks } from '../../../../../lib/callbacks';
-import { getURL } from '../../../../utils/server';
+// import { getURL } from '../../../../utils/server';
 import { roomCoordinator } from '../../../../../server/lib/rooms/roomCoordinator';
 
 let advice = '';
@@ -53,7 +54,10 @@ function getEmailContent({ message, user, room }) {
 				messageContent = messageContent.replace(token.token, token.text);
 			});
 		}
-		return `${header}:<br/><br/>${messageContent.replace(/\n/gm, '<br/>')}`;
+		return `<div style="background: #FFFFFF; padding: 50px;"><h2 style="text-align:center;margin-top: 0;">Hi,</h2>${messageContent.replace(
+			/\n/gm,
+			'<br/></div>',
+		)}`;
 	}
 
 	if (message.file) {
@@ -98,26 +102,26 @@ function getEmailContent({ message, user, room }) {
 	return header;
 }
 
-const getButtonUrl = (room, subscription, message) => {
-	const basePath = roomCoordinator.getRouteLink(room.t, subscription).replace(Meteor.absoluteUrl(), '');
+// const getButtonUrl = (room, subscription, message) => {
+// 	const basePath = roomCoordinator.getRouteLink(room.t, subscription).replace(Meteor.absoluteUrl(), '');
 
-	const path = `${s.ltrim(basePath, '/')}?msg=${message._id}`;
-	return getURL(path, {
-		full: true,
-		cloud: settings.get('Offline_Message_Use_DeepLink'),
-		cloud_route: 'room',
-		cloud_params: {
-			rid: room._id,
-			mid: message._id,
-		},
-	});
-};
+// 	const path = `${s.ltrim(basePath, '/')}?msg=${message._id}`;
+// 	return getURL(path, {
+// 		full: true,
+// 		cloud: settings.get('Offline_Message_Use_DeepLink'),
+// 		cloud_route: 'room',
+// 		cloud_params: {
+// 			rid: room._id,
+// 			mid: message._id,
+// 		},
+// 	});
+// };
 
 function generateNameEmail(name, email) {
 	return `${String(name).replace(/@/g, '%40').replace(/[<>,]/g, '')} <${email}>`;
 }
 
-export function getEmailData({ message, receiver, sender, subscription, room, emailAddress, hasMentionToUser }) {
+export function getEmailData({ message, receiver, sender, room, emailAddress, hasMentionToUser }) {
 	const username = settings.get('UI_Use_Real_Name') ? message.u.name || message.u.username : message.u.username;
 	let subjectKey = 'Offline_Mention_All_Email';
 
@@ -137,17 +141,18 @@ export function getEmailData({ message, receiver, sender, subscription, room, em
 		room,
 	});
 
-	const room_path = getButtonUrl(room, subscription, message);
+	// const room_path = getButtonUrl(room, subscription, message);
 
 	const receiverName = settings.get('UI_Use_Real_Name') ? receiver.name || receiver.username : receiver.username;
 
 	const email = {
 		from: generateNameEmail(username, settings.get('From_Email')),
 		to: generateNameEmail(receiverName, emailAddress),
-		subject: emailSubject,
-		html: content + goToMessage + (settings.get('Direct_Reply_Enable') ? advice : ''),
+		subject: message.subject ? message.subject : emailSubject,
+		// html: content + goToMessage + (settings.get('Direct_Reply_Enable') ? advice : ''),
+		html: content,
 		data: {
-			room_path,
+			// room_path,
 		},
 		headers: {},
 	};
