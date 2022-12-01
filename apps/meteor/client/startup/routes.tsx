@@ -12,7 +12,6 @@ import { appLayout } from '../lib/appLayout';
 import { dispatchToastMessage } from '../lib/toast';
 import BlazeTemplate from '../views/root/BlazeTemplate';
 import MainLayout from '../views/root/MainLayout';
-
 const PageLoading = lazy(() => import('../views/root/PageLoading'));
 const HomePage = lazy(() => import('../views/home/HomePage'));
 const InvitePage = lazy(() => import('../views/invite/InvitePage'));
@@ -117,7 +116,6 @@ FlowRouter.route('/meet/:rid', {
 
 FlowRouter.route('/home', {
 	name: 'home',
-
 	action(_params, queryParams) {
 		KonchatNotification.getDesktopPermission();
 		if (queryParams?.saml_idp_credentialToken !== undefined) {
@@ -147,7 +145,44 @@ FlowRouter.route('/home', {
 		);
 	},
 });
-
+FlowRouter.route('/conf/:uname', {
+	name: 'conf',
+	// eslint-disable-next-line no-unused-vars
+	 action: (params, queryParams) => {
+		const user = params?.uname;
+		const userId = Meteor.userId();
+		if (Meteor.userId() && Meteor.userId() === user) {
+			appLayout.render(
+				<MainLayout>
+				<BlazeTemplate template='confOwnRoom' />
+				</MainLayout>,
+			);
+		} else {
+			<BlazeTemplate template='loading' />
+			Meteor.call('getConfroomDetails', { confroom: user }, function(error, userobj) {
+				if (userobj && !userobj.roles.includes('customer')) {
+					Session.set('confroom', userobj.name);
+					Session.set('confroomid', userobj._id);
+					appLayout.render(
+						<MainLayout>
+						<BlazeTemplate template='confCustomer' />
+						</MainLayout>,
+					);
+				} else {
+					appLayout.render(
+						<MainLayout>
+						<BlazeTemplate template='confUnknownRoom' />
+						</MainLayout>,
+					);
+				}
+			});
+		}
+	
+	},
+	triggersExit: [function() {
+		$('.main-content').addClass('rc-old');
+	}],
+});
 FlowRouter.route('/directory/:tab?', {
 	name: 'directory',
 	action: () => {
@@ -289,6 +324,8 @@ FlowRouter.route('/oauth/error/:error', {
 
 FlowRouter.notFound = {
 	action: (): void => {
+		console.log('unk');
+
 		appLayout.render(<NotFoundPage />);
 	},
 };

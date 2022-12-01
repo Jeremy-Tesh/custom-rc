@@ -79,6 +79,8 @@ const RoomList = (): ReactElement => {
 	const [open, setOpen] = useState(false);
 
 	const homeRoute = useRoute('home');
+	const conferenceRoute = useRoute(`conf/${ Meteor.userId() }`);
+
 	const adminRoute = useRoute('admin-index');
 
 	const reference = useRef(null);
@@ -88,6 +90,10 @@ const RoomList = (): ReactElement => {
 
 	const handleHome = useMutableCallback(() => {
 		homeRoute.push({});
+	});
+	const handleConference = useMutableCallback(() => {
+		conferenceRoute.push({});
+		window.location.reload();
 	});
 
 	const handleAdmin = useMutableCallback(() => {
@@ -110,6 +116,14 @@ const RoomList = (): ReactElement => {
 					<div>
 						<Icon padding='0px 10px 0px 0px' name='home' size='x16' />
 						Home
+					</div>
+				</SidebarSection.Title>
+			</Box>
+			<Box className={itemStyle} onClick={handleConference}>
+				<SidebarSection.Title>
+					<div>
+						<Icon padding='0px 10px 0px 0px' name='video' size='x16' />
+						My Conference
 					</div>
 				</SidebarSection.Title>
 			</Box>
