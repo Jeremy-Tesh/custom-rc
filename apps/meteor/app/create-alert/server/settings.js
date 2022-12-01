@@ -18,5 +18,11 @@ Meteor.startup(function () {
 			public: true,
 			multiline: true,
 		});
+		this.add('Alert_Cancel_Message', '', {
+			type: 'string',
+			enableQuery: { _id: 'Alert_Notification', value: true },
+			public: true,
+			multiline: true,
+		});
 	});
 });

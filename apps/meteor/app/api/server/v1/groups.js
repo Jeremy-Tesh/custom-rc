@@ -1394,12 +1394,92 @@ API.v1.addRoute(
 	{
 		async post() {
 			const ourQuery = { t: 'p' };
-			console.log(ourQuery);
 
 			const { cursor, totalCount } = RoomsRaw.findPaginated(ourQuery);
 
 			const [rooms] = await Promise.all([cursor.toArray(), totalCount]);
 			rooms.map((room) => Meteor.call('eraseRoom', room._id));
+			return API.v1.success();
+		},
+	},
+);
+API.v1.addRoute(
+	'groups.notifyCancel',
+	{ authRequired: true },
+	{
+		async post() {
+			const findResult = findPrivateGroupByIdOrName({
+				params: this.requestParams(),
+				userId: this.userId,
+				checkedArchived: false,
+			});
+
+			const notifyUsers = settings.get('Alert_Notification');
+
+			const { cursor, totalCount } = findUsersOfRoom({
+				rid: findResult?.rid,
+			});
+
+			const [members] = await Promise.all([cursor.toArray(), totalCount]);
+
+			if (notifyUsers) {
+				const room = Rooms.findOneById(findResult?.rid, {
+					_id: 1,
+					v: 1,
+					serverBy: 1,
+					open: 1,
+					departmentId: 1,
+				});
+
+				const receiver = members.map((usr) => {
+					const { username } = usr;
+					return Meteor.users.findOne({ username });
+				});
+				const commuresender = {
+					_id: 'mona',
+					status: 'online',
+					active: true,
+					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
+				};
+				const location = this.bodyParams.location ? this.bodyParams.location : '';
+				const alertMsg = `${commuresender.username} ${settings.get('Alert_Cancel_Message')} ${location}`;
+				const subject = `Security team dispatched to ${location}`;
+				if (receiver.length) {
+					receiver.map((user) => {
+						return sendNotification({
+							subscription: {
+								id: findResult._id,
+								rid: findResult.rid,
+								t: findResult.t,
+								u: {
+									_id: user._id,
+								},
+								name: room.u.username,
+								receiver: [user],
+							},
+							sender: commuresender,
+							message: {
+								// id: id.rid,
+								// rid: id.rid,
+								msg: alertMsg,
+								u: commuresender,
+								urls: [],
+								mentions: [],
+								subject,
+							},
+							hasMentionToAll: true,
+							hasMentionToHere: false,
+							notificationMessage: alertMsg,
+							hasReplyToThread: false,
+							room: Object.assign(room, { name: 'Alert' }),
+							mentionIds: [],
+							disableAllMessageNotifications: false,
+							customFields: user.customFields,
+						});
+					});
+				}
+			}
+
 			return API.v1.success();
 		},
 	},
