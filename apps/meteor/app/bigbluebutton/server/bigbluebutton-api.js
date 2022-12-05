@@ -116,11 +116,11 @@ BigBlueButtonApi = (function () {
 					['recordID', true],
 					[/meta_\w+/, false],
 				];
-			case 'hooks/create':
-				return [
-					['callbackURL', false],
-					['meetingID', false],
-				];
+			// case 'hooks/create':
+			// 	return [
+			// 		['callbackURL', false],
+			// 		['meetingID', false],
+			// 	];
 		}
 	};
 
@@ -205,11 +205,24 @@ BigBlueButtonApi = (function () {
 		query || (query = '');
 		SystemLogger.debug("- Calculating the checksum using: '" + method + "', '" + query + "', '" + this.salt + "'");
 		str = method + query + this.salt;
-		if (this.opts.shaType === 'sha256') {
-			shaObj = crypto.createHash('sha256', 'TEXT');
-		} else {
-			shaObj = crypto.createHash('sha1', 'TEXT');
+		// if (this.opts.shaType === 'sha256') {
+		// 	shaObj = crypto.createHash('sha256', 'TEXT');
+		// } else {
+		// 	shaObj = crypto.createHash('sha1', 'TEXT');
+		// }
+		switch (this.opts.shaType) {
+			case 'sha1':
+				shaObj = crypto.createHash('sha1', 'TEXT');
+			case 'sha256':
+				shaObj = crypto.createHash('sha256', 'TEXT');
+			case 'sha384':
+				shaObj = crypto.createHash('sha384', 'TEXT');
+			case 'sha512':
+				shaObj = crypto.createHash('sha512', 'TEXT');
+			default:
+				shaObj = crypto.createHash('sha1', 'TEXT');
 		}
+
 		shaObj.update(str);
 		c = shaObj.digest('hex');
 		SystemLogger.debug('- Checksum calculated:', c);

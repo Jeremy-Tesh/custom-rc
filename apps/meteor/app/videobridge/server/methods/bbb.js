@@ -69,27 +69,31 @@ Meteor.methods({
 			meta_html5autosharewebcam: false,
 			meta_html5hidepresentation: true,
 		});
+		console.log(createUrl);
 
 		const createResult = HTTP.get(createUrl);
 		const doc = parseString(createResult.content);
+		console.log(doc);
+		console.log(doc.response.returncode[0]);
 
 		if (doc.response.returncode[0]) {
-			const hookApi = api.urlFor('hooks/create', {
-				meetingID,
-				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
-			});
+			// 	const hookApi = api.urlFor('hooks/create', {
+			// 		meetingID,
+			// 		callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
+			// 	});
 
-			const hookResult = HTTP.get(hookApi);
+			// 	const hookResult = HTTP.get(hookApi);
+			// 	console.log(hookResult);
 
-			if (hookResult.statusCode !== 200) {
-				// TODO improve error logging
-				SystemLogger.error(hookResult);
-				return;
-			}
+			// 	if (hookResult.statusCode !== 200) {
+			// 		// TODO improve error logging
+			// 		SystemLogger.error(hookResult);
+			// 		return;
+			// 	}
 
-			saveStreamingOptions(rid, {
-				type: 'call',
-			});
+			// 	saveStreamingOptions(rid, {
+			// 		type: 'call',
+			// 	});
 
 			return {
 				url: api.urlFor('join', {

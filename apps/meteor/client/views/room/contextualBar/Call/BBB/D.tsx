@@ -28,6 +28,7 @@ const D: FC<DProps> = ({ rid }) => {
 
 	const startCall = useMutableCallback(async () => {
 		const result = await join({ rid });
+		Session.set('rid', rid);
 		if (!result) {
 			return;
 		}
