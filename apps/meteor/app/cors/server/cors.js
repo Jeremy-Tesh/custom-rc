@@ -24,6 +24,24 @@ WebApp.rawConnectHandlers.use(function (req, res, next) {
 		res.setHeader('X-Frame-Options', settings.get('Iframe_X_Frame_Options'));
 	}
 
+	let domainWhiteList = settings.get('vertiv_AllowedDomainsList');
+	if (req.headers.referer && !_.isEmpty(domainWhiteList.trim())) {
+		domainWhiteList = _.map(domainWhiteList.split(','), function (domain) {
+			return domain.trim();
+		});
+
+		const referer = url.parse(req.headers.referer);
+		if (!_.contains(domainWhiteList, referer.host)) {
+			res.setHeader('Content-Security-Policy', "frame-ancestors 'none'");
+			return next();
+		}
+
+		res.setHeader('Content-Security-Policy', `frame-ancestors ${referer.protocol}//${referer.host}`);
+	} else {
+		// TODO need to remove inline scripts from this route to be able to enable CSP here as well
+		res.removeHeader('Content-Security-Policy');
+	}
+
 	if (settings.get('Enable_CSP')) {
 		const cdn_prefixes = [settings.get('CDN_PREFIX'), settings.get('CDN_PREFIX_ALL') ? null : settings.get('CDN_JSCSS_PREFIX')]
 			.filter(Boolean)
