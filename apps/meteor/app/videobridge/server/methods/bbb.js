@@ -104,6 +104,7 @@ Meteor.methods({
 					joinViaHtml5: true,
 					avatarURL: Meteor.absoluteUrl(`avatar/${user.username}`),
 					// clientURL: `${ url }/html5client/join`,
+					redirect: true,
 				}),
 			};
 		}

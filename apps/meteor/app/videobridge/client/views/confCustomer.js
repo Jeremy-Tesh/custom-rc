@@ -6,7 +6,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Tracker } from 'meteor/tracker';
 
 import { settings } from '../../../settings';
-import { roomTypes } from '../../../utils';
+import { roomCoordinator } from '../../../../client/lib/rooms/roomCoordinator';
 import { Rooms } from '../../../models';
 
 Template.confTcsRoom.onCreated(function () {
@@ -24,6 +24,7 @@ Template.confOwnRoom.onCreated(function () {
 	const self = this;
 	self.ownconf = new ReactiveVar();
 	return Meteor.call('createJoinConf', { confrid: Meteor.userId() }, function (error, result) {
+		console.log(result);
 		Session.set('confURL', result.url);
 		self.ownconf.set({
 			ready: true,
@@ -50,9 +51,9 @@ Template.confVideoTemplate.onRendered(() => {
 			}
 			try {
 				if (room.t === 'p') {
-					FlowRouter.go(`/group/${roomTypes.getRoomName(room.t, room)}`);
+					FlowRouter.go(`/group/${roomCoordinator.getRoomName(room.t, room)}`);
 				} else if (room.t === 'c') {
-					FlowRouter.go(`/channel/${roomTypes.getRoomName(room.t, room)}`);
+					FlowRouter.go(`/channel/${roomCoordinator.getRoomName(room.t, room)}`);
 				} else {
 					FlowRouter.go(`/direct/${rid}`);
 				}
@@ -118,11 +119,11 @@ Template.confOwnRoom.events({
 		}
 		try {
 			if (room.t === 'p') {
-				FlowRouter.go(`/group/${roomTypes.getRoomName(room.t, room)}`);
+				FlowRouter.go(`/group/${roomCoordinator.getRoomName(room.t, room)}`);
 			} else if (room.t === 'c') {
-				FlowRouter.go(`/channel/${roomTypes.getRoomName(room.t, room)}`);
+				FlowRouter.go(`/channel/${roomCoordinator.getRoomName(room.t, room)}`);
 			} else {
-				FlowRouter.go(`/direct/${roomTypes.getRoomName(room.t, room)}`);
+				FlowRouter.go(`/direct/${roomCoordinator.getRoomName(room.t, room)}`);
 			}
 		} catch (error) {
 			FlowRouter.go('/home');

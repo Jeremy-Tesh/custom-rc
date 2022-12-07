@@ -197,19 +197,19 @@ Meteor.methods({
 		if (doc.response.returncode[0]) {
 			// const user = Users.findOneById(this.userId);
 
-			const hookApi = api.urlFor('hooks/create', {
-				meetingID,
-				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
-				logoutURL: Meteor.absoluteUrl('home'),
-			});
+			// const hookApi = api.urlFor('hooks/create', {
+			// 	meetingID,
+			// 	callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
+			// 	logoutURL: Meteor.absoluteUrl('home'),
+			// });
 
-			const hookResult = HTTP.get(hookApi);
+			// const hookResult = HTTP.get(hookApi);
 
-			if (hookResult.statusCode !== 200) {
-				// TODO improve error logging
-				console.log({ hookResult });
-				return;
-			}
+			// if (hookResult.statusCode !== 200) {
+			// 	// TODO improve error logging
+			// 	console.log({ hookResult });
+			// 	return;
+			// }
 
 			const confArgsJoin = {
 				password: 'mp', // mp if moderator ap if attendee
@@ -278,19 +278,19 @@ Meteor.methods({
 		if (doc.response.returncode[0]) {
 			// const user = Users.findOneById(this.userId);
 
-			const hookApi = api.urlFor('hooks/create', {
-				meetingID,
-				callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
-				logoutURL: Meteor.absoluteUrl('home'),
-			});
+			// const hookApi = api.urlFor('hooks/create', {
+			// 	meetingID,
+			// 	callbackURL: Meteor.absoluteUrl(`api/v1/videoconference.bbb.update/${meetingID}`),
+			// 	logoutURL: Meteor.absoluteUrl('home'),
+			// });
 
-			const hookResult = HTTP.get(hookApi);
+			// const hookResult = HTTP.get(hookApi);
 
-			if (hookResult.statusCode !== 200) {
-				// TODO improve error logging
-				console.log({ hookResult });
-				return;
-			}
+			// if (hookResult.statusCode !== 200) {
+			// 	// TODO improve error logging
+			// 	console.log({ hookResult });
+			// 	return;
+			// }
 
 			const confArgsJoin = {
 				password: 'mp', // mp if moderator ap if attendee
