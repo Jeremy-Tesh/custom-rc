@@ -898,7 +898,7 @@ API.v1.addRoute(
 								mentionIds: [],
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
-								alertType: 'create',
+								alertOrigin: 'create',
 							});
 						}
 					}
@@ -986,7 +986,7 @@ API.v1.addRoute(
 								mentionIds: [],
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
-								alertType: 'dispatch',
+								alertOrigin: 'dispatch',
 							});
 						}
 					}
@@ -1972,7 +1972,7 @@ API.v1.addRoute(
 								mentionIds: [],
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
-								alertType: 'cancel',
+								alertOrigin: 'cancel',
 							});
 						}
 					}

@@ -1,6 +1,6 @@
 import { settings } from '../../../../settings/server';
 
-export function notifySMSUser({ receiver, message }) {
+export async function notifySMSUser({ receiver, message }) {
 	// const data = {
 	// 	phoneNo: [receiver.customFields.phoneNumber],
 	// 	messageText: message.msg,
@@ -11,15 +11,22 @@ export function notifySMSUser({ receiver, message }) {
 	const fromNo = settings.get('SMS_Twilio_FromNo');
 
 	const client = require('twilio')(accountSid, authToken);
-
-	client.messages
-		.create({
+	console.log('twilio request');
+	try {
+		const error = { smsStatus: 'success' };
+		await client.messages.create({
 			body: message.msg,
 			from: fromNo, // '+18656584630',
 			//  to: '+917667337474'
 			to: receiver.customFields.phoneNumber, // '+917667337474'
-		})
-		.then((message) => console.log(message));
+		});
+		return error.smsStatus;
+	} catch (e) {
+		const error = { smsStatus: 'SMS not sent' };
+		return error.smsStatus;
+	}
+
+	// .then((message) => console.log(message));
 }
 
 export function shouldNotifySMS({ receiver, room, customFields }) {

@@ -33,7 +33,7 @@ export const sendNotification = async ({
 	mentionIds,
 	disableAllMessageNotifications,
 	customFields,
-	alertType,
+	alertOrigin,
 }) => {
 	if (TroubleshootDisableNotifications === true) {
 		return;
@@ -88,14 +88,14 @@ export const sendNotification = async ({
 	// 		type: {
 	// 			type,
 	// 			members: [],
-	// 			alertType: [],
+	// 			alertOrigin: [],
 	// 			status: [],
 	// 		},
 	// 	};
 	// };
 	const alertData = [];
 
-	const notifyOnEmail = shouldNotifyEmail({
+	let notifyOnEmail = shouldNotifyEmail({
 		disableAllMessageNotifications,
 		statusConnection: receiver.statusConnection,
 		emailNotifications,
@@ -120,7 +120,7 @@ export const sendNotification = async ({
 		isThread,
 	});
 
-	const notifyOnSMS = shouldNotifySMS({ receiver, room, customFields });
+	let notifyOnSMS = shouldNotifySMS({ receiver, room, customFields });
 
 	if (
 		shouldNotifyDesktop({
@@ -165,7 +165,7 @@ export const sendNotification = async ({
 	}
 
 	if (notifyOnEmail === 'success') {
-		receiver.emails.some((email) => {
+		const status = receiver.emails.some((email) => {
 			if (email.verified) {
 				queueItems.push({
 					type: 'email',
@@ -186,6 +186,8 @@ export const sendNotification = async ({
 			}
 			return false;
 		});
+
+		notifyOnEmail = status ? 'success' : 'email not verified';
 	}
 
 	if (queueItems.length) {
@@ -199,7 +201,8 @@ export const sendNotification = async ({
 	}
 
 	if (notifyOnSMS === 'success') {
-		notifySMSUser({ receiver, message });
+		const status = await notifySMSUser({ receiver, message });
+		notifyOnSMS = status;
 		alertData.push('sms');
 	}
 
@@ -207,11 +210,11 @@ export const sendNotification = async ({
 		const fields = {
 			id: room._updatedAt,
 			userName: receiver.name,
-			alertType,
-			alertData,
+			alertOrigin,
 			status: {
 				sms: notifyOnSMS,
 				email: notifyOnEmail,
+				mobile: notifyOnMobile,
 			},
 		};
 

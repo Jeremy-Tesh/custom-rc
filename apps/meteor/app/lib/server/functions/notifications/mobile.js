@@ -93,7 +93,7 @@ export function shouldNotifyMobile({
 
 	if (!mobilePushNotifications) {
 		if (settings.get('Accounts_Default_User_Preferences_pushNotifications') === 'all' && (!isThread || hasReplyToThread)) {
-			return true;
+			return error.mobileStatus;
 		}
 		if (settings.get('Accounts_Default_User_Preferences_pushNotifications') === 'nothing') {
 			error = { mobileStatus: 'Setting disabled' };
