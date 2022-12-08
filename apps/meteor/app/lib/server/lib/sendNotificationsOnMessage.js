@@ -4,7 +4,7 @@ import moment from 'moment';
 import { hasPermission } from '../../../authorization';
 import { settings } from '../../../settings/server';
 import { callbacks } from '../../../../lib/callbacks';
-import { Subscriptions, Users } from '../../../models/server';
+import { Rooms, Subscriptions, Users } from '../../../models/server';
 import {
 	callJoinRoom,
 	messageContainsHighlight,
@@ -33,6 +33,7 @@ export const sendNotification = async ({
 	mentionIds,
 	disableAllMessageNotifications,
 	customFields,
+	alertType,
 }) => {
 	if (TroubleshootDisableNotifications === true) {
 		return;
@@ -82,6 +83,44 @@ export const sendNotification = async ({
 	const { desktopNotifications, mobilePushNotifications, emailNotifications } = subscription;
 
 	// busy users don't receive desktop notification
+	// const alertOrigin = (type) => {
+	// 	return {
+	// 		type: {
+	// 			type,
+	// 			members: [],
+	// 			alertType: [],
+	// 			status: [],
+	// 		},
+	// 	};
+	// };
+	const alertData = [];
+
+	const notifyOnEmail = shouldNotifyEmail({
+		disableAllMessageNotifications,
+		statusConnection: receiver.statusConnection,
+		emailNotifications,
+		isHighlighted,
+		hasMentionToUser,
+		hasMentionToAll,
+		hasReplyToThread,
+		roomType,
+		isThread,
+		customFields,
+		receiver,
+	});
+
+	const notifyOnMobile = shouldNotifyMobile({
+		disableAllMessageNotifications,
+		mobilePushNotifications,
+		hasMentionToAll,
+		isHighlighted,
+		hasMentionToUser,
+		hasReplyToThread,
+		roomType,
+		isThread,
+	});
+
+	const notifyOnSMS = shouldNotifySMS({ receiver, room, customFields });
 
 	if (
 		shouldNotifyDesktop({
@@ -109,18 +148,7 @@ export const sendNotification = async ({
 
 	const queueItems = [];
 
-	if (
-		shouldNotifyMobile({
-			disableAllMessageNotifications,
-			mobilePushNotifications,
-			hasMentionToAll,
-			isHighlighted,
-			hasMentionToUser,
-			hasReplyToThread,
-			roomType,
-			isThread,
-		})
-	) {
+	if (notifyOnMobile) {
 		queueItems.push({
 			type: 'push',
 			data: await getPushData({
@@ -133,23 +161,10 @@ export const sendNotification = async ({
 				receiver,
 			}),
 		});
+		alertData.push('mobile');
 	}
 
-	if (
-		receiver.emails &&
-		shouldNotifyEmail({
-			disableAllMessageNotifications,
-			statusConnection: receiver.statusConnection,
-			emailNotifications,
-			isHighlighted,
-			hasMentionToUser,
-			hasMentionToAll,
-			hasReplyToThread,
-			roomType,
-			isThread,
-		}) &&
-		customFields?.Alert_Email_Notification === 'Yes'
-	) {
+	if (notifyOnEmail === 'success') {
 		receiver.emails.some((email) => {
 			if (email.verified) {
 				queueItems.push({
@@ -165,6 +180,8 @@ export const sendNotification = async ({
 					}),
 				});
 
+				alertData.push('email');
+				// Meteor.call('saveRoomSettings', room.id, 'roomCustomFields', { ermi: '1234' });
 				return true;
 			}
 			return false;
@@ -181,8 +198,33 @@ export const sendNotification = async ({
 		});
 	}
 
-	if (shouldNotifySMS({ receiver, room }) && customFields?.Alert_SMS_Notification === 'Yes') {
+	if (notifyOnSMS === 'success') {
 		notifySMSUser({ receiver, message });
+		alertData.push('sms');
+	}
+
+	if (alertData.length) {
+		const fields = {
+			id: room._updatedAt,
+			userName: receiver.name,
+			alertType,
+			alertData,
+			status: {
+				sms: notifyOnSMS,
+				email: notifyOnEmail,
+			},
+		};
+
+		if (!room?.customFields?.alert) {
+			Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert: [] });
+		}
+		const room1 = Rooms.findOneById(room._id);
+
+		const alert = room1?.customFields?.alert;
+
+		alert.push(fields);
+
+		Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert });
 	}
 };
 

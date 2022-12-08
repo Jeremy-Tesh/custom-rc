@@ -808,7 +808,7 @@ API.v1.addRoute(
 	'groups.createAlertGroup',
 	{ authRequired: true },
 	{
-		post() {
+		async post() {
 			if (!hasPermission(this.userId, 'create-p')) {
 				return API.v1.unauthorized();
 			}
@@ -844,13 +844,6 @@ API.v1.addRoute(
 			});
 			const notifyUsers = settings.get('Alert_Notification');
 			if (notifyUsers) {
-				const room = Rooms.findOneById(id.rid, {
-					_id: 1,
-					v: 1,
-					serverBy: 1,
-					open: 1,
-					departmentId: 1,
-				});
 				const receiver = this.bodyParams.members.map((username) =>
 					username.indexOf('@') !== -1 ? Meteor.users.findOne({ 'emails.address': username }) : Meteor.users.findOne({ username }),
 				);
@@ -863,13 +856,20 @@ API.v1.addRoute(
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
 				const subject = `${commuresender.username} created an alert`;
-				console.log('Ez ca ', commuresender.username, location, alertMsg, subject);
 
 				if (receiver.length) {
 					// eslint-disable-next-line array-callback-return
-					receiver.map((user) => {
+					for (const user of receiver) {
 						if (user._id) {
-							return sendNotification({
+							const room = Rooms.findOneById(id.rid, {
+								_id: 1,
+								v: 1,
+								serverBy: 1,
+								open: 1,
+								departmentId: 1,
+							});
+							// eslint-disable-next-line no-await-in-loop
+							await sendNotification({
 								subscription: {
 									id: id._id,
 									rid: id.rid,
@@ -898,9 +898,10 @@ API.v1.addRoute(
 								mentionIds: [],
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
+								alertType: 'create',
 							});
 						}
-					});
+					}
 				}
 			}
 
@@ -930,14 +931,6 @@ API.v1.addRoute(
 			const [members] = await Promise.all([cursor.toArray(), totalCount]);
 
 			if (notifyUsers) {
-				const room = Rooms.findOneById(findResult?.rid, {
-					_id: 1,
-					v: 1,
-					serverBy: 1,
-					open: 1,
-					departmentId: 1,
-				});
-
 				const receiver = members.map((usr) => {
 					const { username } = usr;
 					return Meteor.users.findOne({ username });
@@ -951,40 +944,52 @@ API.v1.addRoute(
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${settings.get('Alert_Security_Dispatch_Message')} ${location}`;
 				const subject = `Security team dispatched to ${location}`;
-				console.log('Ez sd ', commuresender.username, location, alertMsg, subject);
+
 				if (receiver.length) {
-					receiver.map((user) => {
-						return sendNotification({
-							subscription: {
-								id: findResult._id,
-								rid: findResult.rid,
-								t: findResult.t,
-								u: {
-									_id: user._id,
+					// eslint-disable-next-line array-callback-return
+					for (const user of receiver) {
+						if (user._id) {
+							const room = Rooms.findOneById(findResult?.rid, {
+								_id: 1,
+								v: 1,
+								serverBy: 1,
+								open: 1,
+								departmentId: 1,
+							});
+							// eslint-disable-next-line no-await-in-loop
+							await sendNotification({
+								subscription: {
+									id: findResult._id,
+									rid: findResult.rid,
+									t: findResult.t,
+									u: {
+										_id: user._id,
+									},
+									name: room.u.username,
+									receiver: [user],
 								},
-								name: room.u.username,
-								receiver: [user],
-							},
-							sender: commuresender,
-							message: {
-								// id: id.rid,
-								// rid: id.rid,
-								msg: alertMsg,
-								u: commuresender,
-								urls: [],
-								mentions: [],
-								subject,
-							},
-							hasMentionToAll: true,
-							hasMentionToHere: false,
-							notificationMessage: alertMsg,
-							hasReplyToThread: false,
-							room: Object.assign(room, { name: 'Alert' }),
-							mentionIds: [],
-							disableAllMessageNotifications: false,
-							customFields: user.customFields,
-						});
-					});
+								sender: commuresender,
+								message: {
+									// id: id.rid,
+									// rid: id.rid,
+									msg: alertMsg,
+									u: commuresender,
+									urls: [],
+									mentions: [],
+									subject,
+								},
+								hasMentionToAll: true,
+								hasMentionToHere: false,
+								notificationMessage: alertMsg,
+								hasReplyToThread: false,
+								room: Object.assign(room, { name: 'Alert' }),
+								mentionIds: [],
+								disableAllMessageNotifications: false,
+								customFields: user.customFields,
+								alertType: 'dispatch',
+							});
+						}
+					}
 				}
 			}
 
@@ -1914,14 +1919,6 @@ API.v1.addRoute(
 			const [members] = await Promise.all([cursor.toArray(), totalCount]);
 
 			if (notifyUsers) {
-				const room = Rooms.findOneById(findResult?.rid, {
-					_id: 1,
-					v: 1,
-					serverBy: 1,
-					open: 1,
-					departmentId: 1,
-				});
-
 				const receiver = members.map((usr) => {
 					const { username } = usr;
 					return Meteor.users.findOne({ username });
@@ -1936,38 +1933,49 @@ API.v1.addRoute(
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Cancel_Message')} ${location}`;
 				const subject = `${commuresender.username} canceled the alert`;
 				if (receiver.length) {
-					receiver.map((user) => {
-						return sendNotification({
-							subscription: {
-								id: findResult._id,
-								rid: findResult.rid,
-								t: findResult.t,
-								u: {
-									_id: user._id,
+					for (const user of receiver) {
+						if (user._id) {
+							const room = Rooms.findOneById(findResult?.rid, {
+								_id: 1,
+								v: 1,
+								serverBy: 1,
+								open: 1,
+								departmentId: 1,
+							});
+							// eslint-disable-next-line no-await-in-loop
+							await sendNotification({
+								subscription: {
+									id: findResult._id,
+									rid: findResult.rid,
+									t: findResult.t,
+									u: {
+										_id: user._id,
+									},
+									name: room.u.username,
+									receiver: [user],
 								},
-								name: room.u.username,
-								receiver: [user],
-							},
-							sender: commuresender,
-							message: {
-								// id: id.rid,
-								// rid: id.rid,
-								msg: alertMsg,
-								u: commuresender,
-								urls: [],
-								mentions: [],
-								subject,
-							},
-							hasMentionToAll: true,
-							hasMentionToHere: false,
-							notificationMessage: alertMsg,
-							hasReplyToThread: false,
-							room: Object.assign(room, { name: 'Alert' }),
-							mentionIds: [],
-							disableAllMessageNotifications: false,
-							customFields: user.customFields,
-						});
-					});
+								sender: commuresender,
+								message: {
+									// id: id.rid,
+									// rid: id.rid,
+									msg: alertMsg,
+									u: commuresender,
+									urls: [],
+									mentions: [],
+									subject,
+								},
+								hasMentionToAll: true,
+								hasMentionToHere: false,
+								notificationMessage: alertMsg,
+								hasReplyToThread: false,
+								room: Object.assign(room, { name: 'Alert' }),
+								mentionIds: [],
+								disableAllMessageNotifications: false,
+								customFields: user.customFields,
+								alertType: 'cancel',
+							});
+						}
+					}
 				}
 			}
 
@@ -1975,13 +1983,35 @@ API.v1.addRoute(
 		},
 	},
 );
+
+API.v1.addRoute(
+	'groups.alertStatus',
+	{ authRequired: true },
+	{
+		get() {
+			const findResult = findPrivateGroupByIdOrName({
+				params: this.requestParams(),
+				userId: this.userId,
+				checkedArchived: false,
+			});
+			const room = Rooms.findOneById(findResult.rid, { fields: API.v1.defaultFieldsToExclude });
+
+			const alert = room?.customFields?.alert;
+
+			return API.v1.success({
+				status: alert,
+			});
+		},
+	},
+);
+
 API.v1.addRoute(
 	'notification.send',
 	{ authRequired: false },
 	{
 		post() {
 			const param = this.bodyParams;
-			console.log('notification.send', param);
+
 			const { type, to, body, subject } = param;
 			// "from": record.notification_from,
 			// "to": record.	notification_to,

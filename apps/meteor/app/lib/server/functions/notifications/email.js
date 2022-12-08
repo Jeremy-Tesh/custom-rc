@@ -195,15 +195,29 @@ export function shouldNotifyEmail({
 	hasReplyToThread,
 	roomType,
 	isThread,
+	customFields,
+	receiver,
 }) {
+	let error = { emailStatus: 'success' };
+
+	if (customFields?.Alert_Email_Notification === 'No') {
+		error = { emailStatus: 'Setting disabled' };
+		return error;
+	}
+	if (!receiver.emails) {
+		error = { emailStatus: 'User email not found' };
+		return error;
+	}
 	// email notifications are disabled globally
 	if (!settings.get('Accounts_AllowEmailNotifications')) {
-		return false;
+		error = { emailStatus: 'email notifications are disabled globally' };
+		return error;
 	}
 
 	// user/room preference to nothing
 	if (emailNotifications === 'nothing') {
-		return false;
+		error = { emailStatus: 'user/room preference to nothing' };
+		return error;
 	}
 
 	// user connected (don't need to send him an email)
@@ -214,21 +228,26 @@ export function shouldNotifyEmail({
 	// no user or room preference
 	if (emailNotifications == null) {
 		if (disableAllMessageNotifications && !isHighlighted && !hasMentionToUser && !hasReplyToThread) {
-			return false;
+			error = { emailStatus: 'no user or room preference' };
 		}
 
 		// default server preference is disabled
 		if (settings.get('Accounts_Default_User_Preferences_emailNotificationMode') === 'nothing') {
-			return false;
+			error = { emailStatus: 'default server preference is disabled' };
 		}
 	}
+	if (
+		!(
+			(roomType === 'd' ||
+				isHighlighted ||
+				emailNotifications === 'all' ||
+				hasMentionToUser ||
+				(!disableAllMessageNotifications && hasMentionToAll)) &&
+			(!isThread || hasReplyToThread)
+		)
+	) {
+		error = { emailStatus: 'Setting disabled' };
+	}
 
-	return (
-		(roomType === 'd' ||
-			isHighlighted ||
-			emailNotifications === 'all' ||
-			hasMentionToUser ||
-			(!disableAllMessageNotifications && hasMentionToAll)) &&
-		(!isThread || hasReplyToThread)
-	);
+	return error.emailStatus;
 }

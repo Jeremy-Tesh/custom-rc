@@ -22,21 +22,31 @@ export function notifySMSUser({ receiver, message }) {
 		.then((message) => console.log(message));
 }
 
-export function shouldNotifySMS({ receiver, room }) {
+export function shouldNotifySMS({ receiver, room, customFields }) {
 	const SMSService = settings.get('SMS_Notification');
+	let error = { smsStatus: 'success' };
+
+	if (customFields?.Alert_SMS_Notification === 'No') {
+		error = { smsStatus: 'Setting disabled' };
+		return error.smsStatus;
+	}
 
 	if (!SMSService) {
 		console.log('Ezhil sms false0', receiver?.name);
-		return false;
+		error = { smsStatus: 'No SMS service found' };
+		// throw new Meteor.Error('totp-invalid', 'TOTP Invalid');
+		return error.smsStatus;
 	}
 	if (!room?.t === 'p') {
 		console.log('Ezhil sms false1', receiver?.name);
-		return false;
+		error = { smsStatus: 'a private group' };
+		return error.smsStatus;
 	}
 	if (!receiver?.customFields?.phoneNumber) {
 		console.log('receiver Ezhil sms false2', receiver?.name);
-		return false;
+		error = { smsStatus: 'number found' };
+		return error.smsStatus;
 	}
 	console.log('Ezhil sms true', receiver?.name);
-	return true;
+	return error.smsStatus;
 }

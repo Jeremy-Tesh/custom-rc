@@ -74,16 +74,21 @@ export function shouldNotifyMobile({
 	roomType,
 	isThread,
 }) {
+	let error = { mobileStatus: 'success' };
+
 	if (settings.get('Push_enable') !== true) {
-		return false;
+		error = { mobileStatus: 'Setting disabled' };
+		return error.mobileStatus;
 	}
 
 	if (disableAllMessageNotifications && mobilePushNotifications == null && !isHighlighted && !hasMentionToUser && !hasReplyToThread) {
-		return false;
+		error = { mobileStatus: 'Setting disabled' };
+		return error.mobileStatus;
 	}
 
 	if (mobilePushNotifications === 'nothing') {
-		return false;
+		error = { mobileStatus: 'Setting disabled' };
+		return error.mobileStatus;
 	}
 
 	if (!mobilePushNotifications) {
@@ -91,16 +96,22 @@ export function shouldNotifyMobile({
 			return true;
 		}
 		if (settings.get('Accounts_Default_User_Preferences_pushNotifications') === 'nothing') {
-			return false;
+			error = { mobileStatus: 'Setting disabled' };
+			return error.mobileStatus;
 		}
 	}
+	if (
+		!(
+			(roomType === 'd' ||
+				(!disableAllMessageNotifications && hasMentionToAll) ||
+				isHighlighted ||
+				mobilePushNotifications === 'all' ||
+				hasMentionToUser) &&
+			(!isThread || hasReplyToThread)
+		)
+	) {
+		error = { mobileStatus: 'Setting disabled' };
+	}
 
-	return (
-		(roomType === 'd' ||
-			(!disableAllMessageNotifications && hasMentionToAll) ||
-			isHighlighted ||
-			mobilePushNotifications === 'all' ||
-			hasMentionToUser) &&
-		(!isThread || hasReplyToThread)
-	);
+	return error.mobileStatus;
 }
