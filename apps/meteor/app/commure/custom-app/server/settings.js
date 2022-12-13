@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { settingsRegistry } from '../../settings/server';
+import { settingsRegistry } from '../../../settings/server';
 
 Meteor.startup(function () {
 	settingsRegistry.addGroup('App Menu', function () {

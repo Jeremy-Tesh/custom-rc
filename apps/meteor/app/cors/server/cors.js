@@ -25,7 +25,7 @@ WebApp.rawConnectHandlers.use(function (req, res, next) {
 	}
 
 	let domainWhiteList = settings.get('vertiv_AllowedDomainsList');
-	if (req.headers.referer && !_.isEmpty(domainWhiteList.trim())) {
+	if (req.headers.referer && !_.isEmpty(domainWhiteList)) {
 		domainWhiteList = _.map(domainWhiteList.split(','), function (domain) {
 			return domain.trim();
 		});

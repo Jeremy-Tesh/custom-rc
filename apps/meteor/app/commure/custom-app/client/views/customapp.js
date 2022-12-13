@@ -3,8 +3,8 @@ import { Session } from 'meteor/session';
 import { Template } from 'meteor/templating';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 
-import { Rooms } from '../../../models';
-import { roomTypes } from '../../../utils';
+import { Rooms } from '../../../../models';
+import { roomTypes } from '../../../../utils';
 
 Template.customapp.helpers({
 	name() {

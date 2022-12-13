@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 
-import { Integrations } from '../../models';
+import { Integrations } from '../../../models';
 
 Meteor.methods({
 	getNewsIncomingIntegration() {
