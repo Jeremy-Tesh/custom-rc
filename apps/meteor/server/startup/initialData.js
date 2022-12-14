@@ -36,9 +36,7 @@ Meteor.startup(async function () {
 		});
 
 		await addUserRolesAsync('mona', ['bot']);
-
 		const buffer = Buffer.from(Assets.getBinary('avatars/bot.png'));
-
 		const rs = RocketChatFile.bufferToStream(buffer, 'utf8');
 		const fileStore = FileUpload.getStore('Avatars');
 		fileStore.deleteByName('mona');
