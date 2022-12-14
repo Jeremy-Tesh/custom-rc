@@ -3,4 +3,4 @@ import './roomList.html';
 import './sideNav';
 import './roomList';
 import './userPresence';
-import '../../custom-app/client/views/customapp.html';
+import '../../commure/custom-app/client/views/customapp.html';

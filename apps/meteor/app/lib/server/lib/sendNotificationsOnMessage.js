@@ -82,17 +82,6 @@ export const sendNotification = async ({
 
 	const { desktopNotifications, mobilePushNotifications, emailNotifications } = subscription;
 
-	// busy users don't receive desktop notification
-	// const alertOrigin = (type) => {
-	// 	return {
-	// 		type: {
-	// 			type,
-	// 			members: [],
-	// 			alertOrigin: [],
-	// 			status: [],
-	// 		},
-	// 	};
-	// };
 	const alertData = [];
 
 	let notifyOnEmail = shouldNotifyEmail({
