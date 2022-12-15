@@ -32,7 +32,7 @@ Meteor.startup(function () {
 		const replicaSet = isRunningMs() ? 'Not required (running micro services)' : `${oplogEnabled ? 'Enabled' : 'Disabled'}`;
 
 		let msg = [
-			`Rocket.Chat Version: ${Info.version}`,
+			`Collab Version: ${Info.version}`,
 			`     NodeJS Version: ${process.versions.node} - ${process.arch}`,
 			`    MongoDB Version: ${mongoVersion}`,
 			`     MongoDB Engine: ${mongoStorageEngine}`,

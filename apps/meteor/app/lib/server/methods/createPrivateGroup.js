@@ -18,7 +18,8 @@ Meteor.methods({
 		if (!hasPermission(Meteor.userId(), 'create-p')) {
 			throw new Meteor.Error('error-not-allowed', 'Not allowed', { method: 'createPrivateGroup' });
 		}
-
+		console.log('Ezhil room ',Meteor.user());
+		console.log('Ezhil room members ',members);
 		return createRoom('p', name, Meteor.user() && Meteor.user().username, members, readOnly, {
 			customFields,
 			...extraData,
