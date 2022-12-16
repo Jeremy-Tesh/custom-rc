@@ -109,6 +109,9 @@ API.v1.addRoute(
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Message')} ${location}`;
 				const subject = `${commuresender.username} created an alert`;
 
+				console.log('id', this.userId);
+				console.log('sub id', id._id);
+
 				if (receiver.length) {
 					// eslint-disable-next-line array-callback-return
 					for (const user of receiver) {
@@ -151,6 +154,7 @@ API.v1.addRoute(
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
 								alertOrigin: 'create',
+								userId: this.userId,
 							});
 						}
 					}
@@ -208,6 +212,7 @@ API.v1.addRoute(
 								open: 1,
 								departmentId: 1,
 							});
+
 							// eslint-disable-next-line no-await-in-loop
 							await sendNotification({
 								subscription: {
@@ -220,6 +225,7 @@ API.v1.addRoute(
 									name: room.u.username,
 									receiver: [user],
 								},
+
 								sender: commuresender,
 								message: {
 									// id: id.rid,
@@ -274,12 +280,14 @@ API.v1.addRoute(
 					const { username } = usr;
 					return Meteor.users.findOne({ username });
 				});
+
 				const commuresender = {
 					_id: 'mona',
 					status: 'online',
 					active: true,
 					username: this.bodyParams.sender_name ? this.bodyParams.sender_name : 'Alert',
 				};
+				console.log('username', commuresender.username);
 				const location = this.bodyParams.location ? this.bodyParams.location : '';
 				const alertMsg = `${commuresender.username} ${settings.get('Alert_Cancel_Message')} ${location}`;
 				const subject = `${commuresender.username} canceled the alert`;

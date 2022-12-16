@@ -31,6 +31,7 @@ export async function notifySMSUser({ receiver, message }) {
 
 export function shouldNotifySMS({ receiver, room, customFields }) {
 	const SMSService = settings.get('SMS_Notification');
+	const SMSEnabled = settings.get('SMS_Enabled');
 	let error = { smsStatus: 'success' };
 
 	if (customFields?.Alert_SMS_Notification === 'No') {
@@ -38,7 +39,7 @@ export function shouldNotifySMS({ receiver, room, customFields }) {
 		return error.smsStatus;
 	}
 
-	if (!SMSService) {
+	if (!SMSService || !SMSEnabled) {
 		console.log('Ezhil sms false0', receiver?.name);
 		error = { smsStatus: 'No SMS service found' };
 		// throw new Meteor.Error('totp-invalid', 'TOTP Invalid');

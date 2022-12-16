@@ -34,6 +34,7 @@ export const sendNotification = async ({
 	disableAllMessageNotifications,
 	customFields,
 	alertOrigin,
+	userId,
 }) => {
 	if (TroubleshootDisableNotifications === true) {
 		return;
@@ -195,7 +196,7 @@ export const sendNotification = async ({
 		alertData.push('sms');
 	}
 
-	if (alertData.length) {
+	if (alertData.length && !(typeof alerOrigin === 'undefined' || alertOrigin === null)) {
 		const fields = {
 			id: room._updatedAt,
 			userName: receiver.name,
@@ -208,7 +209,9 @@ export const sendNotification = async ({
 		};
 
 		if (!room?.customFields?.alert) {
-			Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert: [] });
+			Meteor.runAsUser(userId, () => {
+				Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert: [] });
+			});
 		}
 		const room1 = Rooms.findOneById(room._id);
 
@@ -216,7 +219,9 @@ export const sendNotification = async ({
 
 		alert.push(fields);
 
-		Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert });
+		Meteor.runAsUser(userId, () => {
+			Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert });
+		});
 	}
 };
 
