@@ -333,7 +333,7 @@ API.v1.addRoute(
 								disableAllMessageNotifications: false,
 								customFields: user.customFields,
 								alertOrigin: 'cancel',
-								userId: this.userId,x
+								userId: this.userId,
 							});
 						}
 					}

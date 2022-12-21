@@ -208,7 +208,7 @@ export const sendNotification = async ({
 			},
 		};
 
-		if (!room?.customFields?.alert) {
+		if (!room?.customFields?.alert && !(typeof userId === 'undefined' || userId === null)) {
 			Meteor.runAsUser(userId, () => {
 				Meteor.call('saveRoomSettings', room._id, 'roomCustomFields', { alert: [] });
 			});

@@ -249,8 +249,8 @@ export class APIClass extends Restivus {
 		const { version } = this._config;
 		this._routes.forEach((route) => {
 			if (this.shouldAddRateLimitToRoute(route.options)) {
-				if(route.options && route.options.rateLimiterOptions && !route.options.rateLimiterOptions.intervalTimeInMS){ 
-					route.options.rateLimiterOptions.intervalTimeInMS = defaultRateLimiterOptions.intervalTimeInMS; 
+				if (route.options && route.options.rateLimiterOptions && !route.options.rateLimiterOptions.intervalTimeInMS) {
+					route.options.rateLimiterOptions.intervalTimeInMS = defaultRateLimiterOptions.intervalTimeInMS;
 				}
 				this.addRateLimiterRuleForRoutes({
 					routes: [route.path],
