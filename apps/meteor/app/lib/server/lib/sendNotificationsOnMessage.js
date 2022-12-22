@@ -196,7 +196,7 @@ export const sendNotification = async ({
 		alertData.push('sms');
 	}
 
-	if (alertData.length && !(typeof alerOrigin === 'undefined' || alertOrigin === null)) {
+	if (alertData.length && !(typeof alertOrigin === 'undefined' || alertOrigin === null)) {
 		const fields = {
 			id: room._updatedAt,
 			userName: receiver.name,
