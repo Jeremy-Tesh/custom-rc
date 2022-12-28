@@ -72,6 +72,7 @@ const configure = _.debounce(function () {
 	const accessId = settings.get('FileUpload_GoogleStorage_AccessId');
 	const secret = settings.get('FileUpload_GoogleStorage_Secret');
 	const URLExpiryTimeSpan = settings.get('FileUpload_S3_URLExpiryTimeSpan');
+	const projectId = settings.get('FileUpload_GoogleStorage_AccessId');
 
 	if (!bucket || !accessId || !secret) {
 		return;
@@ -83,6 +84,7 @@ const configure = _.debounce(function () {
 				client_email: accessId,
 				private_key: secret,
 			},
+			projectId,
 		},
 		bucket,
 		URLExpiryTimeSpan,

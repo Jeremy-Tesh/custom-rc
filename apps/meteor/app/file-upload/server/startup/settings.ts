@@ -200,6 +200,15 @@ settingsRegistry.addGroup('FileUpload', function () {
 			},
 			secret: true,
 		});
+		this.add('FileUpload_GoogleStorage_ProjectId', '', {
+			type: 'string',
+			private: true,
+			enableQuery: {
+				_id: 'FileUpload_Storage_Type',
+				value: 'GoogleCloudStorage',
+			},
+			secret: true,
+		});
 		this.add('FileUpload_GoogleStorage_Secret', '', {
 			type: 'string',
 			multiline: true,
