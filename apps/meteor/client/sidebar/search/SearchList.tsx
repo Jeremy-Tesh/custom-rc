@@ -333,7 +333,6 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 					// ref={autofocus}
 					{...filter}
 					placeholder={placeholder}
-					// onBlur={handleCloseSearch}
 					// addon={<Icon name='cross' size='x20' onClick={handleCloseSearch} />}
 				/>
 			</Box>
