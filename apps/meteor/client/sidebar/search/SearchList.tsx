@@ -309,6 +309,9 @@ const SearchList = forwardRef(function SearchList(): ReactElement {
 			display='flex'
 			flexDirection='column'
 			zIndex={99}
+			onMouseOver={openSearch}
+			onFocus={openSearch}
+			onMouseLeave={handleCloseSearch}
 			w='full'
 			className={css`
 				left: 0;

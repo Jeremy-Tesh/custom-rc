@@ -229,7 +229,7 @@ Template.confCustomer.events({
 		});
 		Session.set('confuname', value);
 		Session.set('callstarted', 'false');
-		Meteor.call('sendConfWaitingMsg', { userid: Session.get('confroomid'), waitername: Session.get('confuname') }, function () {});
+		Meteor.call('sendConfWaitingMsg', { userid: Session.get('confroomid'), waitername: Session.get('confuname') }, function () { });
 	},
 
 	'click .joincall'(event) {
