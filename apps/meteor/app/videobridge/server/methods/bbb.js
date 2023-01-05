@@ -147,7 +147,7 @@ Meteor.methods({
 		if (['SUCCESS', 'FAILED'].includes(doc.response.returncode[0])) {
 			saveStreamingOptions(rid, {});
 		}
-	},
+	}
 });
 
 API.v1.addRoute(
