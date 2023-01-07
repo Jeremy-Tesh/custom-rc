@@ -1,31 +1,35 @@
-/*------Close Icon-------*/
+/* ------Close Icon------- */
 .vc-close-button {
-	cursor: pointer;
-	letter-spacing: -.02em;
-	border-radius: 0.5rem !important;
-	padding-top: 0.475rem !important;
-	padding-bottom: 0.475rem !important;
-	padding-right: 0.85rem !important;
-	padding-left: 0.85rem !important;
-	color: #fff;
-	background-color: #e63757;
-	border-color: #e63757;
-	font-size: 1.0625rem;
+	position: absolute;
+	top: 12px;
+	right: 20px;
+
+	overflow: visible;
+
 	margin-top: 0;
 	margin-bottom: 1.125rem;
-	line-height: 1.1;
+
+	padding-top: 0.475rem 0.85rem 0.475rem 0.85rem;
+
+	cursor: pointer;
+	letter-spacing: -0.02em;
 	text-transform: none;
-	overflow: visible;
+
+	color: #ffffff;
+	border-color: #e63757;
+	border-radius: 0.5rem !important;
+	background-color: #e63757;
+
+	font-size: 1.0625rem;
 	font-weight: 600;
-	position: absolute;
-	right: 20px;
-	top: 12px;
+	line-height: 1.1;
 }
 
-/*------Custom Chat Icon----*/
+/* ------Custom Chat Icon---- */
 .vc-chat-button {
-	cursor: pointer;
 	position: absolute;
-	right: 126px;
 	top: 19px;
+	right: 126px;
+
+	cursor: pointer;
 }
