@@ -19,5 +19,6 @@
 		"omnichannel",
 		"photoswipe",
 		"tmid"
-	]
+	],
+	"git.terminalAuthentication": true
 }
