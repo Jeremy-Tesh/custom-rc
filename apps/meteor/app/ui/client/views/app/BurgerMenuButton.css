@@ -1,0 +1,33 @@
+.rc-old-burger {
+    font-size: 26px;
+    background-color: #fff;
+    border: 1px solid lightgray;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    color: gray;
+    min-height: 43px;
+    text-align: center;
+    padding-top: 4px;
+}
+
+.rc-old-burger:hover {
+    background-color: #f9fbfd;
+}
+
+.unread-badges {
+    position: absolute;
+    top: -6px;
+    left: 17px;
+    background-color: #e1364c;
+    min-height: 18px;
+    min-width: 18px;
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 18px;
+    padding: 0 4px;
+    z-index: 3;
+    border-radius: 9px;
+}
