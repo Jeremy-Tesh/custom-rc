@@ -68,10 +68,8 @@ Template.burger.events({
 			} else {
 				asideTag[0].style.setProperty('display', 'none');
 			}
-			console.log('if');
 		} else {
 			asideTag[0].style.removeProperty('display');
-			console.log('else');
 		}
 		const ToLeftIcon = `
         <svg width="1em" style="color:gray" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor"

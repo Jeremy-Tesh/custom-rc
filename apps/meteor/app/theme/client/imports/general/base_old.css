@@ -256,13 +256,13 @@
 		}
 	}
 
-	&>label {
+	& > label {
 		display: block;
 
 		margin-bottom: 4px;
 	}
 
-	&>div {
+	& > div {
 		position: relative;
 
 		& .right {
@@ -273,7 +273,7 @@
 		}
 	}
 
-	&>div.-autocomplete-container {
+	& > div.-autocomplete-container {
 		position: absolute;
 	}
 
@@ -282,7 +282,7 @@
 	}
 
 	&.double-col {
-		&>label {
+		& > label {
 			width: 30%;
 			margin-bottom: 0;
 			padding: 10px 20px 10px 0;
@@ -292,7 +292,7 @@
 			line-height: 15px;
 		}
 
-		&>div {
+		& > div {
 			width: 60%;
 			min-height: 2.5rem;
 
@@ -317,7 +317,6 @@
 }
 
 .rc-old form.inline {
-
 	& input[type='text'],
 	& input[type='number'],
 	& input[type='email'],
@@ -616,7 +615,7 @@
 		transition: transform 0.425s cubic-bezier(0, 0.8, 0.05, 1);
 	}
 
-	&>section {
+	& > section {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -640,7 +639,7 @@
 
 		cursor: pointer;
 
-		&>div {
+		& > div {
 			display: table-cell;
 
 			text-align: left;
@@ -684,7 +683,7 @@
 
 		text-align: left;
 
-		&>div {
+		& > div {
 			display: table-cell;
 
 			text-align: left;
@@ -706,7 +705,7 @@
 		direction: rtl;
 		-webkit-overflow-scrolling: touch;
 
-		&>.wrapper {
+		& > .wrapper {
 			direction: ltr;
 		}
 
@@ -745,7 +744,6 @@
 		}
 
 		& .inline-fields {
-
 			& input,
 			& label,
 			& select {
@@ -756,7 +754,7 @@
 		&.toggle {
 			font-size: 0;
 
-			&>label {
+			& > label {
 				display: inline-block;
 
 				width: calc(100% - 40px);
@@ -766,7 +764,7 @@
 				font-size: 14px;
 			}
 
-			&>div {
+			& > div {
 				display: inline-block;
 
 				width: 40px;
@@ -1001,7 +999,7 @@
 		opacity: 1;
 	}
 
-	&>div {
+	& > div {
 		padding: 0 10px;
 
 		line-height: 28px;
@@ -1041,7 +1039,7 @@
 			text-overflow: ellipsis;
 			flex-grow: 1;
 
-			&>a {
+			& > a {
 				float: right;
 
 				cursor: pointer;
@@ -1067,7 +1065,7 @@
 		text-align: center;
 		text-transform: uppercase;
 
-		&>button.mark-read {
+		& > button.mark-read {
 			float: right;
 
 			line-height: inherit;
@@ -1081,7 +1079,7 @@
 			display: none;
 		}
 
-		&>button.jump-to {
+		& > button.jump-to {
 			float: left;
 
 			line-height: inherit;
@@ -1680,22 +1678,22 @@
 
 		opacity: 1;
 
-		&>h1 {
+		& > h1 {
 			font-size: 3em;
 			line-height: 1em;
 		}
 
-		&>h2 {
+		& > h2 {
 			font-size: 2.5em;
 			line-height: 1em;
 		}
 
-		&>h3 {
+		& > h3 {
 			font-size: 2em;
 			line-height: 1em;
 		}
 
-		&>h4 {
+		& > h4 {
 			font-size: 1.5em;
 			line-height: 1em;
 		}
@@ -1713,7 +1711,7 @@
 			list-style-type: decimal;
 		}
 
-		&>table {
+		& > table {
 			display: block;
 			overflow: auto;
 
@@ -1738,7 +1736,7 @@
 			}
 		}
 
-		&>hr {
+		& > hr {
 			height: 3px;
 			margin: 12px 0;
 			padding: 0;
@@ -1780,7 +1778,6 @@
 	}
 
 	&.livechat_navigation_history {
-
 		& .thumb,
 		& .user,
 		& .info {
@@ -1794,7 +1791,7 @@
 
 		font-size: 12px;
 
-		&>.thumb {
+		& > .thumb {
 			top: 3px;
 
 			width: 20px;
@@ -1829,14 +1826,14 @@
 
 		font-size: 12px;
 
-		&>.thumb {
+		& > .thumb {
 			top: 3px;
 
 			width: 20px;
 			height: 20px;
 			margin-left: 16px;
 
-			&>.avatar {
+			& > .avatar {
 				width: 100% !important;
 				height: 100% !important;
 			}
@@ -1938,7 +1935,7 @@
 		}
 	}
 
-	&>.title {
+	& > .title {
 		&:not(:last-child) {
 			margin: 0 0 20px;
 		}
@@ -2194,7 +2191,7 @@
 		margin: 0 auto;
 		padding: 0 20px;
 
-		&>img {
+		& > img {
 			position: relative;
 			z-index: 20;
 			top: 0;
@@ -2428,7 +2425,7 @@
 	height: 2rem;
 }
 
-.flex-tab.discussions>.flex-tab__content {
+.flex-tab.discussions > .flex-tab__content {
 	padding: 0;
 }
 
@@ -2575,7 +2572,7 @@
 	display: none;
 }
 
-.rc-old a+br.only-after-a {
+.rc-old a + br.only-after-a {
 	display: block;
 }
 
@@ -2612,7 +2609,6 @@
 }
 
 .rc-old .form-inline {
-
 	& input,
 	& select {
 		display: inline-block;
@@ -2666,7 +2662,7 @@
 
 /* MEDIA QUERIES */
 
-@media (width <=1100px) {
+@media (width <= 1100px) {
 	.rc-old .flex-tab-container.opened .flex-tab {
 		position: absolute;
 		z-index: 100;
@@ -2677,7 +2673,7 @@
 	}
 }
 
-@media (width <=780px) {
+@media (width <= 780px) {
 	.rc-old.main-content {
 		transition: right 0.25s cubic-bezier(0.5, 0, 0.1, 1), transform 0.1s linear;
 		will-change: transform;
@@ -2707,7 +2703,7 @@
 		}
 	}
 
-	.rc-old .container-bars .unread-bar>button.jump-to {
+	.rc-old .container-bars .unread-bar > button.jump-to {
 		& .jump-to-small {
 			display: inline-block;
 		}
@@ -2727,7 +2723,7 @@
 	}
 }
 
-@media (width <=500px) {
+@media (width <= 500px) {
 	.cms-page {
 		padding: 0;
 
@@ -2742,7 +2738,7 @@
 	}
 }
 
-@media (height <=480px) {
+@media (height <= 480px) {
 	.rc-old #login-card {
 		margin: 10px auto;
 		padding: 10px;
@@ -2761,7 +2757,7 @@
 	}
 }
 
-@media (width <=440px) {
+@media (width <= 440px) {
 	.rc-old .flex-tab-container.opened .flex-tab {
 		left: 0;
 
@@ -2773,7 +2769,7 @@
 	}
 }
 
-@media (height <=400px) {
+@media (height <= 400px) {
 	.upload-preview .upload-preview-file {
 		height: 100px;
 	}
