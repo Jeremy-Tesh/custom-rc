@@ -1,9 +1,8 @@
-
 import './lib/accounts';
 import './lib/collections';
 import './lib/iframeCommands';
 import './lib/menu';
-import './views/app/BurgerMenuButton.css'
+import './views/app/BurgerMenuButton.css';
 import './lib/parentTemplate';
 import './lib/codeMirror';
 import './views/app/roomSearch.html';
@@ -16,9 +15,9 @@ import './components/table';
 import './components/popupList.html';
 import './components/popupList';
 import './components/selectDropdown.html';
-import './views/app/burger.html'
+import './views/app/burger.html';
 
-import './views/app/burger'
+import './views/app/burger';
 
 export { ChatMessages, chatMessages } from './lib/ChatMessages';
 export { fileUpload } from './lib/fileUpload';
@@ -28,5 +27,3 @@ export { Login, Button } from './lib/rocket';
 export { AudioRecorder } from './lib/recorderjs/AudioRecorder';
 export { VideoRecorder } from './lib/recorderjs/videoRecorder';
 export * from './lib/userPopoverStatus';
-
-

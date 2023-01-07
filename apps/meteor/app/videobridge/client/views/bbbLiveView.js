@@ -6,9 +6,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { Rooms } from '../../../models';
 import { roomCoordinator } from '../../../../client/lib/rooms/roomCoordinator';
 
-
 Template.bbbLiveView.helpers({
-
 	source() {
 		const src = Session.get('source');
 		console.log('source...', src);
@@ -26,11 +24,12 @@ Template.bbbLiveView.helpers({
 
 		if (room.t === 'p') {
 			return Meteor.absoluteUrl(`/group/${roomCoordinator.getRoomName(room.t, room)}?layout=embedded`);
-		} if (room.t === 'c') {
+		}
+		if (room.t === 'c') {
 			return Meteor.absoluteUrl(`/channel/${roomCoordinator.getRoomName(room.t, room)}?layout=embedded`);
 		}
 		return Meteor.absoluteUrl(`/direct/${rid}?layout=embedded`);
-	}
+	},
 });
 
 Template.bbbLiveView.events({
@@ -42,7 +41,6 @@ Template.bbbLiveView.events({
 			FlowRouter.go('/home');
 		}
 		const room = Rooms.findOne({ _id: rid });
-		const x = roomCoordinator.getRoomName(room.t, room);
 
 		if (!room) {
 			FlowRouter.go('/home');
@@ -57,21 +55,18 @@ Template.bbbLiveView.events({
 			}
 		} catch (error) {
 			// FlowRouter.go('/home');
-			//console.log(error);
+			// console.log(error);
 		}
 	},
 	'click .chat'() {
 		if (document.getElementById('confChat').style.display === 'none') {
 			document.getElementById('confChat').style.display = 'inline-block';
 			document.getElementById('videConf').style.width = '75%';
-			document.getElementById('Capa_1').setAttribute("fill", "#00b8ff");
+			document.getElementById('Capa_1').setAttribute('fill', '#00b8ff');
 		} else {
 			document.getElementById('confChat').style.display = 'none';
 			document.getElementById('videConf').style.width = '100%';
-			document.getElementById('Capa_1').setAttribute("fill", "#fff");
-
+			document.getElementById('Capa_1').setAttribute('fill', '#fff');
 		}
-
-
-	}
+	},
 });
