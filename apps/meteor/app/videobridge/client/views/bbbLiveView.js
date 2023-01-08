@@ -35,6 +35,9 @@ Template.bbbLiveView.helpers({
 Template.bbbLiveView.events({
 	'click .js-close-vc'() {
 		const rid = Session.get('rid');
+		const rocketChat = document.getElementById('rocket-chat');
+		const asideTag = rocketChat.getElementsByTagName('aside');
+		asideTag[0].style.setProperty('display', 'block');
 
 		Meteor.call('bbbEnd', { rid });
 		if (!rid) {
