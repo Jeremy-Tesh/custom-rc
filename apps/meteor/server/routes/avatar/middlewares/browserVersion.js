@@ -22,7 +22,7 @@ WebApp.connectHandlers.use(function (req, res, next) {
 		<style>
 			body {
 				margin: 0;
-				font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue','Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Meiryo UI',Arial,sans-serif;
+				font-family: 'Cerebri Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Helvetica Neue','Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Meiryo UI',Arial,sans-serif;
 			}
 
 			.rcx-box--text-style-headline {

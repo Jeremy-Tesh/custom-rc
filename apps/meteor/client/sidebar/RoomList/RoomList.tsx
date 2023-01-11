@@ -114,16 +114,16 @@ const RoomList = (): ReactElement => {
 			<Box className={itemStyle} onClick={handleHome}>
 				<SidebarSection.Title>
 					<div>
-						<Icon padding='0px 10px 0px 0px' name='home' size='x16' />
-						Home
+						<Icon padding='0px 4px 4px 0px' name='home' size='1.1rem' />
+						<span style={{ fontSize: '1rem' }}> Home</span>
 					</div>
 				</SidebarSection.Title>
 			</Box>
 			<Box className={itemStyle} onClick={handleConference}>
 				<SidebarSection.Title>
 					<div>
-						<Icon padding='0px 10px 0px 0px' name='video' size='x16' />
-						My Conference
+						<Icon padding='0px 4px 4px 0px' name='video' size='1.1rem' />
+						<span style={{ fontSize: '1rem' }}> My Conference</span>
 					</div>
 				</SidebarSection.Title>
 			</Box>
@@ -143,8 +143,8 @@ const RoomList = (): ReactElement => {
 				<Box onClick={() => setOpen(!open)} className={itemStyle} justifyContent='space-between'>
 					<SidebarSection.Title>
 						<div>
-							<Icon padding='0px 10px 0px 0px' name='squares' size='x16' />
-							Apps
+							<Icon padding='0px 4px 4px 0px' name='squares' size='1.1rem' />
+							<span style={{ fontSize: '1rem' }}> My Conference</span>
 						</div>
 
 						<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
@@ -163,7 +163,7 @@ const RoomList = (): ReactElement => {
 							data-name={item.customurl}
 							onClick={handleClick}
 						>
-							{item.name}
+							<span style={{ fontSize: '1rem' }}> {item.name} </span>
 						</Box>
 					))}
 				</div>
@@ -172,8 +172,8 @@ const RoomList = (): ReactElement => {
 			<Box padding='10px 0px 0px 0px' className={itemStyle} onClick={(): void => toggle()} ref={reference}>
 				<SidebarSection.Title>
 					<div>
-						<Icon name='sort' padding='0px 10px 0px 0px' size='x16' />
-						Sort
+						<Icon name='sort' padding='0px 4px 4px 0px' size='1.1rem' />
+						<span style={{ fontSize: '1rem' }}> Sort</span>
 					</div>
 				</SidebarSection.Title>
 			</Box>
@@ -188,8 +188,8 @@ const RoomList = (): ReactElement => {
 				<Box className={itemStyle} onClick={handleAdmin}>
 					<SidebarSection.Title>
 						<div>
-							<Icon name='customize' padding='0px 10px 0px 0px' size='x16' />
-							Administration
+							<Icon name='customize' padding='0px 4px 4px 0px' size='1.1rem' />
+							<span style={{ fontSize: '1rem' }}> Administration</span>
 						</div>
 					</SidebarSection.Title>
 				</Box>

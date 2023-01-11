@@ -19,6 +19,7 @@
 		"lint": "run-s eslint stylelint",
 		"eslint": "eslint src",
 		"stylelint": "stylelint 'src/**/*.scss'",
+		"stylelint:fix": "stylelint --fix 'src/**/*.scss'",
 		"storybook": "start-storybook -p 9001 -c .storybook",
 		"build-storybook": "build-storybook"
 	},

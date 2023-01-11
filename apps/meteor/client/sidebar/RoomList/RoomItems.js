@@ -19,7 +19,7 @@ function RoomItems({ list, title, itemData }) {
 		<Box>
 			<Box onClick={() => setOpen(!open)} className={itemStyle}>
 				<SidebarSection.Title>
-					{title}
+					<span style={{ fontSize: '1rem' }}> {title} </span>
 					<FeatherIcon icon={open ? 'chevron-up' : 'chevron-down'} size='1em' />
 				</SidebarSection.Title>
 			</Box>

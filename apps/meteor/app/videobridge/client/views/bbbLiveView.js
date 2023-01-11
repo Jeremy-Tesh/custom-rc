@@ -32,6 +32,12 @@ Template.bbbLiveView.helpers({
 	},
 });
 
+Template.bbbLiveView.onCreated(function () {
+	const rocketChat = document.getElementById('rocket-chat');
+	const asideTag = rocketChat.getElementsByTagName('aside');
+	asideTag[0].style.setProperty('display', 'none');
+});
+
 Template.bbbLiveView.events({
 	'click .js-close-vc'() {
 		const rid = Session.get('rid');

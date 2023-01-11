@@ -4,6 +4,62 @@
 	box-sizing: border-box;
 }
 
+@font-face {
+	font-family: Cerebri Sans;
+
+	font-weight: 400;
+	font-style: normal;
+	src: url(fonts/cerebrisans/cerebrisans-regular.eot);
+	src:
+		url(fonts/cerebrisans/cerebrisans-regular.eot?#iefix) format("embedded-opentype"),
+		url(fonts/cerebrisans/cerebrisans-regular.woff) format("woff"),
+		url(fonts/cerebrisans/cerebrisans-regular.ttf) format("truetype"),
+		url(fonts/cerebrisans/cerebrisans-regular.svg) format("svg");
+}
+
+@font-face {
+	font-family: Cerebri Sans;
+
+	font-weight: 500;
+	font-style: normal;
+	src: url(fonts/cerebrisans/cerebrisans-medium.eot);
+	src:
+		url(fonts/cerebrisans/cerebrisans-medium.eot?#iefix) format("embedded-opentype"),
+		url(fonts/cerebrisans/cerebrisans-medium.woff) format("woff"),
+		url(fonts/cerebrisans/cerebrisans-medium.ttf) format("truetype"),
+		url(fonts/cerebrisans/cerebrisans-medium.svg) format("svg");
+}
+
+@font-face {
+	font-family: Cerebri Sans;
+	font-weight: 600;
+	font-style: normal;
+	src: url(fonts/cerebrisans/cerebrisans-semibold.eot);
+	src:
+		url(fonts/cerebrisans/cerebrisans-semibold.eot?#iefix) format("embedded-opentype"),
+		url(fonts/cerebrisans/cerebrisans-semibold.woff) format("woff"),
+		url(fonts/cerebrisans/cerebrisans-semibold.ttf) format("truetype"),
+		url(fonts/cerebrisans/cerebrisans-semibold.svg) format("svg");
+}
+
+@font-face {
+	font-family: Feather;
+	font-weight: 400;
+	font-style: normal;
+	src:
+		url(fonts/feather/Feather.ttf?sdxovp) format("truetype"),
+		url(fonts/feather/Feather.woff?sdxovp) format("woff"),
+		url(fonts/feather/Feather.svg?sdxovp#Feather) format("svg");
+}
+
+*:not(i) {
+	font-family: Cerebri Sans, sans-serif !important;
+}
+
+i {
+	font-family: sans-serif;
+}
+
 html {
 	overflow-y: auto;
 
@@ -210,25 +266,39 @@ button {
 	.simplebar-content-wrapper,
 	section.rcx-box.rcx-box--full,
 	.rc-old.main-content {
-		overflow: visible !important; /* 1 */
+		overflow: visible !important;
 
-		height: auto !important; /* 1 */
-		max-height: none !important; /* 1 */
-		flex-shrink: 0 !important; /* 1 */
+		/* 1 */
+
+		height: auto !important;
+
+		/* 1 */
+		max-height: none !important;
+
+		/* 1 */
+		flex-shrink: 0 !important;
+
+		/* 1 */
 	}
 
 	div.simplebar-offset,
 	.simplebar-mask,
 	.rc-old .messages-container .wrapper {
-		position: relative !important; /* 1 */
+		position: relative !important;
+
+		/* 1 */
 	}
 
 	.simplebar-placeholder {
-		height: 0 !important; /* 1 */
+		height: 0 !important;
+
+		/* 1 */
 	}
 
 	body {
-		height: auto !important; /* 1 */
+		height: auto !important;
+
+		/* 1 */
 	}
 
 	.rc-old .room-container,
@@ -236,29 +306,43 @@ button {
 	.rc-old .messages-container-main,
 	.rc-old .messages-container-wrapper,
 	.rc-old .main-content-flex {
-		flex: 1 0 auto !important; /* 1 */
+		flex: 1 0 auto !important;
 
-		height: auto !important; /* 1 */
+		/* 1 */
+
+		height: auto !important;
+
+		/* 1 */
 	}
 
 	.rc-alerts {
-		display: none !important; /* 1 */
+		display: none !important;
+
+		/* 1 */
 	}
 
 	.rcx-box.rcx-box--full {
-		overflow: visible !important /* 1 */;
+		overflow: visible !important
+			/* 1 */;
 
-		height: auto !important /* 1 */;
+		height: auto !important
+			/* 1 */;
 	}
 
 	.rc-scrollbars-container {
-		overflow: visible !important; /* 1 */
+		overflow: visible !important;
 
-		height: auto !important; /* 1 */
+		/* 1 */
+
+		height: auto !important;
+
+		/* 1 */
 	}
 
 	.rc-scrollbars-view {
-		position: relative !important; /* 1 */
+		position: relative !important;
+
+		/* 1 */
 	}
 }
 
