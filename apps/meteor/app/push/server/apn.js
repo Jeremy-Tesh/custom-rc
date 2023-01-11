@@ -2,6 +2,7 @@ import apn from 'apn';
 import { EJSON } from 'meteor/ejson';
 
 import { logger } from './logger';
+import { settings } from '../../settings/server';
 
 let apnConnection;
 
@@ -42,7 +43,7 @@ export const sendAPN = ({ userToken, notification, _removeToken }) => {
 
 	// Store the token on the note so we can reference it if there was an error
 	note.token = userToken;
-	note.topic = notification.topic;
+	note.topic = settings.get('Notification_Topic') ? settings.get('Notification_Topic') : notification.topic;
 	note.mutableContent = 1;
 
 	apnConnection.send(note, userToken).then((response) => {

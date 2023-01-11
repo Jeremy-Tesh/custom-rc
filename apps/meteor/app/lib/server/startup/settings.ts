@@ -1436,6 +1436,14 @@ settingsRegistry.addGroup('Push', function () {
 		public: true,
 		alert: 'Push_Setting_Requires_Restart_Alert',
 	});
+	this.add('Notification_topic', '', {
+		type: 'string',
+		enableQuery: {
+			_id: 'Push_enable',
+			value: true,
+		},
+		public: true,
+	});
 
 	this.add('Push_enable_gateway', true, {
 		type: 'boolean',
