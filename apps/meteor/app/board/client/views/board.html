@@ -1,0 +1,16 @@
+<template name="board">
+	<section class="page-container page-list flex-tab-main-content">
+	{{> burger}}	
+	
+
+		<iframe src="{{board}}" height="100%" width="100%" id="board-iframe" style="border: none; display: none;"></iframe>
+		<div class="loading">{{> loading class="loading-animation--primary"}}</div>
+	</section>
+</template>
+<template name="openboard">
+</template>
+<template name="closeboard">
+</template>
+
+
+

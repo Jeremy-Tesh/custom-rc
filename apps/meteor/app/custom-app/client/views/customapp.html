@@ -1,0 +1,73 @@
+<template name="customapp">
+	<section class="page-container page-list flex-tab-main-content">
+		<header class="rc-header header-body">
+				<div class="rc-header__wrap">
+					<div class="rc-header__content rc-header__block">
+						<div class="rc-header__data">
+							{{_ name}}
+						</div>
+					{{#if isSection}}
+					<span class="rc-header__block">{{_ sectionName}}</span>
+					{{/if}}
+					{{#if isUpload}}
+					<button class="btn-primary h3 px-3 py-2 mr-2 rounded-lg js-open-upload feather-x-square mb-0">Images</button>
+					{{/if}}
+					<!-- Mongrov: close icon -->
+					{{#if showCloseIcon}}
+                    <div class="rc-header__block rc-header__block--action rc-tooltip rc-tooltip--down rc-tooltip--end" aria-label={{_ "Close"}}>
+						<!-- <span class="rc-header__first-icon">{{> icon block="rc-header__icon rc-header__icon" icon="plus"}}</span> -->
+						<button class="btn-danger h3 px-3 py-2 mr-2 rounded-lg js-close-vc feather-x-square mb-0">Close</button>
+                    </div>
+					{{/if}}
+					</div>
+				</div>
+			</header>
+
+			<div class="row dropzone-overlay" style="height: 100%;">
+				<iframe allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"  allow="geolocation; microphone; camera" src="{{customurl}}" sandbox="allow-forms allow-scripts allow-modals allow-same-origin allow-popups" height="100%" width="100%"></iframe>
+			</div>
+
+	</section>
+</template>
+<template name="customupload">
+	<section class="page-container page-list flex-tab-main-content">
+			<div class="row" style="height: 100%; overflow-y: auto;">
+				<div class="col-12 col-xl-3">
+					<div class="card">
+						<div class="card-header">
+								<div class="btn-group show" role="group">
+									<button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle js-roomcollapse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Rooms
+									  </button>
+									  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="position: absolute; transform: translate3d(0px, 41px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
+										{{#each room in rooms}}
+										<a class="dropdown-item js-roomaction" roomid={{room.rid}} roomname={{room.name}}>{{room.name}}</a>
+										{{/each}}
+									</div>
+								</div>
+						</div>
+						<div class="card-body">
+							{{#if isroom}}
+							<div class="row">
+								<h4 class="card-header-title">
+									{{roomName}}
+								  </h4>
+								  <button type="button" class="btn btn-primary js-upload">
+									Upload
+								  </button>
+							</div>
+							<div class="row">
+								{{> uploadedFilesList getrid }}
+							</div>
+							{{else}}
+							<h2 class="card-header-title">
+								No room selected
+							  </h2>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+		</div> 
+		</section>
+</template>
+

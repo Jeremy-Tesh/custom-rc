@@ -5,6 +5,7 @@ import '../app/apple/client';
 import '../app/authorization';
 import '../app/autotranslate/client';
 import '../app/cas/client';
+import '../app/board/client';
 import '../app/channel-settings';
 import '../app/crowd/client';
 import '../app/custom-oauth';

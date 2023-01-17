@@ -7,11 +7,13 @@ import { Tracker } from 'meteor/tracker';
 import React, { lazy } from 'react';
 
 import { KonchatNotification } from '../../app/ui/client';
+import { ChatRoom } from '../../app/models/client';
 import { APIClient } from '../../app/utils/client';
 import { appLayout } from '../lib/appLayout';
 import { dispatchToastMessage } from '../lib/toast';
 import BlazeTemplate from '../views/root/BlazeTemplate';
 import MainLayout from '../views/root/MainLayout';
+import { settings } from '../../app/settings'
 
 const PageLoading = lazy(() => import('../views/root/PageLoading'));
 const HomePage = lazy(() => import('../views/home/HomePage'));
@@ -324,6 +326,54 @@ FlowRouter.notFound = {
 		appLayout.render(<NotFoundPage />);
 	},
 };
+FlowRouter.route('/board/:group?', {
+	name: 'board',
+	action(params) {
+		Session.set('board', params.group);
+		let roomId = Session.get('openedRoom') ? Session.get('openedRoom') : params.group;
+		if (Session.get('board')) {
+			roomId = Session.get('board');
+			if (Session.get('subBoardGroup')) {
+				roomId = `${ roomId }::-::${ Session.get('subBoardGroup') }`;
+				Session.delete('subBoardGroup');
+			}
+		}
+		const boardDomain = settings.get('Board_Domain');
+		if (roomId) {
+			if (roomId.endsWith('-goals')) {
+				Session.set('board', 'My Goals');
+			} else if (roomId.split('::-::').length > 1) {
+				const title = roomId.endsWith('::-::join') ? 'Join Request' : 'Submitted Forms';
+				Session.set('board', title);
+			} else {
+				const room = ChatRoom.findOne({ _id: roomId });
+				if (room && room.t === 'd' && room.usersCount === 1) {
+					Session.set('board', 'My Tasks');
+				} else if (room) {
+					Session.set('board', room.name ? room.name : room.usernames.join('-'));
+				}
+			}
+			Meteor.call('board:getByRoom', roomId, (err, res) => {
+				const mapping = res || 0;
+				const title = Session.get('board');
+				let url = `https://${ boardDomain }/`;
+				if (settings.get('Board_Set_Title')) {
+					url = `${ url }tl/${ Accounts._storedLoginToken() }/${ mapping }/${ title }`;
+				} else {
+					url = `${ url }tl/${ Accounts._storedLoginToken() }/${ mapping }`;
+				}
+				Session.set('boardurl', url);
+				appLayout.render(<MainLayout>
+					<BlazeTemplate template='board' />
+				</MainLayout>);
+			});
+		} else {
+			appLayout.render(<MainLayout>
+				<BlazeTemplate template='oauth404' />
+			</MainLayout>,);
+		}
+	},
+});
 
 Meteor.startup(() => {
 	FlowRouter.initialize();
