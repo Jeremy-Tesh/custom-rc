@@ -50,7 +50,7 @@
     "@rocket.chat/apps-engine": "~1.30.0",
     "@rocket.chat/eslint-config": "workspace:^",
     "@rocket.chat/fuselage": "0.31.19",
-    "@rocket.chat/fuselage-hooks": "0.31.19",
+    "@rocket.chat/fuselage-hooks": "0.31.22",
     "@rocket.chat/fuselage-polyfills": "0.31.19",
     "@rocket.chat/icons": "0.31.19",
     "@rocket.chat/prettier-config": "next",
