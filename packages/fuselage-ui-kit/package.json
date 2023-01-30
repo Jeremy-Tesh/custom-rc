@@ -55,7 +55,7 @@
     "@rocket.chat/icons": "0.31.19",
     "@rocket.chat/prettier-config": "next",
     "@rocket.chat/styled": "0.31.19",
-    "@storybook/addon-essentials": "~6.5.10",
+    "@storybook/addon-essentials": "~6.5.16",
     "@storybook/addons": "~6.5.10",
     "@storybook/builder-webpack5": "~6.5.10",
     "@storybook/manager-webpack5": "~6.5.10",
